@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jai Anklesaria</title>
 <meta name="description" content="Jai Anklesaria, Product Designer and UX Researcher. Step into the desk.">
-<meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600;700&family=Doto:ROND,wght@0,900&family=Noto+Sans+Devanagari:wght@700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#07070a;--text:#f5f3ee;--muted:#bdb9c8;--violet:#a78bfa;--violet-2:#8b5cf6;--amber:#f6c344;--card:rgba(14,13,20,.82);--rule:rgba(245,243,238,.14);--ease:cubic-bezier(.7,0,.2,1)}
@@ -18,9 +17,9 @@ a{color:inherit}button{font:inherit;color:inherit}
 #loader.gone{opacity:0;visibility:hidden}
 .ld{text-align:center;padding:24px}
 .ld small{display:block;font:500 11px "JetBrains Mono",monospace;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
-.ld h1{font:700 clamp(40px,7vw,88px)/.9 "Space Grotesk",sans-serif;letter-spacing:-.05em;margin:18px 0 8px}
-.ld h1 em{font:400 italic 1.08em "Instrument Serif",serif;color:var(--violet);letter-spacing:-.01em}
-.ld h1.tt{position:relative;cursor:pointer}.ld h1.tt .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.ld h1.tt canvas{display:block;margin:0 auto}
+.ld .ldh{font:700 clamp(40px,7vw,88px)/.9 "Space Grotesk",sans-serif;letter-spacing:-.05em;margin:18px 0 8px}
+.ld .ldh em{font:400 italic 1.08em "Instrument Serif",serif;color:var(--violet);letter-spacing:-.01em}
+.ld .ldh.tt{position:relative;cursor:pointer}.ld .ldh.tt .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.ld .ldh.tt canvas{display:block;margin:0 auto}
 .bar{width:220px;height:2px;background:rgba(245,243,238,.12);margin:26px auto;overflow:hidden;border-radius:2px}
 .bar i{display:block;height:100%;width:0;background:var(--violet);transition:width .3s}
 .enter{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;opacity:.25;pointer-events:none;transition:opacity .4s}
@@ -200,13 +199,15 @@ body.sound .eq i{animation:eq .8s infinite ease-in-out}.eq i:nth-child(2){animat
 body.vB #soundBtn{display:none}
 body.vB #intro{max-width:410px}
 
-#intro{position:fixed;left:36px;bottom:clamp(26px,5vh,54px);z-index:10;max-width:410px;transition:opacity .6s,transform .8s var(--ease)}
+#intro{position:fixed;left:36px;bottom:clamp(26px,5vh,54px);z-index:10;max-width:470px;transition:opacity .6s,transform .8s var(--ease)}
 body.zoomed #intro,body.story #intro,body.onscreen #intro{opacity:0;transform:translateY(-20px);pointer-events:none}
 .eyebrow{font:500 12px "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin:0 0 12px}
-#intro h1{margin:0;font:700 clamp(40px,4.3vw,66px)/.9 "Space Grotesk",sans-serif;letter-spacing:-.05em}
+#intro h1{margin:0;font:700 clamp(36px,3.3vw,52px)/.95 "Space Grotesk",sans-serif;letter-spacing:-.045em}
 #intro h1 em,.chapter h2 em,#p-contact h2 em{font:400 italic 1.07em "Instrument Serif",serif;letter-spacing:-.01em;color:var(--violet)}
 .lede{font-size:16px;line-height:1.55;color:var(--muted);margin:16px 0 0;max-width:28em}
 .lede b{color:var(--text);font-weight:600}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.ctas .btn{color:var(--text)}.ctas .btn.fill{color:#0a0a0c}
+.btn:focus-visible{outline:2px solid var(--violet);outline-offset:3px}
 .hint{margin-top:16px;font:500 11px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 
 #backBtn{position:fixed;left:36px;bottom:28px;z-index:25;opacity:0;pointer-events:none;transition:opacity .5s;background:rgba(10,10,14,.7);backdrop-filter:blur(10px)}
@@ -222,7 +223,7 @@ body:not(.sound) #bubble{display:none}
 @media(min-width:900px){body:not(.zoomed):not(.onscreen):not(.story) #cc{left:476px;right:36px;transform:none;width:auto;max-width:none}}
 #cc b{font-weight:600;color:var(--violet)}
 @media (max-width:899px){
-  #cc{bottom:auto;top:122px}
+  #cc{bottom:14px;top:auto}
   body.zoomed #cc,body.onscreen #cc,body.story #cc{top:auto;bottom:18px}
   #cc p{font-size:15px}
 }
@@ -256,6 +257,7 @@ body.zx #stage{filter:brightness(.5) blur(1.5px)!important}
 .exsub{margin:0;font:500 15px Inter,sans-serif;color:rgba(245,243,238,.72)}
 .cvlink{display:inline-flex;align-items:center;gap:8px;margin-top:8px;font:600 15px Inter,sans-serif;color:#fff;text-decoration:none;background:#7c4dff;border:1px solid #a78bfa;padding:10px 18px;border-radius:10px;box-shadow:0 10px 26px -12px rgba(124,77,255,.9);transition:background .2s,transform .2s}
 .cvlink:hover{background:#6a3ef0;transform:translateY(-1px)}
+.win button:focus-visible,.win a:focus-visible,.cs aside button:focus-visible{outline:2px solid #a78bfa;outline-offset:2px}
 .cvlink:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .rail{position:absolute;left:0;right:0;top:150px;bottom:64px;display:flex;justify-content:center;align-items:flex-start;gap:clamp(24px,5vw,80px);pointer-events:none}
 .bdg{position:relative;display:none;flex-direction:column;align-items:center;pointer-events:auto;transform-origin:50% -40vh}
@@ -567,7 +569,8 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
   nav{order:3;width:100%;justify-content:space-between}nav button{padding:7px 6px;font-size:9px;letter-spacing:.06em}nav button i{display:block;margin:0}
   .right .pill.status{display:none}
   #intro{left:16px;right:16px;top:auto;bottom:96px;max-width:none}
-  #intro h1{font-size:44px}.lede{font-size:15px}.hint{display:none}
+  .ctas{margin-top:14px}.ctas .btn{padding:11px 16px}
+  #intro h1{font-size:40px}.lede{font-size:15px}.hint{display:none}
   .shade{background:linear-gradient(0deg,rgba(7,7,10,.94) 0,rgba(7,7,10,.5) 45%,transparent 70%)}
   .hot .tag{display:none}
   .panel{inset:120px 16px 16px}
@@ -589,15 +592,38 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 <div id="loader" role="dialog" aria-label="Welcome">
   <div class="ld">
     <small>Jai Anklesaria &middot; Portfolio</small>
-    <h1>Step into <em>my desk.</em></h1>
+    <p class="ldh">Step into <em>my desk.</em></p>
     <small>Product Designer &amp; UX Researcher &middot; Nottingham, UK</small>
     <div class="bar"><i id="barFill"></i></div>
-    <div class="enter" id="enter">
+    <div class="enter" id="enter" hidden>
       <button class="btn fill" data-sound="1">Enter with sound</button>
       <button class="btn" data-sound="0">Enter quietly</button>
     </div>
   </div>
 </div>
+
+<header>
+  <button class="logo" data-go="room">Jai Anklesaria</button>
+  <nav aria-label="Sections">
+    <button data-go="work"><i>01</i>Case studies</button>
+    <button data-go="freelance"><i>02</i>Freelance</button>
+    <button data-go="experience"><i>03</i>Experience</button>
+    <button data-go="story"><i>04</i>Story</button>
+    <button data-go="contact"><i>05</i>Contact</button>
+  </nav>
+  <div class="right">
+    <span class="pill status"><span class="live"></span>Open to work</span>
+    <button class="pill" id="soundBtn" aria-pressed="false"><span class="eq"><i></i><i></i><i></i></span><span id="soundTxt">Sound off</span></button>
+  </div>
+</header>
+
+<section id="intro">
+  <p class="eyebrow">Product Designer &amp; UX Researcher</p>
+  <h1>I'm Jai. I investigate <em>UX problems.</em></h1>
+  <p class="lede">With <b>research, analytics and usability testing</b>, I find the friction in products, apps and websites that sends people away, then design and build the fix.</p>
+  <div class="ctas"><button class="btn fill" data-go="work">See case studies &rarr;</button><button class="btn" data-go="contact">Get in touch</button></div>
+  <p class="hint">Or click a screen, or anything that glows</p>
+</section>
 
 <div id="viewport">
   <div id="stage">
@@ -619,27 +645,9 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 </div>
 <div class="shade"></div>
 
-<header>
-  <button class="logo" data-go="room">Jai Anklesaria</button>
-  <nav aria-label="Sections">
-    <button data-go="work"><i>01</i>Case studies</button>
-    <button data-go="freelance"><i>02</i>Freelance</button>
-    <button data-go="experience"><i>03</i>Experience</button>
-    <button data-go="story"><i>04</i>Story</button>
-    <button data-go="contact"><i>05</i>Contact</button>
-  </nav>
-  <div class="right">
-    <span class="pill status"><span class="live"></span>Open to work</span>
-    <button class="pill" id="soundBtn" aria-pressed="false"><span class="eq"><i></i><i></i><i></i></span><span id="soundTxt">Sound off</span></button>
-  </div>
-</header>
 
-<section id="intro">
-  <p class="eyebrow">Product Designer &amp; UX Researcher</p>
-  <h1>Welcome to <em>my desk.</em></h1>
-  <p class="lede">I investigate products, apps and websites with <b>research, analytics and usability testing</b>, find the friction that sends people away, then design and build the fix.</p>
-  <p class="hint">Click a screen, or anything that glows</p>
-</section>
+
+
 
 <button class="btn" id="backBtn" data-go="room">&larr; Back to the desk</button>
 
@@ -650,10 +658,9 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 <!-- EXPERIENCE -->
 <section class="panel" id="p-experience" aria-label="Experience">
   <button class="btn back exback" data-go="room">&larr; Back to the desk</button>
-  <div class="exhead"><h2>Experience</h2><p class="exsub">5 roles, newest first</p>
+  <div class="exhead"><h2>Experience</h2><p class="exsub">5 roles, newest first. Drag a badge, or tap it to flip.</p>
   <a class="cvlink" href="Jai-Anklesaria-CV.pdf" target="_blank" rel="noopener">Download CV <span aria-hidden="true">&darr;</span></a></div>
   <div class="rail lanrail" id="rail"></div>
-  <p class="exhint">Drag a card, tap it to flip for details</p>
 </section>
 
 <!-- CONTACT -->
@@ -726,7 +733,7 @@ const SCR_HOME={L:[[66.44,26.86],[80.23,27.18],[65.94,45.42],[79.95,48.24]],R:[[
 const SCR_OLD={L:[[56.7,25.7],[72.1,26.5],[56.6,43.8],[72.0,46.5]],R:[[72.5,26.7],[91.2,28.5],[72.4,47.8],[90.8,51.0]]};
 
 const SCN={
-  A:{img:'assets/room-home.webp?v=20',vid:'assets/room-home.mp4?v=20',speaker:[9.2,53.9],scr:SCR_HOME,hot:{L:[73.1,26.4],R:[89.9,26.2],X:[9.4,21],S:[33,28],C:[87.1,69.4]}},
+  A:{img:'assets/room-home.webp?v=20',vid:(Math.max(screen.width,screen.height)*(devicePixelRatio||1)>2600?'assets/room-home.mp4?v=20':'assets/room-home-1080.mp4?v=20'),speaker:[9.2,53.9],scr:SCR_HOME,hot:{L:[73.1,26.4],R:[89.9,26.2],X:[9.4,21],S:[33,28],C:[87.1,69.4]}},
   B:{img:'assets/room-b-start.webp',vid:'assets/turn.mp4',end:'assets/room-b-end.webp',speaker:[45.6,31],scr:SCR_OLD,hot:{L:[64.3,35],R:[81.6,38],X:[83.4,15.5],S:[5.5,30],C:[72.3,56.3]}}
 };
 const C=SCN[V];const grow=(q,f)=>{const cx=q.reduce((t,v)=>t+v[0],0)/4,cy=q.reduce((t,v)=>t+v[1],0)/4;return q.map(([x,y])=>[cx+(x-cx)*f,cy+(y-cy)*f*1.03])};
@@ -833,6 +840,7 @@ draw();
 })();
 
 $('#scrRin').innerHTML=freeHTML;$('#mR').innerHTML=freeHTML;
+$('#scrWrap').setAttribute('aria-hidden','true');
 $$('#mL img').forEach(i=>i.loading='lazy');
 const jobs=[
  ['Asentech LLC','#6d4aff','Product Designer (UX &amp; Research)','Jun 2025 to Present','Remote, UK',['Designs healthcare and pharmaceutical platforms.','Led the Asentech Publishing website from PRD to developer handoff, and <b>usability-tested two versions with 5 participants</b>.'],-2],
@@ -853,6 +861,8 @@ function pick(root,i,play){
   v.pause();v.removeAttribute('src');v.style.opacity=0;
   if(play&&!reduce){v.src=`assets/fl/${f[2]}.mp4`;v.addEventListener('canplay',()=>{v.style.opacity=1;v.play().catch(()=>{})},{once:true});v.load()}
 }
+/* nothing inside the room monitors is tabbable; the pins and nav open the real windows */
+['#scrLin','#scrRin'].forEach(id=>{const e=$(id);if(e)e.inert=true});
 [$('#scrRin'),$('#mR')].forEach(r=>{pick(r,0,false);r.querySelectorAll('.idx button').forEach(b=>{b.addEventListener('click',()=>pick(r,+b.dataset.i,true));b.addEventListener('mouseenter',()=>{if(!b.classList.contains('on'))pick(r,+b.dataset.i,body.classList.contains('onscreen'))})})});
 
 /* ---------- stage fit + projecting the screens ---------- */
@@ -901,7 +911,7 @@ function zoomTo(k){
 /* ---------- voice + bubble ---------- */
 const LINES={
  A:{room:["Oh, hi! I'm Buddy. Jai's deep in work, so I'll show you round. Case studies are on the left screen, freelance work on the right.","buddy-intro2"],
-    work:["This is Jai's screen. Six case studies. Each one starts with research, and ends with a result you can check.","buddy-work"],
+    work:["This is Jai's screen. Eight case studies, each one starting with research. Most end with a result you can check.",null],
     freelance:["And this screen is Jai's freelance work. Real sites for real clients, from breweries to logistics. Pick one to play it.","buddy-freelance"],
     experience:["Here's everywhere Jai has worked, newest first. The CV is right at the top if you want to take it with you.","buddy-experience2"],
     story:["Hop on! This is the Mumbai local. Jai started designing in Mumbai in 2021, then took the long ride to Nottingham for a master's degree. Scroll to travel.","buddy-story"],
@@ -928,7 +938,8 @@ function caption(txt){
   setTimeout(()=>{ccTxt.innerHTML='';const b=document.createElement('b');b.textContent=(V==='A'?'Buddy':'Jai')+': ';ccTxt.append(b,document.createTextNode(txt));cc.classList.add('on');clearTimeout(cc._t);if(innerWidth<900)cc._t=setTimeout(()=>cc.classList.remove('on'),3000+txt.length*55)},reduce?0:180);
 }
 function say(key){
-  const [txt,file]=LINES[key];clearInterval(typing);clearTimeout(hideT);
+  let [txt,file]=LINES[key];
+  if(key==='room'&&innerWidth<900){txt=V==='A'?"Hi! I'm Buddy. Tap the screen to see Jai's work, or pick a section at the top.":"Hi, I'm Jai. Tap the screen, or pick a section at the top.";file=null}clearInterval(typing);clearTimeout(hideT);
   if(!sound){bubble.classList.remove('show');caption(txt);return}
   cc.classList.remove('on');
   sayEl.textContent='';bubble.classList.add('show');placeBubble();
@@ -1045,7 +1056,7 @@ function loadVid(v,src,loop,onEnd){if(reduce||v.dataset.tried)return;v.dataset.t
 
 /* ---------- loader + entrance ---------- */
 let pct=0;const fill=$('#barFill');
-const tick=setInterval(()=>{pct=Math.min(pct+7,img.complete?100:88);fill.style.width=pct+'%';if(pct>=100){clearInterval(tick);$('#enter').classList.add('ready')}},60);
+const tick=setInterval(()=>{pct=Math.min(pct+7,img.complete?100:88);fill.style.width=pct+'%';if(pct>=100){clearInterval(tick);$('#enter').classList.add('ready');setTimeout(()=>{if(!$('#loader').classList.contains('gone'))$('#enter [data-sound="0"]').click()},350)}},60);
 let turned=false;
 function turnDone(){if(turned)return;turned=true;img.src=C.end;setTimeout(()=>{$('#roomVid').classList.remove('on');say('room')},200)}
 $$('#enter button').forEach(b=>b.addEventListener('click',()=>{
@@ -1060,7 +1071,7 @@ $$('#enter button').forEach(b=>b.addEventListener('click',()=>{
 
 /* ---------- loader title: dashed letter reveal, specks, click kick ---------- */
 (function techText(){
-  const h=$('#loader h1');if(!h||!h.getContext&&!document.createElement('canvas').getContext)return;
+  const h=$('#loader .ldh');if(!h||!h.getContext&&!document.createElement('canvas').getContext)return;
   const cs=getComputedStyle(document.documentElement),TXT=cs.getPropertyValue('--text').trim()||'#f5f3ee',VIO=cs.getPropertyValue('--violet').trim()||'#a78bfa';
   const parts=[['Step into ','700','normal','"Space Grotesk"',TXT,-.05,1],['my desk.','400','italic','"Instrument Serif"',VIO,-.01,1.08]];
   h.classList.add('tt');h.innerHTML='<span class="sr">Step into my desk.</span>';
