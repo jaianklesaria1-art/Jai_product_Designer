@@ -12,6 +12,17 @@
 html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
 a{color:inherit}button{font:inherit;color:inherit}
 
+/* rotate gate (phones, portrait) */
+#rot{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:24px;background:radial-gradient(80% 60% at 50% 40%,#1a1430 0,#07070a 70%);text-align:center}
+#rot[hidden]{display:none}
+#rot .rotin{max-width:320px}
+#rot .ph{width:64px;height:108px;margin:0 auto 26px;border:3px solid #f5f3ee;border-radius:14px;position:relative;animation:rotph 2.4s var(--ease) infinite}
+#rot .ph i{position:absolute;left:50%;bottom:7px;width:16px;height:3px;margin-left:-8px;border-radius:2px;background:#f5f3ee}
+@keyframes rotph{0%,20%{transform:rotate(0)}50%,75%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+#rot h2{margin:0 0 10px;font:700 30px/1.1 "Space Grotesk",sans-serif;letter-spacing:-.03em;color:#f5f3ee}
+#rot p{margin:0 0 24px;font:400 16px/1.5 Inter,sans-serif;color:rgba(245,243,238,.82)}
+#rot .btn{color:#0a0a0c;margin:0 auto 14px}
+#rot .rotskip{display:block;margin:0 auto;background:none;border:0;padding:10px;font:600 14px Inter,sans-serif;color:#d9ccff;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 /* loader */
 #loader{position:fixed;inset:0;z-index:50;background:var(--bg);display:grid;place-items:center;transition:opacity .9s var(--ease),visibility .9s}
 #loader.gone{opacity:0;visibility:hidden}
@@ -144,6 +155,8 @@ body.onscreen .screen.active{cursor:default}
 
 /* hotspots */
 .hot{position:absolute;transform:translate(-50%,-50%);z-index:3;background:none;border:0;padding:0;cursor:pointer;transition:opacity .5s}
+.hot::after{content:"";position:absolute;inset:-14px;border-radius:50%}
+@media (pointer:coarse){.hot::after{inset:-22px}}
 .hot .dot{display:block;width:16px;height:16px;border-radius:50%;background:var(--violet);animation:ping 2.4s infinite}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(167,139,250,.55),0 0 22px var(--violet)}70%{box-shadow:0 0 0 16px rgba(167,139,250,0),0 0 22px var(--violet)}100%{box-shadow:0 0 0 0 rgba(167,139,250,0),0 0 22px var(--violet)}}
 .hot .tag{position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;text-align:left;background:var(--card);backdrop-filter:blur(10px);border:1px solid rgba(167,139,250,.45);padding:9px 13px;border-radius:7px}
@@ -176,6 +189,7 @@ body.zoomed .hot,body.story .hot,body.onscreen .hot{opacity:0;pointer-events:non
 #hotX::before{content:"";position:absolute;left:50%;top:50%;width:clamp(220px,17vw,360px);height:clamp(260px,20vw,420px);transform:translate(-58%,-36%);border-radius:50%;background:radial-gradient(closest-side,rgba(255,244,228,.32),rgba(196,181,253,.16) 55%,transparent);opacity:0;transition:opacity .35s;pointer-events:none}
 #hotX:hover::before,#hotX:focus-visible::before{opacity:1}
 #hotX .tag{--tx:-18px}#hotC .tag{--gap:58px}#hotL .tag,#hotR .tag{--gap:30px}#hotX .tag::before{left:18px}
+
 @media (prefers-reduced-motion:reduce){.hot .tag{animation:none}}
 @media (max-width:899px){.hot .tag{display:block!important;padding:5px 10px}.hot .tag b{font-size:10px}.hot .tag small{display:none}}
 
@@ -232,7 +246,7 @@ body.talking #bubble .av{animation:talkglow .5s infinite alternate}
 #bubble .nm b{display:block;font:600 14px/1.1 Inter,sans-serif;color:#141318}
 #bubble .nm small{display:flex;align-items:center;gap:5px;margin-top:3px;font:500 9.5px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:#6d58b8}
 #bubble .nm small::before{content:"";width:6px;height:6px;border-radius:50%;background:#22c55e}
-#bubS{margin-left:auto;white-space:nowrap;flex:none;display:flex;align-items:center;gap:5px;height:28px;padding:0 10px;border-radius:99px;border:0;background:#7c4dff;color:#fff;cursor:pointer;font:600 11.5px Inter,sans-serif}#bubS::after{content:"Hear Buddy"}body.sound #bubS{background:#e8e3ef;color:#4a4560;padding:0 8px}body.sound #bubS::after{content:""}#bubS .w{display:none}body.sound #bubS .w{display:inline}body.sound #bubS .x{display:none}#bubS:hover{filter:brightness(1.1)}
+#bubS{margin-left:auto;white-space:nowrap;flex:none;display:flex;align-items:center;gap:5px;height:28px;padding:0 10px;border-radius:99px;border:0;background:#7c4dff;color:#fff;cursor:pointer;font:600 11.5px Inter,sans-serif}#bubS::after{content:"Sound on"}body.sound #bubS{background:#e8e3ef;color:#4a4560;padding:0 8px}body.sound #bubS::after{content:""}#bubS .w{display:none}body.sound #bubS .w{display:inline}body.sound #bubS .x{display:none}#bubS:hover{filter:brightness(1.1)}
 #bubX{width:28px;height:28px;border-radius:50%;border:0;background:#e8e3ef;color:#4a4560;cursor:pointer;font:600 17px/1 Inter,sans-serif;display:grid;place-items:center}
 #bubX:hover{background:#d9d1e6}
 #bubble .log{max-height:min(240px,38vh);overflow:auto;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;overscroll-behavior:contain}
@@ -532,7 +546,7 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 .tix .handback{margin:22px 0 0;text-align:center;font:500 14px Inter,sans-serif;color:rgba(230,228,238,.72);transition:opacity .45s}
 #story:not(.open) .handback{opacity:0}
 .handback .kbd{display:inline-block;margin-right:6px;padding:2px 8px;border:1px solid rgba(230,228,238,.35);border-radius:6px;font:600 12px 'JetBrains Mono',monospace;color:#e6e4ee}
-@media (hover:none){.handback .kbd{display:none}.handback{font-size:0}.handback::after{content:'Tap anywhere outside the ticket to get it checked';font-size:14px}}
+@media (hover:none){.handback .kbd,.handback .hbt{display:none!important}.handback{font-size:0}.handback::after{content:'Tap anywhere outside the ticket to get it checked';font-size:14px}}
 #story.open{cursor:pointer}#story.open .tk,#story.open .buddy{cursor:auto}
 
 
@@ -595,7 +609,7 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
   header{padding:14px 16px;flex-wrap:wrap;gap:10px}
   nav{order:3;width:100%;justify-content:space-between}nav button{padding:7px 6px;font-size:9px;letter-spacing:.06em}nav button i{display:block;margin:0}
   .right .pill.status{display:none}
-  #intro{left:16px;right:16px;top:auto;bottom:96px;max-width:none}
+  #intro{left:16px;right:16px;top:auto;bottom:134px;max-width:none}
   .ctas{margin-top:14px}.ctas .btn{padding:11px 16px}
   #intro h1{font-size:40px}.lede{font-size:15px}.hint{display:none}
   .shade{background:linear-gradient(0deg,rgba(7,7,10,.94) 0,rgba(7,7,10,.5) 45%,transparent 70%)}
@@ -612,10 +626,157 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
   .demo span{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+
+/* phone landscape (short screens): one-row header, compact hero and chat */
+@media (max-height:500px) and (orientation:landscape){
+  header{padding:8px 14px;flex-wrap:nowrap;gap:10px}
+  nav{order:0;width:auto;flex:1;justify-content:center}nav button{padding:6px 8px;font-size:9px;letter-spacing:.06em}nav button i{display:inline;margin:0 3px 0 0}
+  .right .pill.status{display:none}
+  #intro{left:16px;right:auto;bottom:14px;max-width:420px}
+  #intro .eyebrow,#intro .lede,#intro .hint{display:none}
+  #intro h1{font-size:28px;line-height:1}
+  .ctas{margin-top:12px}.ctas .btn{padding:9px 14px;font-size:13px}
+  .shade{background:linear-gradient(0deg,rgba(7,7,10,.88) 0,rgba(7,7,10,.35) 40%,transparent 60%)}
+  body.vA:not(.zoomed):not(.story) #mini{display:none}
+  #bubble{width:300px;padding:10px 12px 12px;font-size:13px}
+  #bubble .nm{margin-bottom:6px}#bubble .log{max-height:108px}#bubble .msg{padding:7px 10px}
+  #bubble .chips{margin-top:8px}#bubble .chips button{padding:6px 10px;font-size:11.5px}
+  .panel,#p-work,#p-freelance,#p-experience{inset:54px 10px 10px}
+  .exback{position:absolute;margin:0}.exhead h2{font-size:24px}.exsub{display:none}.cvlink{padding:6px 12px;font-size:13px}
+  .rail,.rail.lanrail{top:120px;bottom:10px}
+  #backBtn{left:auto;right:14px;bottom:14px}
+  .logo{order:0}nav{order:1}.right{order:2}
+  .hot .tag{display:none!important}
+  #intro{max-width:440px}#intro h1{font-size:26px}
+  .lan{flex:0 0 30vw}.flipper{width:min(26vw,190px)}.strap{--drop:2vh}
+  #p-contact h2{font-size:52px}#p-contact p{margin:10px auto;font-size:14px;max-width:560px}
+  #p-contact .back,#p-experience .exback{position:absolute;top:0;left:0;margin:0;padding:8px 14px;font-size:13px}
+}
+
+/* skills as two metro lines (same language as the journey legs) */
+.lines{display:grid;gap:14px;margin-top:10px}
+.mline{display:grid;grid-template-columns:118px 1fr;gap:0 18px;align-items:start;--lc:var(--ochre)}
+.mline.ai{--lc:var(--now)}
+.mname{align-self:start;margin-top:18px;padding:5px 10px;border-radius:99px;background:var(--lc);color:var(--paper);font:700 11.5px/1.25 "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;text-align:center}
+.mname small{display:block;font-size:10px;opacity:.8}
+.stops{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:0 10px;list-style:none;margin:0;padding:24px 0 0}
+.stops::before{content:"";position:absolute;left:8px;right:8px;top:7px;height:3px;background:var(--lc);border-radius:2px}
+.stn{position:relative;padding:8px 10px 10px;border-radius:6px;cursor:default;outline:none;transition:background .3s,transform .3s var(--ease)}
+.stn::before{content:"";position:absolute;left:10px;top:-24px;width:15px;height:15px;border-radius:50%;background:var(--paper);border:3px solid var(--lc);box-sizing:border-box;transition:background .25s,transform .25s var(--ease)}
+.stn b{display:block;font:700 16px/1.2 "Space Grotesk",sans-serif;letter-spacing:-.01em;color:var(--ink)}
+.stn span{display:block;margin-top:4px;font:400 13px/1.4 Inter,sans-serif;color:var(--ink2)}
+.stn:hover,.stn:focus-visible,.stn.on{background:rgba(161,97,42,.09);transform:translateY(-2px)}
+.mline.ai .stn:hover,.mline.ai .stn:focus-visible,.mline.ai .stn.on{background:rgba(109,79,216,.08)}
+.stn:hover::before,.stn:focus-visible::before,.stn.on::before{background:var(--lc);transform:scale(1.25)}
+.stn:focus-visible{box-shadow:0 0 0 2px var(--lc)}
+#story.go .stn{animation:legin .5s var(--ease) both;animation-delay:calc(.45s + var(--i)*.06s)}
+@media (max-width:1100px){.mline{grid-template-columns:1fr}.mname{justify-self:start;margin:0 0 4px}.mname small{display:inline}}
+@media (max-width:899px){
+  .stops{grid-template-columns:1fr;padding:0 0 0 26px;gap:2px}.stops::before{left:7px;right:auto;top:6px;bottom:6px;width:3px;height:auto}
+  .stn{padding:6px 10px}.stn::before{left:-26px;top:9px}
+}
+
+/* skills transit map, visual pass */
+.valid{padding:16px 28px 18px!important;background:linear-gradient(180deg,rgba(161,97,42,.05),rgba(109,79,216,.04))}
+.vhead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 18px}
+.vkey{display:flex;align-items:center;gap:6px;font:700 11px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.vkey i{display:inline-block;width:18px;height:5px;border-radius:3px;margin-left:8px}.vkey .k1{background:var(--ochre)}.vkey .k2{background:var(--now)}
+.vkey em{font-style:normal;margin-left:14px;padding:3px 8px;border:1px dashed var(--ochre2);border-radius:99px;color:var(--ochre)}
+.lines{gap:12px;margin-top:12px}
+.mline{grid-template-columns:150px 1fr;gap:0 14px;padding:12px 14px 6px;border-radius:12px;background:rgba(255,255,255,.55);border:1px solid color-mix(in srgb,var(--lc) 22%,transparent);box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 6px 18px -14px color-mix(in srgb,var(--lc) 70%,transparent)}
+.mname{display:flex;align-items:center;gap:10px;margin:2px 0 0;padding:0;background:none;color:var(--ink);text-align:left;letter-spacing:0;text-transform:none}
+.rnd{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--paper);border:6px solid var(--lc);font:800 13px "Space Grotesk",sans-serif;color:var(--lc);box-shadow:0 0 0 2px var(--paper),0 0 0 3px color-mix(in srgb,var(--lc) 35%,transparent)}
+.lnm{font:700 16px/1.15 "Space Grotesk",sans-serif;letter-spacing:-.01em;color:var(--lc)}
+.lnm small{display:block!important;margin-top:4px;font:700 10px "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);opacity:1}
+.stops{gap:0 8px;padding-top:26px}
+.stops::before{left:0;right:0;top:8px;height:6px;border-radius:3px;background:var(--lc);box-shadow:0 0 0 2px var(--paper)}
+.stops::after{content:"";position:absolute;right:-2px;top:3px;width:6px;height:16px;border-radius:3px;background:var(--lc)}
+.stn{padding:8px 8px 10px}
+.stn::before{left:8px;top:-26px;width:20px;height:20px;border:4px solid var(--lc);background:var(--paper);box-shadow:0 0 0 2px var(--paper)}
+.stn .cd{display:inline-block;margin-bottom:5px;padding:1px 6px;border-radius:4px;background:color-mix(in srgb,var(--lc) 12%,transparent);font:700 10px "JetBrains Mono",monospace;font-style:normal;letter-spacing:.08em;color:var(--lc)}
+.stn b{font-size:16px;color:var(--ink)!important}
+.stn span{font-size:13px;color:var(--ink2)}
+.stn:hover,.stn:focus-visible,.stn.on{background:color-mix(in srgb,var(--lc) 10%,transparent)!important;transform:translateY(-3px)}
+.stn:hover::before,.stn:focus-visible::before,.stn.on::before{background:var(--lc);transform:scale(1.2);box-shadow:0 0 0 2px var(--paper),0 0 0 6px color-mix(in srgb,var(--lc) 25%,transparent)}
+.stn:hover .cd,.stn.on .cd{background:var(--lc);color:var(--paper)}
+@media (max-width:1100px){.mline{grid-template-columns:1fr}.mname{margin-bottom:6px}}
+@media (max-width:899px){
+  .valid{padding:14px 12px 16px!important}.vkey em{display:none}
+  .mline{padding:12px 12px 8px}
+  .stops{padding:0 0 0 30px}.stops::before{left:7px;top:4px;bottom:4px;width:6px;height:auto}.stops::after{display:none}
+  .stn{padding:6px 8px}.stn::before{left:-30px;top:8px}
+}
+
+/* where I've worked: compact departures board */
+.jr.board{padding:14px 28px 16px}
+.bhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.bnote{font:600 11px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.dep{margin-top:10px;border-radius:10px;background:#17130f;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),0 8px 20px -14px rgba(0,0,0,.6);overflow:hidden;--amb:#ffc24b}
+.dtop{display:flex;justify-content:space-between;align-items:center;padding:7px 14px;background:#221c16;border-bottom:1px solid rgba(255,194,75,.18);font:700 11px "JetBrains Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--amb)}
+.dtop .clk{color:rgba(255,194,75,.65);letter-spacing:.1em}
+.board .legs{display:block!important;margin:0!important;padding:0!important}
+.board .legs::before,.board .leg::before{display:none!important}
+.board .drow{display:grid!important;grid-template-columns:62px 1.35fr 1.4fr 1fr;align-items:center;gap:0 14px;margin:0!important;padding:7px 14px!important;border:0!important;border-top:1px solid rgba(255,255,255,.06)!important;border-radius:0!important;background:none;color:#efe7d8;cursor:default;transition:background .25s}
+.board .dth{padding:5px 14px!important;border-top:0!important;font:700 9.5px "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(239,231,216,.45)}
+.board .drow .when{padding:0!important;font:700 13px "JetBrains Mono",monospace!important;letter-spacing:.06em;color:var(--amb)!important}
+.board .dst b{display:block;font:700 13.5px/1.2 "Space Grotesk",sans-serif;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.board .dst small{display:block;margin-top:1px;font:600 10px "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:rgba(239,231,216,.5)}
+.board .drow .role{margin:0!important;font:500 11px/1.3 "JetBrains Mono",monospace!important;letter-spacing:.02em!important;text-transform:none!important;color:rgba(239,231,216,.72)!important}
+.board .stat{justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border-radius:4px;background:rgba(255,194,75,.12);font:700 10.5px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--amb);white-space:nowrap}
+.board .nw .stat{background:rgba(74,222,128,.14);color:#6ee7a0}
+.board .nw .stat i{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.2);animation:dblink 1.4s infinite}
+.board .stat.alt{background:rgba(167,139,250,.16);color:#c4b5fd}
+@keyframes dblink{50%{opacity:.35}}
+.board .drow:hover,.board .drow:focus-visible,.board .drow.on{background:rgba(255,194,75,.09)!important;outline:none}
+.board .drow.on .when::before{content:"\25B6\00a0";font-size:9px}
+.board #tkSide{border-top:1px dashed rgba(167,139,250,.35)!important}
+#story.go .board .leg{animation:boardin .45s var(--ease) both;animation-delay:calc(.6s + var(--i)*.08s)}
+@keyframes boardin{from{opacity:0;transform:rotateX(75deg)}to{opacity:1;transform:none}}
+@media (max-width:899px){
+  .jr.board{padding:12px 12px 14px}.bnote{display:none}
+  .board .dth{display:none!important}
+  .board .drow{grid-template-columns:44px 1fr auto;gap:3px 10px;padding:8px 12px!important}
+  .board .drow>.when{grid-column:1!important;grid-row:1/3!important;align-self:start;padding-top:2px!important}.board .dst b{white-space:normal}.board .drow>.dst{grid-column:2!important;grid-row:1!important;min-width:0}
+  .board .drow .role{grid-column:2/4!important;grid-row:2!important}
+  .board .stat{grid-column:3!important;grid-row:1!important;align-self:start;font-size:9.5px;padding:2px 6px}
+}
+
+/* where I've worked: link to Experience */
+.jr.exl{display:flex;align-items:center;justify-content:space-between;gap:14px 28px;padding:18px 28px}
+.exl [hidden]{display:none!important}.exlt{flex:1;min-width:0}
+.exlt p{margin:6px 0 0;max-width:62ch;font:500 16px/1.5 Inter,sans-serif;color:var(--ink2)}
+.exbtn{flex:none;display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border:0;border-radius:99px;background:var(--ink);color:var(--paper);font:700 16px "Space Grotesk",sans-serif;cursor:pointer;transition:transform .25s var(--ease),background .25s}
+.exbtn span{transition:transform .25s var(--ease)}
+.exbtn:hover{background:var(--now);transform:translateY(-2px)}.exbtn:hover span{transform:translateX(4px)}
+.exbtn:focus-visible{outline:3px solid var(--now);outline-offset:3px}
+@media (max-width:899px){.jr.exl{flex-direction:column;align-items:flex-start;padding:16px}.exbtn{width:100%;justify-content:center}}
+
+/* phones: compact Buddy bubble (message only, tap to open the full chat) */
+#bubble.compact{width:auto;max-width:min(300px,calc(100vw - 102px));padding:10px 12px 10px;cursor:pointer;scale:1!important}
+#bubble.compact .nm,#bubble.compact .chips{display:none}
+#bubble.compact .log{max-height:none!important;overflow:visible}
+#bubble.compact .log>*:not(:last-child){display:none}
+#bubble.compact .msg{margin:0;padding:0;background:none;border:0;box-shadow:none;font-size:14px;line-height:1.45}
+#bubble.compact::after{left:-6px;bottom:18px;width:14px;height:14px;border-radius:0 0 0 4px;box-shadow:-3px 3px 5px -3px rgba(0,0,0,.25)}
+#bubble.compact .log::after{content:"Tap to chat \2192";display:block;margin-top:6px;font:700 11px Inter,sans-serif;letter-spacing:.02em;color:#6d4fd8}
+/* phones: comfortable tap targets */
+@media (pointer:coarse){
+  .lede .rm{padding:8px 2px;margin:-8px 0}
+  .wbtn{min-height:40px;display:inline-flex;align-items:center}
+}
 </style>
 </head>
 <body>
 
+<div id="rot" role="dialog" aria-modal="true" aria-labelledby="rotH" hidden>
+  <div class="rotin">
+    <div class="ph" aria-hidden="true"><i></i></div>
+    <h2 id="rotH">Rotate your phone</h2>
+    <p>Jai&rsquo;s desk is built for landscape. Turn your phone sideways for the full room.</p>
+    <button class="btn fill" id="rotFs" hidden>Go full screen &#x21bb;</button>
+    <button class="rotskip" id="rotSkip">Continue in portrait</button>
+  </div>
+</div>
 <div id="loader" role="dialog" aria-label="Welcome">
   <div class="ld">
     <small>Jai Anklesaria &middot; Portfolio</small>
@@ -646,7 +807,7 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 
 <section id="intro">
   <p class="eyebrow">Product Designer &amp; UX Researcher</p>
-  <h1>I'm Jai. I investigate <em>UX problems.</em></h1>
+  <h1>I'm <em>Jai Anklesaria.</em></h1>
   <p class="lede">Product designer and UX researcher with <b>3+ years of mixed-method research</b> across healthcare, B2C, SaaS, e-commerce and logistics. Currently designing healthcare and pharmaceutical platforms at Asentech.<span class="more" id="ledeMore" hidden> Led an augmented reality research project with KPMG, interviewing 20 to 25 users and A/B testing onboarding to raise task success by 31%. Also designing agentic AI experiences: tool-calling actions, human-in-the-loop rules and AI trust patterns. Earlier work raised user satisfaction by 66% on a logistics feature and retention by 45% on a parenting app. MSc Human-Computer Interaction, University of Nottingham.</span> <button class="rm" id="ledeBtn" aria-expanded="false" aria-controls="ledeMore">Read more</button></p>
   <div class="ctas"><button class="btn fill" data-go="work">See case studies &rarr;</button><button class="btn" data-go="contact">Get in touch</button></div>
   <p class="hint">Or click a screen, or anything that glows</p>
@@ -686,7 +847,7 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 <section class="panel" id="p-experience" aria-label="Experience">
   <button class="btn back exback" data-go="room">&larr; Back to the desk</button>
   <div class="exhead"><h2>Experience</h2><p class="exsub">5 roles, newest first. Drag a badge, or tap it to flip.</p>
-  <a class="cvlink" href="Jai-Anklesaria-CV.pdf" target="_blank" rel="noopener">Download CV <span aria-hidden="true">&darr;</span></a></div>
+  <a class="cvlink" href="assets/Jai-Anklesaria-CV.pdf" target="_blank" rel="noopener">Download CV <span aria-hidden="true">&darr;</span></a></div>
   <div class="rail lanrail" id="rail"></div>
 </section>
 
@@ -694,11 +855,11 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 <section class="panel" id="p-contact" aria-label="Contact">
   <button class="btn back" data-go="room">&larr; Back to the desk</button>
   <h2>Let&rsquo;s get on <em>a call.</em></h2>
-  <p>Open to product design and UX research roles. UK, India or remote. Drop me a line and we&rsquo;ll find a time.</p>
+  <p>Based in Mumbai. Open to product design and UX research roles in India, the UK, remote, or with relocation. Drop me a line and we&rsquo;ll find a time.</p>
   <div class="row">
     <a class="btn fill" href="mailto:jaianklesaria.jobs@gmail.com?subject=Let%27s%20get%20on%20a%20call">Book a call</a>
     <a class="btn" href="https://www.linkedin.com/in/jaiuxdesigner" target="_blank" rel="noopener">LinkedIn</a>
-    <a class="btn" href="Jai-Anklesaria-CV.pdf" target="_blank" rel="noopener">Download CV &darr;</a>
+    <a class="btn" href="assets/Jai-Anklesaria-CV.pdf" target="_blank" rel="noopener">Download CV &darr;</a>
   </div>
 </section>
 
@@ -725,20 +886,23 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
             <h2 class="nm">Jai Anklesaria</h2>
             <p class="ln"><span>Product Designer &amp; UX Researcher</span></p>
             <p class="intro">I came into design through computer science. During my BSc I kept asking why some software felt easy and some felt like a fight. That question took me to an MSc in Human-Computer Interaction at the University of Nottingham, and it&rsquo;s still the question I ask on every project.</p>
-            <p class="quote">&ldquo;Just a human being trying to understand other human beings, solve some of their problems, and make their lives and experiences easier.&rdquo;</p>
           </div>
           <div class="route"><span class="lbl">Route</span><p class="rt">MUMBAI <small>To</small> NOTTINGHAM <small>To</small> <span class="now">MUMBAI</span></p><p class="ln"><span>Status : Open to work &middot; open to relocate</span></p></div>
         </div>
-        <div class="jr"><span class="lbl">Where I've worked &middot; latest first</span><ol class="legs" id="legs"></ol><div class="side" id="tkSide"></div></div>
-        <div class="valid"><span class="lbl">Valid for &middot; what I do</span><div class="skl" id="tkSkills"></div></div>
+        <div class="valid"><div class="vhead"><span class="lbl">Valid for &middot; what I do</span><span class="vkey"><i class="k1"></i>Product Design <i class="k2"></i>AI Systems <em>Hover a station</em></span></div><div class="lines" id="tkSkills"></div></div>
+        <div class="jr exl">
+          <div class="exlt"><span class="lbl">Where I've worked</span><p>5 roles from 2021 to now, newest first: Asentech, KPMG &times; University of Nottingham, Mobile First, Swabhav Techlabs and freelance.</p></div>
+          <button class="exbtn" data-go="experience">See my experience <span aria-hidden="true">&rarr;</span></button>
+          <ol class="legs" id="legs" hidden></ol><div class="side" id="tkSide" hidden></div>
+        </div>
         <div class="tfoot">
           <p class="ln"><span>Journey continues. Next stop: your team.</span></p>
-          <div class="cta"><button class="pri" data-go="work">See the work &rarr;</button><a href="Jai-Anklesaria-CV.pdf" target="_blank" rel="noopener">Download CV</a></div>
+          <div class="cta"><button class="pri" data-go="work">See the work &rarr;</button><a href="assets/Jai-Anklesaria-CV.pdf" target="_blank" rel="noopener">Download CV</a></div>
         </div>
         <div class="mt b" aria-hidden="true">JAI ANKLESARIA LINE &middot; HAPPY JOURNEY &middot; JAI ANKLESARIA LINE &middot; HAPPY JOURNEY &middot; JAI ANKLESARIA LINE &middot; HAPPY JOURNEY &middot; JAI ANKLESARIA LINE &middot; HAPPY JOURNEY &middot; JAI ANKLESARIA LINE &middot; HAPPY JOURNEY &middot; JAI ANKLESARIA LINE &middot; HAPPY JOURNEY &middot; JAI ANKLESARIA LINE &middot; HAPPY JOURNEY &middot; JAI ANKLESARIA LINE &middot; HAPPY JOURNEY &middot; JAI ANKLESARIA LINE &middot; HAPPY JOURNEY &middot; JAI ANKLESARIA LINE &middot; HAPPY JOURNEY &middot; JAI ANKLESARIA LINE &middot; HAPPY JOURNEY &middot; JAI ANKLESARIA LINE &middot; HAPPY JOURNEY &middot; JAI ANKLESARIA LINE &middot; HAPPY JOURNEY &middot; JAI ANKLESARIA LINE &middot; HAPPY JOURNEY</div>
       </div>
     </article></div>
-    <p class="handback"><span class="kbd">Esc</span> or click anywhere outside the ticket to get it checked</p>
+    <p class="handback"><span class="kbd">Esc</span> <span class="hbt">or click anywhere outside the ticket to get it checked</span></p>
   </div>
 </section>
 
@@ -940,9 +1104,9 @@ function zoomTo(k){
 const LINES={
  A:{room:["Hi, I'm Buddy, Jai's guide. Everything that glows in this room opens something. Hover over it to peek, click to step inside. Or I can take you straight to Jai's best work.","v5-room"],
     work:["This is where the real work lives. Eight case studies, each one built on research with real people. Pick a card to read the full story.","v5-work"],
-    freelance:["These are live sites Jai has built for clients. Pick one to see it running.","v4-freelance"],
-    experience:["Here's where Jai has worked, most recent first. The CV is at the top if you'd like a copy.","v4-experience"],
-    story:["All aboard! This ticket is Jai's journey, from Mumbai to Nottingham and back again. Hover over any stop to hear about it.",null],
+    freelance:["These are live sites Jai designed and built for real clients. Choose one on the left and watch it run on the right.","v5-freelance"],
+    experience:["Every badge on this wall is a role Jai has held, newest first. Drag one around, or tap it to flip and see what Jai did there.","v5-experience"],
+    story:["All aboard! This ticket is Jai's journey, from Mumbai to Nottingham and back again. Hover over any stop to hear about it.","v5-story"],
     contact:["Want to talk to Jai? You can book a call, connect on LinkedIn, or download the CV.","v4-contact"],
     back:["Welcome back. Anything else catch your eye? Hover over the glowing tags to peek before you click.",null]},
  B:{room:["Oh, hey! I'm Jai. Welcome to my desk. Case studies are on the left screen, freelance work on the right. Have a look around.",null],
@@ -982,7 +1146,9 @@ function setChips(list){chipsEl.innerHTML='';(list||[]).forEach(id=>{const b=doc
   else if(ACT[id]){[lab,fn]=ACT[id];isGo=true}
   else{lab=Q[id].q;fn=()=>{addMsg(Q[id].q,'u');reply(Q[id].a,Q[id].next)}}
   b.textContent=lab;if(isGo)b.className='go';b.addEventListener('click',fn);chipsEl.append(b)})}
-function armHide(){clearTimeout(hideT);if(view!=='room'||innerWidth<900)hideT=setTimeout(()=>{if(!bubble.matches(':hover,:focus-within'))bubble.classList.remove('show')},view==='room'?14000:10000)}
+function armHide(){clearTimeout(hideT);if(view!=='room'||innerWidth<900)hideT=setTimeout(()=>{if(!bubble.matches(':hover,:focus-within'))bubble.classList.remove('show')},view==='room'?(innerWidth<900?7000:14000):(innerWidth<900?5000:6500))}
+addEventListener('pointerdown',e=>{if(innerWidth<900&&bubble.classList.contains('show')&&!e.target.closest('#bubble,#buddyHit,#mini,header,#rot,#loader')){bubble.classList.remove('show');bubFull=false}},true);
+bubble.addEventListener('click',e=>{if(bubble.classList.contains('compact')){e.preventDefault();bubFull=true;placeBubble();armHide()}});
 function reply(txt,chips){const my=++seq;setChips([]);clearTimeout(hideT);
   const t=document.createElement('div');t.className='msg b typing';t.innerHTML='<i></i><i></i><i></i>';logEl.append(t);logEl.scrollTop=logEl.scrollHeight;
   setTimeout(()=>{if(my!==seq)return;t.remove();addMsg(txt,'b');setChips(chips);armHide()},reduce?0:Math.min(1200,450+txt.length*4))}
@@ -991,14 +1157,18 @@ const HOVER={hotL:"That's the case studies screen. Click it to open all eight.",
 Object.keys(HOVER).forEach(id=>{const el=document.getElementById(id);if(!el)return;el.addEventListener('mouseenter',()=>{if(view!=='room'||hoverSaid[id]||innerWidth<900)return;hoverSaid[id]=1;bubble.classList.add('show');placeBubble();seq++;logEl.querySelectorAll('.typing').forEach(t=>t.remove());addMsg(HOVER[id],'b')})});
 function say(key){
   lastKey=key;let [txt,file]=LINES[key];
-  if(key==='room'&&innerWidth<900){txt=V==='A'?"Hi, I'm Buddy. Tap the screen for Jai's work, or ask me something below.":"Hi, I'm Jai. Tap the screen, or pick a section at the top.";file=V==='A'?'v4-room-m':null}
+  if(key==='room'&&(innerWidth<900||matchMedia('(pointer:coarse)').matches)){txt=V==='A'?"Hi, I'm Buddy. Tap the screen for Jai's work, or ask me something below.":"Hi, I'm Jai. Tap the screen, or pick a section at the top.";file=V==='A'?'v4-room-m':null}
   clearTimeout(hideT);logEl.innerHTML='';bubble.classList.add('show');placeBubble();
   if(sound&&file){audio.src=`assets/${file}.mp3`;audio.currentTime=0;audio.play().catch(()=>{})}
   reply(txt,V==='A'?CHIPS[key]:null);
 }
+let bubFull=false;
 function placeBubble(){
-  const W=innerWidth,H=innerHeight;bubble.classList.remove('notail');bubble.style.right='auto';logEl.style.maxHeight='';
-  if(W<900&&view==='room'){bubble.style.left='14px';bubble.style.top='118px';bubble.style.bottom='auto';bubble.classList.add('notail');return}
+  const W=innerWidth,H=innerHeight;bubble.classList.remove('notail');
+  const phone=W<900||(H<500&&W>H);bubble.classList.toggle('compact',phone&&!bubFull);
+  if(phone&&!bubFull){bubble.style.right='auto';bubble.style.top='auto';if(H<500&&W>H&&view==='room'){bubble.style.left=Math.round(W*.37)+'px';bubble.style.top='58px';bubble.style.bottom='auto';bubble.classList.add('notail');return}bubble.style.left='88px';bubble.style.bottom=(H<500?16:20)+'px';return}bubble.style.right='auto';logEl.style.maxHeight='';
+  if(H<500&&W>H){bubble.style.left=(view==='room'?Math.round(W*.37):14)+'px';bubble.style.right='auto';bubble.style.top='54px';bubble.style.bottom='auto';bubble.classList.add('notail');return}
+  if(W<900&&view==='room'){bubble.style.left='14px';bubble.style.top='auto';bubble.style.bottom='96px';return}
   if(view==='room'&&SW&&V==='A'){const bx=SX+SW*C.speaker[0]/100,by=SY+SH*C.speaker[1]/100;
     const bot=Math.max(14,H-(by-SW*.04));bubble.style.left=Math.max(14,Math.min(bx-39,W-360))+'px';bubble.style.bottom=bot+'px';bubble.style.top='auto';const k=parseFloat(getComputedStyle(bubble).scale)||1;logEl.style.maxHeight=Math.max(110,(H-bot-84)/k-150)+'px';return}
   bubble.style.left='14px';bubble.style.bottom='96px';bubble.style.top='auto';
@@ -1009,9 +1179,9 @@ function firstTouch(e){removeEventListener('pointerdown',firstTouch,true);remove
 addEventListener('pointerdown',firstTouch,true);addEventListener('keydown',firstTouch,true);
 $('#bubS').addEventListener('click',()=>{setSound(!sound);muted=!sound;$('#bubS').setAttribute('aria-pressed',sound);$('#bubS').setAttribute('aria-label',sound?"Turn Buddy's voice off":"Turn Buddy's voice on");if(sound){const [,f]=LINES[lastKey]||[];let file=f;if(lastKey==='room'&&innerWidth<900)file='v4-room-m';if(file){audio.src=`assets/${file}.mp3`;audio.currentTime=0;audio.play().catch(()=>{})}}});
 bubble.addEventListener('mouseenter',()=>clearTimeout(hideT));bubble.addEventListener('mouseleave',armHide);
-$('#bubX').addEventListener('click',()=>{bubble.classList.remove('show');audio.pause();seq++;clearTimeout(hideT)});
-bh.addEventListener('click',()=>say('room'));
-$('#mini').addEventListener('click',()=>say(view==='room'?'room':(LINES[view]?view:'back')));
+$('#bubX').addEventListener('click',()=>{bubFull=false;bubble.classList.remove('show');audio.pause();seq++;clearTimeout(hideT)});
+bh.addEventListener('click',()=>{bubFull=true;say('room')});
+$('#mini').addEventListener('click',()=>{bubFull=true;say(view==='room'?'room':(LINES[view]?view:'back'))});
 function setSound(on){sound=on&&V==='A';body.classList.toggle('sound',sound);$('#soundTxt').textContent=sound?'Sound on':'Sound off';$('#soundBtn').setAttribute('aria-pressed',sound);if(!sound)audio.pause()}
 $('#soundBtn').addEventListener('click',()=>{setSound(!sound);muted=!sound;if(sound)say(view==='room'?'room':view)});
 
@@ -1021,7 +1191,7 @@ let fast=false;
 const RET='jai-desk-return';
 function remember(){try{sessionStorage.setItem(RET,JSON.stringify({view,sound,t:Date.now()}))}catch(e){}}
 document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(a&&view!=='room'&&!/^mailto:/.test(a.getAttribute('href')))remember()},true);
-function go(k){
+function go(k){bubFull=false;
   if(k===view)return;
   if(view==='story'&&body.classList.contains('story')&&!go._leaving){go._leaving=1;clearTimeout(rideT);exitTicket().then(()=>{go(k);go._leaving=0});return}
   const prev=view;view=k;
@@ -1033,7 +1203,7 @@ function go(k){
   if(k==='room'){zoomTo(null);if(prev!=='room')setTimeout(()=>say('back'),800);placeBubble();return}
   const isScreen=k==='work'||k==='freelance';
   zoomTo(k);
-  if(k==='story'){try{audio.pause();$('#cc').classList.remove('on');lastKey='story';if(sound&&!fast&&window.STORY_VO)setTimeout(()=>{if(view==='story'){audio.src='assets/v5-story.mp3';audio.currentTime=0;audio.play().catch(()=>{})}},reduce?0:1100)}catch(e){}
+  if(k==='story'){try{audio.pause();$('#cc').classList.remove('on');lastKey='story';if(sound&&!fast)setTimeout(()=>{if(view==='story'){audio.src='assets/v5-story.mp3';audio.currentTime=0;audio.play().catch(()=>{})}},reduce?0:1100)}catch(e){}
     setTimeout(()=>{body.classList.add('story');board()},(reduce||fast)?0:900);
   }else{
     setTimeout(()=>{body.classList.add('zoomed');const p=$('#p-'+k);p.classList.add('show');p.scrollTop=0;
@@ -1059,17 +1229,19 @@ const SKILLS=[['Product Design','',[['Product Strategy','Find the right problem 
 const st=$('#story'),legsEl=$('#legs'),tkSay=$('#tkSay');
 var rideT,stop=-1;
 const MAIN=LEGS.filter(l=>!l.alt).reverse(), /* latest first: Asentech, KPMG, Mobile First, Swabhav */SIDE=LEGS.find(l=>l.alt);
-legsEl.innerHTML=MAIN.map((l,i)=>`<li class="leg${l.now?' nw':''}" style="--i:${i}" tabindex="0"><span class="when">${l.when} &middot; ${l.city}</span><h3>${l.co}</h3><span class="role">${l.role}</span><span class="did">${l.txt}</span><span class="stamp${l.now?' now':''}" style="--r:${l.r}deg">${l.st[0]}<small>${l.st[1]}</small></span></li>`).join('');
-$('#tkSide').innerHTML=SIDE?`<span class="when">Side line &middot; ${SIDE.city}</span><b>${SIDE.co}</b><span class="role">${SIDE.role}</span><span class="stamp" style="--r:${SIDE.r}deg">${SIDE.st[0]}<small>${SIDE.st[1]}</small></span>`:'';
-$('#tkSkills').innerHTML=SKILLS.map(([h,c,l])=>`<div class="${c}"><h4>${h}</h4><ul>${l.map(x=>`<li><b>${x[0]}</b>${x[1]}</li>`).join('')}</ul></div>`).join('');
+legsEl.innerHTML=MAIN.map((l,i)=>`<li class="leg drow${l.now?' nw':''}" style="--i:${i}" tabindex="0"><span class="when">${l.when}</span><span class="dst"><b>${l.co}</b><small>${l.city}</small></span><span class="role">${l.role}</span><span class="stat">${l.now?'<i></i>':''}${l.st[0]} ${l.st[1]}</span></li>`).join('');
+$('#tkSide').innerHTML=SIDE?`<span class="when">Side</span><span class="dst"><b>${SIDE.co}</b><small>${SIDE.city}</small></span><span class="role">${SIDE.role}</span><span class="stat alt">${SIDE.st[0]} ${SIDE.st[1]}</span>`:'';
+$('#tkSide').classList.add('drow');$('#tkSide').tabIndex=0;
+$('#tkSkills').innerHTML=SKILLS.map(([h,c,l],r)=>{const code=r?'AI':'PD';return `<div class="mline ${c}"><div class="mname"><span class="rnd">${code}</span><span class="lnm">${h}<small>Line ${r+1} &middot; 5 stops</small></span></div><ol class="stops">${l.map((x,j)=>`<li class="stn" tabindex="0" style="--i:${j+r*5}" data-say="${x[0]}: ${x[1]}"><em class="cd">${code}${j+1}</em><b>${x[0]}</b><span>${x[1]}</span></li>`).join('')}</ol></div>`}).join('');
+document.querySelectorAll('#tkSkills .stn').forEach(e=>{const pick=()=>{document.querySelectorAll('#tkSkills .stn').forEach(x=>x.classList.toggle('on',x===e));clearTimeout(rideT);tkSay.textContent=e.dataset.say;body.classList.add('talking');clearTimeout(st._t);st._t=setTimeout(()=>body.classList.remove('talking'),1800)};e.addEventListener('mouseenter',pick);e.addEventListener('focus',pick);e.addEventListener('click',pick)});
 const legEls=[...legsEl.children,$('#tkSide')];const LEGORD=[...MAIN,SIDE];
 function sayLeg(i,auto){stop=i;legEls.forEach((e,j)=>e.classList.toggle('on',j===i));
   tkSay.textContent=i<0?"All aboard! This is Jai's journey. Hover over any stop to hear about it.":i>=LEGORD.length?"Last part of the ticket: what Jai brings on board.":LEGORD[i].say;
   body.classList.add('talking');clearTimeout(st._t);st._t=setTimeout(()=>body.classList.remove('talking'),1800);
   clearTimeout(rideT);if(auto&&i<LEGORD.length)rideT=setTimeout(()=>sayLeg(i+1,true),i<0?2200:4200)}
-function fitTk(){const t=st.querySelector('.tix');t.style.zoom=1;if(innerWidth<900)return;const avail=innerHeight-8,h=t.scrollHeight;if(h>avail)t.style.zoom=Math.max(.6,avail/h)}
+function fitTk(){const t=st.querySelector('.tix');t.style.zoom=1;if(innerWidth<900)return;const avail=innerHeight-8,h=t.scrollHeight;if(h>avail)t.style.zoom=Math.max(.8,avail/h)}
 addEventListener('resize',()=>{if(body.classList.contains('story'))fitTk()});
-function board(){fitTk();st.scrollTop=0;st.classList.remove('go');void st.offsetWidth;st.classList.add('go');sayLeg(-1,false);enterTicket();if(!reduce){clearTimeout(rideT);rideT=setTimeout(()=>sayLeg(-1,true),2600)}}
+function board(){fitTk();st.scrollTop=0;st.classList.remove('go');void st.offsetWidth;st.classList.add('go');sayLeg(-1,false);enterTicket();clearTimeout(rideT);}
 legEls.forEach((e,i)=>{const pick=()=>sayLeg(i,false);e.addEventListener('mouseenter',pick);e.addEventListener('focus',pick);e.addEventListener('click',pick)});
 st.querySelector('.cta .pri').addEventListener('click',()=>go('work'));
 /* ---------- ticket printer: feeds out on enter, punched + checked + pulled back in on exit ---------- */
@@ -1175,6 +1347,14 @@ $$('#enter button').forEach(b=>b.addEventListener('click',()=>{
   let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{if(!$('#loader').classList.contains('gone')){layout();if(!raf)raf=requestAnimationFrame(draw)}},120)});
 })();
 if(/state=static/.test(location.search))$('#loader').classList.add('gone');
+/* rotate gate: phones in portrait see it until they rotate or choose to continue */
+(function(){const rot=$('#rot');if(!rot)return;let skip=false;try{skip=sessionStorage.getItem('jai-portrait')==='1'}catch(e){}
+  const phone=matchMedia('(pointer:coarse) and (max-width:899px), (pointer:coarse) and (max-height:500px)'),portrait=matchMedia('(orientation:portrait)');
+  const canLock=!!(document.documentElement.requestFullscreen&&screen.orientation&&screen.orientation.lock);
+  function upd(){const on=phone.matches&&portrait.matches&&!skip;rot.hidden=!on;document.body.classList.toggle('rotgate',on)}
+  if(canLock){$('#rotFs').hidden=false;$('#rotFs').addEventListener('click',async()=>{try{await document.documentElement.requestFullscreen();await screen.orientation.lock('landscape')}catch(e){}})}
+  $('#rotSkip').addEventListener('click',()=>{skip=true;try{sessionStorage.setItem('jai-portrait','1')}catch(e){}upd()});
+  [phone,portrait].forEach(m=>m.addEventListener('change',()=>{upd();if(typeof fit==='function')setTimeout(fit,200)}));upd()})();
 fit();
 /* coming back from a case study or a client site: skip the intro and reopen the same screen */
 (function(){let r=null;try{r=JSON.parse(sessionStorage.getItem(RET)||'null');sessionStorage.removeItem(RET)}catch(e){}
