@@ -22,6 +22,7 @@ a{color:inherit}button{font:inherit;color:inherit}
 #rot h2{margin:0 0 10px;font:700 30px/1.1 "Space Grotesk",sans-serif;letter-spacing:-.03em;color:#f5f3ee}
 #rot p{margin:0 0 24px;font:400 16px/1.5 Inter,sans-serif;color:rgba(245,243,238,.82)}
 #rot .btn{color:#0a0a0c;margin:0 auto 14px}
+#rot.canlock{cursor:pointer}
 #rot .rotgo{display:inline-flex;align-items:center;justify-content:center;min-height:52px;width:100%;max-width:300px;padding:0 24px;font-size:16px}
 #rot .rotlock{margin:22px auto 0;max-width:290px;padding:12px 14px;border:1px dashed rgba(217,204,255,.35);border-radius:12px;font:400 13.5px/1.5 Inter,sans-serif;color:rgba(245,243,238,.72)}
 #rot .rotlock b{display:block;margin-bottom:2px;font-weight:700;color:#d9ccff}
@@ -768,6 +769,15 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
   .lede .rm{padding:8px 2px;margin:-8px 0}
   .wbtn{min-height:40px;display:inline-flex;align-items:center}
 }
+
+/* phone landscape fixes (touch screens only; desktop untouched) */
+@media (pointer:coarse) and (max-height:500px) and (orientation:landscape){
+  header{background:linear-gradient(180deg,rgba(7,7,10,.82),rgba(7,7,10,.45) 70%,transparent);pointer-events:none}
+  header>*{pointer-events:auto}
+  .logo{text-shadow:0 1px 10px rgba(0,0,0,.9),0 0 2px rgba(0,0,0,.8)}
+  #bubble.compact{max-width:280px}
+  #bubble.compact .msg{font-size:13px}
+}
 </style>
 </head>
 <body>
@@ -777,7 +787,7 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
     <div class="ph" aria-hidden="true"><i></i></div>
     <h2 id="rotH">Rotate your phone</h2>
     <p>Jai&rsquo;s desk is built for landscape. Turn your phone sideways to step inside.</p>
-    <button class="btn fill rotgo" id="rotFs" hidden>Rotate &amp; go full screen &#x21bb;</button>
+    <button class="btn fill rotgo" id="rotFs" hidden>Tap to rotate &#x21bb;</button>
     <p class="rotlock"><b>Screen won&rsquo;t turn?</b> Switch off rotation lock in your phone&rsquo;s quick settings, then turn it sideways.</p>
   </div>
 </div>
@@ -1170,7 +1180,7 @@ let bubFull=false;
 function placeBubble(){
   const W=innerWidth,H=innerHeight;bubble.classList.remove('notail');
   const phone=W<900||(H<500&&W>H);bubble.classList.toggle('compact',phone&&!bubFull);
-  if(phone&&!bubFull){bubble.style.right='auto';bubble.style.top='auto';if(H<500&&W>H&&view==='room'){bubble.style.left=Math.round(W*.37)+'px';bubble.style.top='58px';bubble.style.bottom='auto';bubble.classList.add('notail');return}bubble.style.left='88px';bubble.style.bottom=(H<500?16:20)+'px';return}bubble.style.right='auto';logEl.style.maxHeight='';
+  if(phone&&!bubFull){bubble.style.right='auto';bubble.style.top='auto';if(H<500&&W>H&&view==='room'){bubble.style.left=Math.round(W*.36)+'px';bubble.style.top='auto';bubble.style.bottom='14px';bubble.classList.add('notail');return}bubble.style.left='88px';bubble.style.bottom=(H<500?16:20)+'px';return}bubble.style.right='auto';logEl.style.maxHeight='';
   if(H<500&&W>H){bubble.style.left=(view==='room'?Math.round(W*.37):14)+'px';bubble.style.right='auto';bubble.style.top='54px';bubble.style.bottom='auto';bubble.classList.add('notail');return}
   if(W<900&&view==='room'){bubble.style.left='14px';bubble.style.top='auto';bubble.style.bottom='96px';return}
   if(view==='room'&&SW&&V==='A'){const bx=SX+SW*C.speaker[0]/100,by=SY+SH*C.speaker[1]/100;
@@ -1356,7 +1366,8 @@ if(/state=static/.test(location.search))$('#loader').classList.add('gone');
   const phone=matchMedia('(pointer:coarse) and (max-width:899px), (pointer:coarse) and (max-height:500px)'),portrait=matchMedia('(orientation:portrait)');
   const canLock=!!(document.documentElement.requestFullscreen&&screen.orientation&&screen.orientation.lock);
   function upd(){const on=phone.matches&&portrait.matches&&!skip;rot.hidden=!on;document.body.classList.toggle('rotgate',on)}
-  if(canLock){$('#rotFs').hidden=false;$('#rotFs').addEventListener('click',async()=>{try{await document.documentElement.requestFullscreen();await screen.orientation.lock('landscape')}catch(e){}})}
+  async function goLand(){try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen({navigationUI:'hide'});await screen.orientation.lock('landscape')}catch(e){}}
+  if(canLock){$('#rotFs').hidden=false;rot.classList.add('canlock');rot.addEventListener('click',goLand);addEventListener('pointerdown',e=>{if(phone.matches&&!document.fullscreenElement&&!e.target.closest('#rot'))goLand()},true)}
   [phone,portrait].forEach(m=>m.addEventListener('change',()=>{upd();if(typeof fit==='function')setTimeout(fit,200)}));upd()})();
 fit();
 /* coming back from a case study or a client site: skip the intro and reopen the same screen */
