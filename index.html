@@ -810,6 +810,16 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 #exDet ul{margin:0;padding-left:18px}#exDet li{font:400 14.5px/1.5 Inter,sans-serif;margin:4px 0}#exDet li::marker{color:var(--jc)}
 #exDet .x{position:absolute;top:10px;right:12px;width:32px;height:32px;border-radius:50%;border:1px solid #ddd8cc;background:#fff;font-size:20px;line-height:1;cursor:pointer;color:#16151b}
 @media (max-height:500px) and (orientation:landscape){#exDet{max-height:68%;bottom:8px;padding:12px 16px}#exDet h3{font-size:16px}#exDet li{font-size:13px;line-height:1.45}}
+
+/* freelance: the same two prominent CTAs, same place, on every site */
+.stage .meta{flex-direction:column;align-items:stretch;gap:12px}
+.stage .meta .links{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;width:100%}
+.stage .meta .wbtn{display:flex;align-items:center;justify-content:center;min-height:46px;padding:0 12px;font-size:14.5px;border-radius:10px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stage .meta .wbtn.pri{background:#8b5cf6;border-color:#8b5cf6;color:#fff}
+.stage .meta .wbtn.pri:hover{background:#7c4dff;border-color:#7c4dff}
+.stage .meta a.wbtn:not(.pri){border-color:#55555e;color:#fff}
+.stage .meta .wbtn.off{opacity:.4;cursor:default;pointer-events:none;background:transparent;border-style:dashed;color:#cfcfd6}
+@media (max-height:500px) and (orientation:landscape){.stage .meta .wbtn{min-height:40px;font-size:13px}}
 </style>
 </head>
 <body>
@@ -1003,7 +1013,7 @@ const cases=[
  ['Enchantopia','enchantopia.case','https://mir-s3-cdn-cf.behance.net/project_modules/max_632_webp/80ab07240154913.6938891f80601.png','',''],
  ['Grocery UX','grocery.case','https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/b5f155240349765.693c49b82ac16.png','','']];
 const free=[
- ['Master Stroke','Sports infrastructure website','master','https://masssterstroke.netlify.app/',null],
+ ['Master Stroke','Sports infrastructure website','master','https://masssterstroke.netlify.app/','https://www.behance.net/gallery/245187053/Master-stroke-Website'],
  ['Neon Rapter','Brewery website redesign','neon',null,'case-studies/neon-rapter.html'],
  ['Omnia','Front-end build','omnia','https://omniamarketing.co.in/',null],
  ['Marquee','uPVC fins &amp; louvers','marquee','https://www.marqueefins.com/','case-studies/marquee.html'],
@@ -1096,7 +1106,7 @@ function pick(root,i,play){
   im.src=`assets/fl/${f[2]}.jpg`;im.alt=f[0]+' website';
   root.querySelector('.url').textContent=f[3]?f[3].replace(/^https?:\/\//,'').replace(/\/$/,''):'Case study on this site';root.querySelector('.live').style.display=f[3]?'':'none';
   root.querySelector('.meta b').innerHTML=f[0];root.querySelector('.meta em').innerHTML=f[1];
-  root.querySelector('.links').innerHTML=(f[4]?`<a class="wbtn" href="${f[4]}">Read case study</a>`:'')+(f[3]?`<a class="wbtn pri" href="${f[3]}" target="_blank" rel="noopener">Visit live site &nearr;</a>`:'');
+  root.querySelector('.links').innerHTML=(f[3]?`<a class="wbtn pri" href="${f[3]}" target="_blank" rel="noopener">Visit live site &nearr;</a>`:`<span class="wbtn pri off" aria-disabled="true">Live site not public</span>`)+(f[4]?`<a class="wbtn" href="${f[4]}"${/^https?:/.test(f[4])?' target="_blank" rel="noopener"':''}>Read case study &rarr;</a>`:`<span class="wbtn off" aria-disabled="true">Case study coming soon</span>`);
   v.pause();v.removeAttribute('src');v.style.opacity=0;
   if(play&&!reduce){v.src=`assets/fl/${f[2]}.mp4`;v.addEventListener('canplay',()=>{v.style.opacity=1;v.play().catch(()=>{})},{once:true});v.load()}
 }
