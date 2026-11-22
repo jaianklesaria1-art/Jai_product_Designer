@@ -820,6 +820,9 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 .stage .meta a.wbtn:not(.pri){border-color:#55555e;color:#fff}
 .stage .meta .wbtn.off{opacity:.4;cursor:default;pointer-events:none;background:transparent;border-style:dashed;color:#cfcfd6}
 @media (max-height:500px) and (orientation:landscape){.stage .meta .wbtn{min-height:40px;font-size:13px}}
+
+/* phones: no green ringing circle on the phone prop */
+@media (pointer:coarse){#ring{display:none!important}}
 </style>
 </head>
 <body>
@@ -1204,7 +1207,12 @@ function setChips(list){chipsEl.innerHTML='';(list||[]).forEach(id=>{const b=doc
   else if(ACT[id]){[lab,fn]=ACT[id];isGo=true}
   else{lab=Q[id].q;fn=()=>{addMsg(Q[id].q,'u');reply(Q[id].a,Q[id].next)}}
   b.textContent=lab;if(isGo)b.className='go';b.addEventListener('click',fn);chipsEl.append(b)})}
-function armHide(){clearTimeout(hideT);if(view!=='room'||innerWidth<900)hideT=setTimeout(()=>{if(!bubble.matches(':hover,:focus-within'))bubble.classList.remove('show')},view==='room'?(innerWidth<900?7000:14000):(innerWidth<900?5000:6500))}
+function armHide(ms){clearTimeout(hideT);
+  if(ms==null){const last=logEl.lastElementChild;const n=last?last.textContent.length:80;ms=Math.min(9000,3500+n*35)}
+  hideT=setTimeout(()=>{if(!audio.paused&&!audio.ended)return;/* still talking: the 'ended' handler re-arms */
+    if(bubble.matches(':hover,:focus-within'))return;bubble.classList.remove('show')},ms)}
+audio.addEventListener('ended',()=>{if(bubble.classList.contains('show'))armHide(3000)});
+bubble.addEventListener('focusout',()=>setTimeout(()=>{if(!bubble.matches(':focus-within'))armHide()},50));
 addEventListener('pointerdown',e=>{if(innerWidth<900&&bubble.classList.contains('show')&&!e.target.closest('#bubble,#buddyHit,#mini,header,#rot,#loader')){bubble.classList.remove('show');bubFull=false}},true);
 bubble.addEventListener('click',e=>{if(bubble.classList.contains('compact')){e.preventDefault();bubFull=true;placeBubble();armHide()}});
 function reply(txt,chips){const my=++seq;setChips([]);clearTimeout(hideT);
@@ -1212,7 +1220,7 @@ function reply(txt,chips){const my=++seq;setChips([]);clearTimeout(hideT);
   setTimeout(()=>{if(my!==seq)return;t.remove();addMsg(txt,'b');setChips(chips);armHide()},reduce?0:Math.min(1200,450+txt.length*4))}
 let lastKey='room';
 const HOVER={hotL:"That's the case studies screen. Click it to open all eight.",hotR:"The right screen plays Jai's live client sites. Click to browse them.",hotX:"Those badges are Jai's roles. Click to take them off the wall.",hotS:"The window opens Jai's ticket: the whole journey on one page.",hotC:"That's Jai's phone ringing. Click it and let's get you two talking."};const hoverSaid={};
-Object.keys(HOVER).forEach(id=>{const el=document.getElementById(id);if(!el)return;el.addEventListener('mouseenter',()=>{if(view!=='room'||hoverSaid[id]||innerWidth<900)return;hoverSaid[id]=1;bubble.classList.add('show');placeBubble();seq++;logEl.querySelectorAll('.typing').forEach(t=>t.remove());addMsg(HOVER[id],'b')})});
+Object.keys(HOVER).forEach(id=>{const el=document.getElementById(id);if(!el)return;el.addEventListener('mouseenter',()=>{if(view!=='room'||hoverSaid[id]||innerWidth<900)return;hoverSaid[id]=1;bubble.classList.add('show');placeBubble();seq++;logEl.querySelectorAll('.typing').forEach(t=>t.remove());addMsg(HOVER[id],'b');armHide()})});
 function say(key){
   lastKey=key;let [txt,file]=LINES[key];
   if(key==='room'&&(innerWidth<900||matchMedia('(pointer:coarse)').matches)){txt=V==='A'?"Hi, I'm Buddy, Jai's guide. Tap anything that glows to look around, or ask me a question below.":"Hi, I'm Jai. Tap the screen, or pick a section at the top.";file=V==='A'?'v5-room-m':null}
