@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P87XQ3SF');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARFinViz | Jai Anklesaria</title>
+<meta name="description" content="Research case study: my MSc HCI dissertation with the University of Nottingham and KPMG, testing whether augmented reality helps finance professionals understand data better than 2D spreadsheets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* A research report: paper, ink and one violet, like a printed dissertation with notes pinned in. */
+  :root{
+    --paper:#F8F5FC; --paper-2:#EFE8F7; --grid:rgba(75,29,99,0.07); --card:#FFFFFF; --ink:#1C1622; --ink-2:#2F2737; --ink-3:#4A4053;
+    --plum:#4B1D63; --violet:#8A3FB0; --lilac:#EFE4F6; --rule:rgba(75,29,99,0.22); --hair:#1C1622;
+    --serif:"Playfair Display",Georgia,serif; --body:"Lora",Georgia,serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body); font-size:19px; line-height:1.7; -webkit-font-smoothing:antialiased}
+  img{max-width:100%; height:auto; display:block}
+  a{color:var(--plum)}
+  :focus-visible{outline:3px solid var(--violet); outline-offset:3px}
+  p{margin:0 0 1em}
+  h1,h2,h3{font-family:var(--serif); text-wrap:balance; margin:0; font-weight:800; color:var(--ink)}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px}
+  .prose{max-width:740px}
+  .band{padding:96px 0; border-top:1px solid var(--hair)}
+  .band.tint{background:rgba(236,227,246,0.72)}
+  .kicker{font-family:var(--mono); font-size:0.86rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--violet)}
+  h2{font-size:clamp(2.1rem,4.6vw,3.4rem); line-height:1.1; margin:12px 0 22px}
+  .lede{font-size:1.25rem; line-height:1.65; color:var(--ink-2); max-width:760px}
+  .sub-h{font-size:clamp(1.5rem,2.6vw,2rem); line-height:1.2; margin:72px 0 12px}
+  .muted{color:var(--ink-2)}
+  .honest{margin-top:22px; font-size:0.98rem; color:var(--ink-2); border-left:3px solid var(--violet); padding:4px 0 4px 16px; max-width:780px}
+  .honest b{font-family:var(--mono); font-size:0.74rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--plum); display:block; margin-bottom:2px}
+
+  .topbar{position:sticky; top:0; z-index:30; background:rgba(248,245,252,0.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--hair)}
+  .topbar .wrap{display:flex; justify-content:space-between; align-items:center; height:58px}
+  .topbar a{font-family:var(--mono); font-size:0.82rem; text-decoration:none; color:var(--ink)}
+  .topbar a:hover{color:var(--violet)}
+  .topbar nav{display:flex; gap:24px}
+  @media (max-width:820px){.topbar nav{display:none}}
+
+  /* masthead */
+  .mast{padding:70px 0 60px}
+  .mast-grid{display:grid; grid-template-columns:1.5fr 1fr; gap:48px; align-items:center}
+  .mast h1{font-size:clamp(2.8rem,7vw,5.4rem); line-height:1.02; margin:16px 0 22px}
+  .mast h1 em{font-style:italic; color:var(--violet); font-weight:600}
+  .mast .sub{font-size:1.28rem; color:var(--ink-2); max-width:620px}
+  .phone{justify-self:center; position:relative; width:min(270px,70vw)}
+  .phone::before{content:''; position:absolute; inset:8% -18% -6% -18%; border-radius:50%; background:radial-gradient(circle at 40% 40%, #D9B8EC, #8A3FB0 55%, transparent 72%); opacity:0.45; filter:blur(10px)}
+  .phone img{position:relative; width:100%; border-radius:26px}
+  .phone figcaption{position:relative; font-family:var(--mono); font-size:0.76rem; color:var(--ink-3); text-align:center; margin-top:12px}
+  @media (max-width:860px){.mast-grid{grid-template-columns:1fr}}
+
+  .facts{display:grid; grid-template-columns:repeat(4,1fr); border-top:2px solid var(--hair); border-bottom:1px solid var(--hair); margin-top:46px}
+  .facts div{padding:16px 16px 16px 0}
+  .facts b{display:block; font-family:var(--mono); font-size:0.8rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--violet); font-weight:600}
+  .facts span{font-size:1rem}
+  @media (max-width:760px){.facts{grid-template-columns:1fr 1fr}}
+
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:34px}
+  .stats div{background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:22px}
+  .stats strong{display:block; font-family:var(--serif); font-size:2.4rem; line-height:1; color:var(--plum)}
+  .stats span{display:block; margin-top:8px; font-size:0.98rem; color:var(--ink-2); line-height:1.45}
+  @media (max-width:860px){.stats{grid-template-columns:1fr 1fr}}
+
+  /* research question card */
+  .rq{margin-top:30px; background:var(--plum); color:#F8F1FC; border-radius:14px; padding:34px 36px}
+  .rq .kicker{color:#D9B8EC}
+  .rq p.q{font-family:var(--serif); font-style:italic; font-weight:600; font-size:clamp(1.5rem,3vw,2.1rem); line-height:1.3; margin:10px 0 20px}
+  .rq ol{margin:0; padding-left:22px; color:#E9DDF1} .rq li{margin-bottom:6px}
+
+  /* method pipeline */
+  .pipe{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:36px; border:1px solid var(--hair)}
+  .pipe div{padding:20px 18px; border-right:1px solid var(--hair); background:var(--card)}
+  .pipe div:last-child{border-right:0}
+  .pipe b{font-family:var(--mono); font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--violet)}
+  .pipe h3{font-size:1.25rem; margin:6px 0 6px}
+  .pipe p{margin:0; font-size:0.98rem; line-height:1.55; color:var(--ink-2)}
+  @media (max-width:900px){.pipe{grid-template-columns:1fr 1fr} .pipe div:nth-child(2){border-right:0} .pipe div:nth-child(-n+2){border-bottom:1px solid var(--hair)}}
+  @media (max-width:520px){.pipe{grid-template-columns:1fr} .pipe div{border-right:0; border-bottom:1px solid var(--hair)}}
+
+  table{width:100%; border-collapse:collapse; margin-top:30px; font-size:0.98rem}
+  th,td{text-align:left; vertical-align:top; padding:12px 14px 12px 0; border-bottom:1px solid var(--rule)}
+  th{font-family:var(--mono); font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--violet); font-weight:600; border-bottom:2px solid var(--hair)}
+  td:first-child{font-weight:600}
+  .tscroll{overflow-x:auto}
+  @media (max-width:700px){table{min-width:640px}}
+
+  .ethics{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:30px}
+  .ethics div{background:var(--card); border:1px solid var(--rule); border-top:4px solid var(--plum); border-radius:10px; padding:22px}
+  .ethics h3{font-size:1.2rem; margin-bottom:8px}
+  .ethics p{margin:0; font-size:0.98rem; color:var(--ink-2)}
+  @media (max-width:820px){.ethics{grid-template-columns:1fr}}
+
+  /* sticky board */
+  .board{margin-top:34px; padding:34px 26px 24px; border-radius:14px; background:#E4DAEF radial-gradient(rgba(75,29,99,0.16) 1px, transparent 1.4px) 0 0/22px 22px; border:1px solid var(--rule)}
+  .b-cols{display:grid; grid-template-columns:repeat(5,1fr); gap:18px}
+  .b-col h4{margin:0 0 14px; font-family:var(--mono); font-size:0.8rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--plum)}
+  .note{position:relative; font-family:"Caveat",cursive; font-weight:500; font-size:1.34rem; line-height:1.15; color:#241a2a; padding:15px 14px 13px; margin-bottom:13px; box-shadow:0 7px 12px -6px rgba(0,0,0,0.35); transform:rotate(var(--r,0deg))}
+  .note:nth-child(3n){--r:1.1deg} .note:nth-child(3n+1){--r:-1deg} .note:nth-child(4n+2){--r:0.5deg}
+  .note small{display:block; margin-top:6px; font-family:var(--mono); font-size:0.74rem; color:rgba(36,26,42,0.7)}
+  .n-pain{background:#F6B8C4} .n-opp{background:#C9E6A8} .n-concern{background:#FFE07E} .n-pref{background:#CDB9F0}
+  .legend{display:flex; flex-wrap:wrap; gap:18px; margin-top:14px; font-family:var(--mono); font-size:0.88rem; color:var(--ink-2)}
+  .legend i{display:inline-block; width:12px; height:12px; margin-right:7px; vertical-align:-1px; border-radius:2px}
+  @media (max-width:1100px){.b-cols{grid-template-columns:repeat(3,1fr)}} @media (max-width:820px){.b-cols{grid-template-columns:1fr 1fr}} @media (max-width:560px){.b-cols{grid-template-columns:1fr}}
+
+  figure{margin:0}
+  .fig{margin-top:30px; background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:14px}
+  .fig img{border-radius:6px}
+  figcaption{font-size:1rem; color:var(--ink-2); margin-top:12px; line-height:1.5}
+  figcaption b{font-family:var(--mono); font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--plum); margin-right:6px}
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+  @media (max-width:820px){.two{grid-template-columns:1fr}}
+
+  /* decision log */
+  .decisions{margin-top:40px; display:grid; gap:64px}
+  .dec{display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:start}
+  .dec:nth-child(even) > .d-text{order:2}
+  .dec > *{min-width:0}
+  .d-num{font-family:var(--serif); font-size:4.2rem; line-height:0.85; color:transparent; -webkit-text-stroke:1.3px var(--violet)}
+  .d-text h3{font-size:clamp(1.5rem,2.5vw,2rem); line-height:1.2; margin:10px 0 16px}
+  dl{margin:0; display:grid; gap:12px}
+  dl div{border-left:2px solid var(--rule); padding-left:14px}
+  dt{font-family:var(--mono); font-size:0.78rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--violet); margin-bottom:2px}
+  dd{margin:0; font-size:1.04rem; line-height:1.65; color:var(--ink-2)}
+  @media (max-width:900px){.dec{grid-template-columns:1fr; gap:22px} .dec:nth-child(even) > .d-text{order:0}}
+
+  .tasks{counter-reset:t; list-style:none; padding:0; margin:26px 0 0; display:grid; grid-template-columns:repeat(5,1fr); gap:14px}
+  .tasks li{counter-increment:t; background:var(--card); border:1px solid var(--rule); border-radius:10px; padding:18px 16px; font-size:0.96rem; line-height:1.5; color:var(--ink-2)}
+  .tasks li::before{content:"Task " counter(t); display:block; font-family:var(--mono); font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--violet); margin-bottom:6px}
+  .tasks b{display:block; font-family:var(--serif); color:var(--ink); font-size:1.1rem; margin-bottom:4px}
+  @media (max-width:980px){.tasks{grid-template-columns:1fr 1fr}} @media (max-width:520px){.tasks{grid-template-columns:1fr}}
+
+  .changes{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:26px}
+  .changes div{background:var(--card); border:1px solid var(--rule); border-radius:10px; padding:20px}
+  .changes h3{font-size:1.15rem; margin-bottom:6px}
+  .changes p{margin:0; font-size:0.98rem; color:var(--ink-2)}
+  @media (max-width:760px){.changes{grid-template-columns:1fr}}
+
+  .answer{display:grid; grid-template-columns:auto 1fr; gap:28px; align-items:center; margin-top:30px; background:var(--card); border:2px solid var(--hair); border-radius:14px; padding:30px}
+  .answer .verdict{font-family:var(--serif); font-weight:800; font-size:clamp(2rem,5vw,3.2rem); line-height:1; color:var(--plum)}
+  .answer .verdict small{display:block; font-family:var(--mono); font-weight:500; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--violet); margin-top:8px}
+  .answer p{margin:0; color:var(--ink-2)}
+  @media (max-width:700px){.answer{grid-template-columns:1fr}}
+
+  .redo{counter-reset:r; list-style:none; padding:0; margin:26px 0 0}
+  .redo li{counter-increment:r; display:grid; grid-template-columns:52px 1fr; gap:14px; padding:18px 0; border-bottom:1px solid var(--rule)}
+  .redo li::before{content:counter(r,decimal-leading-zero); font-family:var(--serif); font-size:1.9rem; line-height:1; color:var(--violet)}
+  .redo b{display:block; font-family:var(--serif); font-size:1.15rem}
+  .redo span{color:var(--ink-2); font-size:1rem}
+
+
+  /* iPhone 17, Lavender finish: aluminium band, thin even black bezel, Dynamic Island, Camera Control on the right */
+  .iphone{container-type:inline-size; width:100%}
+  .iphone .frame{position:relative; padding:2.4cqw; border-radius:17.5cqw; border:1.35cqw solid transparent; background:linear-gradient(#08080A,#08080A) padding-box, linear-gradient(140deg,#F3ECFA 0%,#BDAAD4 22%,#ECE3F6 40%,#A592BE 62%,#E2D7EF 82%,#B7A5CD 100%) border-box; box-shadow:inset 0 0 0 0.3cqw #26222C, 0 1.5cqw 3cqw rgba(30,10,45,0.18), 0 8cqw 18cqw rgba(30,10,45,0.22)}
+  .iphone .pbtn{position:absolute; width:1.25cqw; background:linear-gradient(90deg,#9C89B6,#EDE5F6 60%,#C3B2D8); border-radius:0.6cqw; box-shadow:0 0 0.3cqw rgba(0,0,0,0.25)}
+  .iphone .act{left:-2.6cqw; top:18%; height:7cqw} .iphone .vu{left:-2.6cqw; top:26%; height:12cqw} .iphone .vd{left:-2.6cqw; top:34.5%; height:12cqw}
+  .iphone .pw{right:-2.6cqw; top:28%; height:19cqw; background:linear-gradient(270deg,#A897BE,#E3D8F0)}
+  .iphone .cc{right:-2.6cqw; top:56%; height:10cqw; background:linear-gradient(270deg,#A897BE,#E3D8F0)}
+  .iphone .scr{position:relative; overflow:hidden; aspect-ratio:1206/2622; border-radius:14.6cqw; background:#fff; display:flex; flex-direction:column}
+  .iphone .sb{position:relative; flex:none; height:12.5cqw; display:flex; align-items:center; justify-content:space-between; padding:1.4cqw 8.5cqw 0 11cqw; color:#111; font:600 3.6cqw/1 -apple-system,"SF Pro Text","Inter",system-ui,sans-serif; background:#fff}
+  .iphone .island{position:absolute; left:50%; top:2.8cqw; width:29cqw; height:8.6cqw; transform:translateX(-50%); background:#000; border-radius:5cqw}
+  .iphone .ic{display:flex; align-items:center; gap:1.4cqw} .iphone .ic svg{height:2.9cqw; width:auto; fill:#111}
+  .iphone .bat{position:relative; display:block; width:6.4cqw; height:3cqw; border:0.35cqw solid rgba(0,0,0,0.45); border-radius:1cqw; margin-right:0.6cqw}
+  .iphone .bat::after{content:''; position:absolute; right:-0.9cqw; top:0.75cqw; width:0.5cqw; height:1cqw; background:rgba(0,0,0,0.45)}
+  .iphone .bat i{position:absolute; inset:0.3cqw; right:1.3cqw; background:#111; border-radius:0.4cqw}
+  .iphone .scr::after{content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit; background:linear-gradient(118deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.05) 32%, transparent 33%); z-index:3}
+  .iphone .scr img{flex:1; min-height:0; width:100%; object-fit:cover; object-position:50% 0; image-rendering:auto}
+  .iphone .home{position:absolute; left:50%; bottom:1.9cqw; width:35cqw; height:1.3cqw; transform:translateX(-50%); background:rgba(0,0,0,0.6); border-radius:1cqw}
+  .hero-phone{justify-self:center; position:relative; width:min(300px,72vw); perspective:1600px; padding-bottom:30px}
+  .hero-phone .iphone{transform:rotateY(-14deg) rotateX(5deg) rotateZ(1.5deg); transform-style:preserve-3d}
+  .hero-phone::before{content:""; position:absolute; left:-4%; right:-4%; bottom:108px; height:40px; border-radius:50%; background:radial-gradient(closest-side, rgba(40,15,60,0.42), rgba(40,15,60,0.12) 60%, transparent); filter:blur(4px)}
+  .hero-phone::after{content:""; position:absolute; left:-12%; right:-12%; bottom:96px; height:64px; border-radius:50%; border:1.5px dashed rgba(138,63,176,0.5); pointer-events:none}
+  @media (prefers-reduced-motion:no-preference){.hero-phone .iphone{animation:hover 7s ease-in-out infinite}}
+  @keyframes hover{0%,100%{transform:rotateY(-14deg) rotateX(5deg) rotateZ(1.5deg) translateY(0)} 50%{transform:rotateY(-10deg) rotateX(4deg) rotateZ(1deg) translateY(-10px)}}
+  .hero-phone figcaption{position:relative; z-index:1; font-family:var(--mono); font-size:0.84rem; color:var(--ink-3); text-align:center; margin-top:62px}
+
+  /* wireframe board: phones pinned to a dotted board, sticky notes beside each */
+  .wfboard{margin-top:34px; padding:44px 30px 30px; border-radius:14px; background:#E4DAEF radial-gradient(rgba(75,29,99,0.16) 1px, transparent 1.4px) 0 0/22px 22px; border:1px solid var(--rule)}
+  .wf-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:48px 34px}
+  .wf-item{display:grid; grid-template-columns:0.9fr 1fr; gap:16px; align-items:start}
+  .wf-item .note{font-size:1.28rem}
+  .wf-item .note:first-child{margin-top:22px}
+  .wf-item h4{grid-column:1/-1; margin:0; font-family:var(--mono); font-size:0.8rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--plum)}
+  @media (max-width:1000px){.wf-grid{grid-template-columns:1fr 1fr}} @media (max-width:600px){.wf-grid{grid-template-columns:1fr} .wfboard{padding:34px 16px 20px}}
+  .note::before{content:''; position:absolute; top:-7px; left:50%; width:44px; height:14px; margin-left:-22px; background:rgba(255,255,255,0.55); transform:rotate(-2deg)}
+  .n-hmw{background:#B6DAF0}
+
+
+  /* AR scene: a detected floor plane and data objects floating at the edges, behind the content */
+  main,.topbar{position:relative; z-index:1}
+  .topbar{z-index:30}
+  .ar-scene{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
+  .ar-floor{position:absolute; left:-30%; right:-30%; bottom:-18vh; height:70vh; transform:perspective(700px) rotateX(72deg); transform-origin:50% 100%;
+    background-image:linear-gradient(rgba(138,63,176,0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(138,63,176,0.22) 1px, transparent 1px); background-size:64px 64px;
+    -webkit-mask-image:linear-gradient(0deg, #000 10%, transparent 85%); mask-image:linear-gradient(0deg, #000 10%, transparent 85%); animation:floor 14s linear infinite}
+  @keyframes floor{to{background-position:0 64px, 0 0}}
+  .ar-obj{position:absolute; width:var(--w,120px); opacity:var(--o,0.5); animation:bob var(--d,9s) ease-in-out infinite; animation-delay:var(--dl,0s)}
+  .ar-obj svg{width:100%; height:auto; display:block; overflow:visible}
+  .ar-obj .spin{transform-box:fill-box; transform-origin:center; animation:spin var(--sd,24s) linear infinite}
+  @keyframes bob{0%,100%{transform:translate3d(0,0,0) rotate(var(--r0,-3deg))} 50%{transform:translate3d(var(--dx,8px),-22px,0) rotate(var(--r1,3deg))}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .ar-shadow{position:absolute; left:15%; right:15%; bottom:-18px; height:10px; border-radius:50%; background:radial-gradient(rgba(75,29,99,0.28), transparent 70%); animation:shade var(--d,9s) ease-in-out infinite; animation-delay:var(--dl,0s)}
+  @keyframes shade{0%,100%{transform:scaleX(1); opacity:0.8} 50%{transform:scaleX(0.75); opacity:0.45}}
+  @media (max-width:900px){.ar-obj{--o:0.28 !important; width:calc(var(--w,120px)*0.7)} .ar-obj.wide-only{display:none}}
+  @media (prefers-reduced-motion:reduce){.ar-floor,.ar-obj,.ar-obj .spin,.ar-shadow{animation:none}}
+
+  .thanks{text-align:center; padding:100px 0 110px; border-top:2px solid var(--hair)}
+  .thanks h2{margin-bottom:14px}
+  .btns{display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-top:26px}
+  .btn{font-family:var(--mono); font-size:0.86rem; text-decoration:none; padding:13px 22px; border:2px solid var(--hair); border-radius:999px; color:var(--ink)}
+  .btn.primary{background:var(--plum); border-color:var(--plum); color:#fff}
+  .btn:hover{border-color:var(--violet); color:var(--violet)} .btn.primary:hover{background:var(--violet); color:#fff}
+</style>
+<!-- sharing + search (launch checklist) -->
+<link rel="canonical" href="https://jaiproductdesigner.netlify.app/case-studies/arfinviz.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Jai Anklesaria">
+<meta property="og:title" content="ARFinViz | Jai Anklesaria">
+<meta property="og:description" content="Research case study: my MSc HCI dissertation with the University of Nottingham and KPMG, testing whether augmented reality helps finance professionals understand data better than 2D spreadsheets.">
+<meta property="og:url" content="https://jaiproductdesigner.netlify.app/case-studies/arfinviz.html">
+<meta property="og:image" content="https://jaisuxportfolio.netlify.app/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Jai Anklesaria, Product Designer: portfolio home page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ARFinViz | Jai Anklesaria">
+<meta name="twitter:description" content="Research case study: my MSc HCI dissertation with the University of Nottingham and KPMG, testing whether augmented reality helps finance professionals understand data better than 2D spreadsheets.">
+<meta name="twitter:image" content="https://jaisuxportfolio.netlify.app/og-image.jpg">
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P87XQ3SF"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="ar-scene" aria-hidden="true"><div class="ar-floor"></div><div class="ar-obj" style="left:2.5%; top:14%; --w:92px; --o:0.55; --d:10s; --sd:30s"><svg viewBox="0 0 100 100" fill="none" stroke="#8A3FB0" stroke-width="2" stroke-linejoin="round"><g class="spin"><path d="M50 10 88 30 88 70 50 90 12 70 12 30Z"/><path d="M12 30 50 50 88 30M50 50V90"/><path d="M50 10 50 50" stroke-dasharray="3 4" opacity="0.6"/></g></svg><i class="ar-shadow"></i></div><div class="ar-obj" style="right:2%; top:22%; --w:130px; --o:0.5; --d:12s; --dl:-3s; --sd:20s"><svg viewBox="0 0 120 120" fill="none" stroke="#8A3FB0" stroke-width="1.6"><circle cx="60" cy="60" r="34"/><g class="spin"><ellipse cx="60" cy="60" rx="14" ry="34"/><ellipse cx="60" cy="60" rx="28" ry="34" opacity="0.6"/></g><path d="M26 60h68M30 44h60M30 76h60" opacity="0.6"/><ellipse cx="60" cy="60" rx="56" ry="16" transform="rotate(-18 60 60)" stroke="#4B1D63" stroke-dasharray="4 5"/><circle cx="110" cy="44" r="4" fill="#8A3FB0" stroke="none"/></svg><i class="ar-shadow"></i></div><div class="ar-obj wide-only" style="left:3%; top:56%; --w:140px; --o:0.5; --d:11s; --dl:-5s"><svg viewBox="0 0 140 120" fill="none" stroke-linejoin="round" stroke-width="1.6">
+  <path d="M10 95 70 115 130 95 70 75Z" stroke="#8A3FB0" fill="rgba(201,166,228,0.25)"/>
+  <g stroke="#4B1D63"><path d="M30 92 44 97V62L30 57Z" fill="#C9A6E4"/><path d="M44 97 56 92V57L44 62Z" fill="#B78ED6"/><path d="M30 57 42 52 56 57 44 62Z" fill="#E6D4F3"/></g>
+  <g stroke="#4B1D63"><path d="M62 104 76 109V45L62 40Z" fill="#A46BCB"/><path d="M76 109 88 104V40L76 45Z" fill="#8A3FB0"/><path d="M62 40 74 35 88 40 76 45Z" fill="#D7BDEC"/></g>
+  <g stroke="#4B1D63"><path d="M94 92 108 97V75L94 70Z" fill="#C9A6E4"/><path d="M108 97 120 92V70L108 75Z" fill="#B78ED6"/><path d="M94 70 106 65 120 70 108 75Z" fill="#E6D4F3"/></g></svg><i class="ar-shadow"></i></div><div class="ar-obj" style="right:4%; top:62%; --w:84px; --o:0.5; --d:8s; --dl:-2s"><svg viewBox="0 0 100 100" fill="none" stroke="#8A3FB0" stroke-width="3" stroke-linecap="round"><path d="M8 28V8h20M72 8h20v20M92 72v20H72M28 92H8V72"/><circle cx="50" cy="50" r="4" fill="#8A3FB0" stroke="none"/><circle cx="50" cy="50" r="14" stroke-width="1.5" stroke-dasharray="3 5"/></svg><i class="ar-shadow"></i></div><div class="ar-obj wide-only" style="left:5%; top:84%; --w:120px; --o:0.45; --d:13s; --dl:-6s"><svg viewBox="0 0 120 90" fill="#8A3FB0"><circle cx="12" cy="70" r="4"/><circle cx="30" cy="52" r="5" opacity="0.7"/><circle cx="48" cy="60" r="3"/><circle cx="62" cy="34" r="6" opacity="0.8"/><circle cx="80" cy="42" r="4"/><circle cx="96" cy="18" r="5" opacity="0.6"/><circle cx="110" cy="28" r="3"/><path d="M12 70 30 52 48 60 62 34 80 42 96 18" fill="none" stroke="#4B1D63" stroke-width="1.4" stroke-dasharray="3 4"/></svg><i class="ar-shadow"></i></div><div class="ar-obj wide-only" style="right:6%; top:86%; --w:100px; --o:0.5; --d:9s; --dl:-4s; --sd:26s"><svg viewBox="0 0 100 80" stroke="#4B1D63" stroke-width="1.5"><g class="spin"><ellipse cx="50" cy="38" rx="40" ry="16" fill="#C9A6E4"/><path d="M50 38 90 38A40 16 0 0 1 50 54Z" fill="#8A3FB0"/><path d="M50 38 50 54A40 16 0 0 1 12 44Z" fill="#E6D4F3"/></g><path d="M10 38v10a40 16 0 0 0 80 0V38" fill="none" opacity="0.7"/></svg><i class="ar-shadow"></i></div><div class="ar-obj wide-only" style="right:14%; top:6%; --w:54px; --o:0.35; --d:7s; --dl:-1s; --sd:18s"><svg viewBox="0 0 100 100" fill="none" stroke="#8A3FB0" stroke-width="2" stroke-linejoin="round"><g class="spin"><path d="M50 10 88 30 88 70 50 90 12 70 12 30Z"/><path d="M12 30 50 50 88 30M50 50V90"/><path d="M50 10 50 50" stroke-dasharray="3 4" opacity="0.6"/></g></svg><i class="ar-shadow"></i></div><div class="ar-obj wide-only" style="left:1.2%; top:38%; --w:42px; --o:0.3; --d:9s; --dl:-7s"><svg viewBox="0 0 100 100" fill="none" stroke="#8A3FB0" stroke-width="3" stroke-linecap="round"><path d="M8 28V8h20M72 8h20v20M92 72v20H72M28 92H8V72"/><circle cx="50" cy="50" r="4" fill="#8A3FB0" stroke="none"/><circle cx="50" cy="50" r="14" stroke-width="1.5" stroke-dasharray="3 5"/></svg><i class="ar-shadow"></i></div></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a href="../index.html">&larr; Back to portfolio</a>
+    <nav aria-label="Sections">
+      <a href="#question">Question</a><a href="#method">Method</a><a href="#findings">Findings</a><a href="#decisions">Decisions</a><a href="#testing">Testing</a><a href="#answer">Answer</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- Masthead -->
+<section class="mast">
+  <div class="wrap">
+    <div class="mast-grid">
+      <div>
+        <div class="kicker">Research case study &middot; MSc HCI dissertation &middot; University of Nottingham &times; KPMG</div>
+        <h1>Does a 3D chart beat a <em>spreadsheet?</em></h1>
+        <p class="sub">Finance teams at KPMG read complex data in Excel and static 2D charts. For my MSc dissertation I studied whether augmented reality could help them understand that data better, and designed and tested an AR app, ARFinViz, to find out.</p>
+      </div>
+      <figure class="hero-phone"><div class="iphone"><div class="frame"><i class="pbtn act"></i><i class="pbtn vu"></i><i class="pbtn vd"></i><i class="pbtn pw"></i><i class="pbtn cc"></i><div class="scr"><span class="sb" aria-hidden="true"><b>9:41</b><i class="island"></i><span class="ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="0.8"/><rect x="5" y="5.5" width="3" height="6.5" rx="0.8"/><rect x="10" y="3" width="3" height="9" rx="0.8"/><rect x="15" y="0" width="3" height="12" rx="0.8"/></svg><svg viewBox="0 0 16 12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0z"/><path d="M3.4 7a6.6 6.6 0 0 1 9.2 0l-1.4 1.4a4.6 4.6 0 0 0-6.4 0z"/><path d="M1.2 4.8a9.7 9.7 0 0 1 13.6 0l-1.4 1.4a7.7 7.7 0 0 0-10.8 0z"/></svg><i class="bat"><i></i></i></span></span><img src="images/arfinviz/scr-ar-live.jpg" alt="ARFinViz running on a phone: a 3D globe with data lines placed on a real windowsill through the camera, with Objects, Move, Rotate, Scale, Behaviour and Label tools below." width="388" height="856"><i class="home" aria-hidden="true"></i></div></div></div><figcaption>The AR prototype running on a phone (8th Wall)</figcaption></figure>
+    </div>
+    <div class="facts">
+      <div><b>My role</b><span>Researcher and product designer, end to end</span></div>
+      <div><b>When</b><span>Aug 2023 to Feb 2024</span></div>
+      <div><b>Worked with</b><span>KPMG stakeholders, a PhD researcher, my supervisor</span></div>
+      <div><b>Tools</b><span>Figma, Miro, Google Forms, Bravo, 8th Wall</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- At a glance -->
+<section class="band tint">
+  <div class="wrap">
+    <div class="kicker">At a glance</div>
+    <h2>The study in four numbers</h2>
+    <div class="stats">
+      <div><strong>20+</strong><span>semi-structured interviews in a 3-week sprint</span></div>
+      <div><strong>5 to 10</strong><span>people in each round of in-person usability testing</span></div>
+      <div><strong>100+</strong><span>KPMG financial datasets built into the AR visualisations</span></div>
+      <div><strong>2</strong><span>design iterations, compared in an A/B test of onboarding</span></div>
+    </div>
+    <p class="honest"><b>What you're not seeing</b>This was my dissertation, carried out under an NDA with KPMG. No client data is shown, and I've kept the detail to what's safe to share publicly. The full dissertation isn't published.</p>
+  </div>
+</section>
+
+<!-- Question -->
+<section class="band" id="question">
+  <div class="wrap">
+    <div class="kicker">01 &middot; The research question</div>
+    <h2>Is 3D actually better, or just newer?</h2>
+    <div class="prose">
+      <p class="lede">KPMG stakeholders wanted a more immersive way to present financial data. Before designing anything, I needed to know whether a third dimension helps people understand data, or whether it only looks impressive.</p>
+    </div>
+    <div class="rq">
+      <div class="kicker">Main question</div>
+      <p class="q">Can augmented reality help finance professionals understand and discuss financial data better than the static 2D tools they use today?</p>
+      <ol>
+        <li>What makes their current tools (Excel, SAP Ariba, static charts) hard to work with?</li>
+        <li>Which tasks, if any, would 3D and AR help with?</li>
+        <li>What would stop people from trusting or adopting an AR tool at work?</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- Method -->
+<section class="band tint" id="method">
+  <div class="wrap">
+    <div class="kicker">02 &middot; Method</div>
+    <h2>Four stages, from reading to testing</h2>
+    <p class="lede">A mixed-methods study: qualitative interviews to understand the problem, then usability testing and an A/B comparison to evaluate the design.</p>
+    <div class="pipe">
+      <div><b>Stage 1</b><h3>Literature review</h3><p>White papers and research on immersive data visualisation, to decide between AR and VR.</p></div>
+      <div><b>Stage 2</b><h3>Interviews</h3><p>A 3-week interview sprint with 20+ people who work with financial data.</p></div>
+      <div><b>Stage 3</b><h3>Synthesis</h3><p>Themes, How Might We questions, storyboards, MoSCoW prioritisation and a Lean UX canvas.</p></div>
+      <div><b>Stage 4</b><h3>Design and evaluate</h3><p>Two design iterations, in-person usability tests, tap heatmaps and an A/B test of onboarding.</p></div>
+    </div>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Method</th><th>Who</th><th>How many</th><th>What it answered</th></tr></thead>
+        <tbody>
+          <tr><td>Literature review</td><td>Published white papers and research</td><td>n/a</td><td>AR or VR? Which is more usable and accessible at work?</td></tr>
+          <tr><td>Semi-structured interviews</td><td>KPMG staff, finance analysts, finance students</td><td>20 to 25</td><td>Pain points with current tools, where AR could help, concerns</td></tr>
+          <tr><td>Usability testing (in person)</td><td>Same participant groups</td><td>5 to 10 per round</td><td>Can people complete core tasks, from onboarding to reading data in AR?</td></tr>
+          <tr><td>Tap heatmaps (Figma plugin)</td><td>Usability test participants</td><td>5 to 10</td><td>Where people tapped on each screen, and what they missed</td></tr>
+          <tr><td>A/B comparison</td><td>Usability test participants</td><td>5 to 10</td><td>Did version 2 make onboarding easier than version 1?</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Ethics -->
+<section class="band">
+  <div class="wrap">
+    <div class="kicker">03 &middot; Ethics</div>
+    <h2>Consent first, data second</h2>
+    <div class="ethics">
+      <div><h3>University ethics approval</h3><p>The study was reviewed and approved through the University of Nottingham's ethics process before any interviews took place.</p></div>
+      <div><h3>Informed consent</h3><p>Every participant received an information sheet and signed a consent form before their interview or test session.</p></div>
+      <div><h3>Confidentiality</h3><p>KPMG data and documents were covered by an NDA. Participants are not named, and no client data appears in this case study.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Findings -->
+<section class="band tint" id="findings">
+  <div class="wrap">
+    <div class="kicker">04 &middot; What the interviews showed</div>
+    <h2>Curious about AR, stuck with spreadsheets</h2>
+    <p class="lede">I grouped interview notes into themes. These are the notes behind the four themes that shaped the design most, and the How Might We questions that came from them.</p>
+    <div class="board" role="img" aria-label="Research board: interview notes grouped into four themes (current tools, familiarity with AR, where AR could help, concerns and preferences), plus How Might We questions.">
+      <div class="b-cols">
+        <div class="b-col"><h4>Current tools</h4>
+          <div class="note n-pain">Excel, SAP Ariba and spreadsheets feel complex for reading data<small>pain point</small></div>
+          <div class="note n-pain">Hard to present data clearly to clients and teams<small>pain point</small></div>
+          <div class="note n-pain">Geographical differences in tax data are hard to show in 2D<small>pain point</small></div>
+          <div class="note n-pain">Current tools offer little real-time collaboration<small>pain point</small></div>
+        </div>
+        <div class="b-col"><h4>Familiarity with AR</h4>
+          <div class="note n-concern">Most know AR from games, not from work<small>context</small></div>
+          <div class="note n-concern">Very little hands-on AR experience<small>context</small></div>
+          <div class="note n-opp">Curious and willing to try AR for data analysis<small>opportunity</small></div>
+        </div>
+        <div class="b-col"><h4>Where AR could help</h4>
+          <div class="note n-opp">Seeing tax rules across regions on a 3D globe<small>opportunity</small></div>
+          <div class="note n-opp">Rotating and zooming data instead of scrolling rows<small>opportunity</small></div>
+          <div class="note n-opp">Looking at the same data together, in real time<small>opportunity</small></div>
+          <div class="note n-opp">Immersive training and tutorials<small>opportunity</small></div>
+        </div>
+        <div class="b-col"><h4>Concerns and preferences</h4>
+          <div class="note n-concern">Financial data must be secure: password protection, safe handling<small>concern</small></div>
+          <div class="note n-concern">Must work for people with different levels of expertise<small>concern</small></div>
+          <div class="note n-pref">Familiar touch gestures, and voice commands<small>preference</small></div>
+          <div class="note n-pref">AR-guided tutorials to learn by doing<small>preference</small></div>
+        </div>
+        <div class="b-col"><h4>How might we</h4>
+          <div class="note n-hmw">HMW let people try AR at work without training first?</div>
+          <div class="note n-hmw">HMW show tax differences between regions at a glance?</div>
+          <div class="note n-hmw">HMW help a team look at the same data together?</div>
+          <div class="note n-hmw">HMW make people trust an AR app with client data?</div>
+        </div>
+      </div>
+    </div>
+    <div class="legend"><span><i style="background:#F6B8C4"></i>Pain point</span><span><i style="background:#C9E6A8"></i>Opportunity</span><span><i style="background:#FFE07E"></i>Context or concern</span><span><i style="background:#CDB9F0"></i>Preference</span><span><i style="background:#B6DAF0"></i>How might we</span></div>
+    <p class="honest"><b>About this board</b>Redrawn for this case study from the themes in my original synthesis. The wording is summarised, not quoted from participants. The How Might We questions are reworded for this case study.</p>
+
+    <h3 class="sub-h">From themes to scenarios</h3>
+    <p class="muted prose">I turned the themes into a 10-scene storyboard of a KPMG team meeting: scanning a QR code, finding a surface, exploring data together, and hitting problems. It gave stakeholders a concrete picture of the idea before any screens existed.</p>
+    <figure class="fig">
+      <img src="images/arfinviz/storyboard-1.jpg" alt="Storyboard scenes 1 to 6: a KPMG meeting introduces AR, team members scan a QR code, find a surface, see charts appear on the table, use pinch and swipe, then discuss the experience." width="1000" height="588" loading="lazy">
+      <figcaption><b>Original artefact</b>Storyboard scenes 1 to 6, from the project (2023)</figcaption>
+    </figure>
+    <div class="two">
+      <figure class="fig">
+        <img src="images/arfinviz/prioritisation.jpg" alt="MoSCoW board. Must have: financial data visualisation, file management, user profile. Should have: QR code scanner, app tutorial. Could have: personalised support, 3D maps." width="930" height="527" loading="lazy">
+        <figcaption><b>Original artefact</b>MoSCoW prioritisation of features</figcaption>
+      </figure>
+      <figure class="fig">
+        <img src="images/arfinviz/lean-canvas.jpg" alt="Lean UX canvas for ARFinViz with business problem, users, outcomes, solutions and hypotheses." width="873" height="588" loading="lazy">
+        <figcaption><b>Original artefact</b>Lean UX canvas, used to write testable hypotheses</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- Decisions -->
+<section class="band" id="decisions">
+  <div class="wrap">
+    <div class="kicker">05 &middot; Decision log</div>
+    <h2>Five decisions, and what they cost</h2>
+    <p class="lede">Each decision traces back to the research. For each one: the evidence, the options, what I chose, and the trade-off.</p>
+    <div class="decisions">
+
+      <article class="dec">
+        <div class="d-text">
+          <div class="d-num">01</div>
+          <h3>Phone-based AR, not a VR headset</h3>
+          <dl>
+            <div><dt>Evidence</dt><dd>Stakeholders asked for an immersive experience. The literature review compared AR and VR on ergonomics and ease of use.</dd></div>
+            <div><dt>Options</dt><dd>VR headset &middot; AR on phones and tablets &middot; improve 2D dashboards</dd></div>
+            <div><dt>Decision</dt><dd>AR on the phones people already carry.</dd></div>
+            <div><dt>Why</dt><dd>No extra hardware. People stay aware of the room and each other, which matters in a meeting.</dd></div>
+            <div><dt>Trade-off</dt><dd>A small screen and less immersion than VR. AR also depends on finding a flat surface.</dd></div>
+          </dl>
+        </div>
+        <figure class="fig"><img src="images/arfinviz/wf-v2-home.jpg" alt="Version 2 home and AR screens: My projects, QR scan, new project dialog, and the 3D globe with Move, Rotate and Scale tools." width="997" height="703" loading="lazy"><figcaption><b>Version 2</b>Home, QR scan and the AR view</figcaption></figure>
+      </article>
+
+      <article class="dec">
+        <div class="d-text">
+          <div class="d-num">02</div>
+          <h3>A learning section, because most people had never used AR</h3>
+          <dl>
+            <div><dt>Evidence</dt><dd>Most participants knew AR only from games and had little hands-on experience. They asked for AR-guided tutorials.</dd></div>
+            <div><dt>Options</dt><dd>One onboarding carousel &middot; tooltips only &middot; a dedicated learning area</dd></div>
+            <div><dt>Decision</dt><dd>A Learning tab with short lessons, videos and quick quizzes, plus onboarding.</dd></div>
+            <div><dt>Why</dt><dd>People can't judge a tool they don't know how to use. Learning had to be part of the product.</dd></div>
+            <div><dt>Trade-off</dt><dd>An extra tab in the navigation, and more content to keep up to date.</dd></div>
+          </dl>
+        </div>
+        <figure class="fig"><img src="images/arfinviz/wf-v2-learning.jpg" alt="Version 2 learning, profile and messenger screens, including a lesson list, an Introduction to AR lesson, a quiz and a Well done completion screen." width="996" height="705" loading="lazy"><figcaption><b>Version 2</b>Learning, profile and messenger screens</figcaption></figure>
+      </article>
+
+      <article class="dec">
+        <div class="d-text">
+          <div class="d-num">03</div>
+          <h3>Collaboration built in, not added later</h3>
+          <dl>
+            <div><dt>Evidence</dt><dd>Current tools offered little real-time collaboration, and participants valued seeing the same data together.</dd></div>
+            <div><dt>Options</dt><dd>Share exports by email &middot; shared sessions with a schedule &middot; full multi-user AR</dd></div>
+            <div><dt>Decision</dt><dd>Scheduled shared sessions, visible cursors in the AR view, and in-app messaging in version 2.</dd></div>
+            <div><dt>Why</dt><dd>The storyboards showed AR as a meeting tool. Designing it for one person would miss its main use.</dd></div>
+            <div><dt>Trade-off</dt><dd>More complex to build, and it needs everyone in a session to have the app.</dd></div>
+          </dl>
+        </div>
+        <figure class="fig"><img src="images/arfinviz/wf-v1-collab.jpg" alt="Version 1 collaboration, profile and learning screens, with a session schedule and an AR view." width="997" height="706" loading="lazy"><figcaption><b>Version 1</b>Collaboration, profile and learning screens</figcaption></figure>
+      </article>
+
+      <article class="dec">
+        <div class="d-text">
+          <div class="d-num">04</div>
+          <h3>Secure sign-in in version 2</h3>
+          <dl>
+            <div><dt>Evidence</dt><dd>Participants said financial data needs password protection and secure handling.</dd></div>
+            <div><dt>Options</dt><dd>Open access inside the KPMG network &middot; simple login &middot; login with OTP and password recovery</dd></div>
+            <div><dt>Decision</dt><dd>A full sign-in flow: sign up, log in, OTP verification and password reset.</dd></div>
+            <div><dt>Why</dt><dd>People won't put client data into a tool they don't trust.</dd></div>
+            <div><dt>Trade-off</dt><dd>More steps before people see any data. That made onboarding the thing to test in the A/B comparison.</dd></div>
+          </dl>
+        </div>
+        <figure class="fig"><img src="images/arfinviz/wf-v2-onboarding.jpg" alt="Version 2 onboarding and login screens: splash, intro, login, sign up, OTP, reset and forgot password, plus the files screen." width="998" height="705" loading="lazy"><figcaption><b>Version 2</b>Onboarding, sign-in and files</figcaption></figure>
+      </article>
+
+      <article class="dec">
+        <div class="d-text">
+          <div class="d-num">05</div>
+          <h3>Leave 3D maps and personal support for later</h3>
+          <dl>
+            <div><dt>Evidence</dt><dd>The MoSCoW board: data visualisation, file management and profiles were essential for testing the core idea.</dd></div>
+            <div><dt>Options</dt><dd>Build everything in the prototype &middot; build the core and defer the rest</dd></div>
+            <div><dt>Decision</dt><dd>Core features first. The QR scanner and tutorial came next. 3D maps and personalised support were deferred.</dd></div>
+            <div><dt>Why</dt><dd>The research question was about reading data. Extra features would have made the test harder to interpret.</dd></div>
+            <div><dt>Trade-off</dt><dd>3D maps would have suited the tax geography finding. It stays an open idea.</dd></div>
+          </dl>
+        </div>
+        <figure class="fig"><img src="images/arfinviz/wf-v1-home.jpg" alt="Version 1 home page and file management screens." width="990" height="581" loading="lazy"><figcaption><b>Version 1</b>Home and file management</figcaption></figure>
+      </article>
+
+    </div>
+
+    <h3 class="sub-h">The version 2 screens, annotated</h3>
+    <p class="muted prose">Six screens from the final wireframes, with notes on what each one responds to in the research.</p>
+    <div class="wfboard" role="region" aria-label="Version 2 screens with annotations">
+      <div class="wf-grid">
+        <div class="wf-item"><h4>Onboarding</h4><div class="iphone"><div class="frame"><i class="pbtn act"></i><i class="pbtn vu"></i><i class="pbtn vd"></i><i class="pbtn pw"></i><i class="pbtn cc"></i><div class="scr"><span class="sb" aria-hidden="true"><b>9:41</b><i class="island"></i><span class="ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="0.8"/><rect x="5" y="5.5" width="3" height="6.5" rx="0.8"/><rect x="10" y="3" width="3" height="9" rx="0.8"/><rect x="15" y="0" width="3" height="12" rx="0.8"/></svg><svg viewBox="0 0 16 12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0z"/><path d="M3.4 7a6.6 6.6 0 0 1 9.2 0l-1.4 1.4a4.6 4.6 0 0 0-6.4 0z"/><path d="M1.2 4.8a9.7 9.7 0 0 1 13.6 0l-1.4 1.4a7.7 7.7 0 0 0-10.8 0z"/></svg><i class="bat"><i></i></i></span></span><img src="images/arfinviz/scr-intro.jpg" alt="Onboarding screen with an illustration of a person looking at 3D data and the line Visualize more with Augmented Reality." loading="lazy" width="348" height="774"><i class="home" aria-hidden="true"></i></div></div></div><div><div class="note n-opp">Says what AR is for in one line. Most people had never used it at work</div><div class="note n-hmw">HMW let people try AR without training first?</div></div></div>
+        <div class="wf-item"><h4>Sign-in</h4><div class="iphone"><div class="frame"><i class="pbtn act"></i><i class="pbtn vu"></i><i class="pbtn vd"></i><i class="pbtn pw"></i><i class="pbtn cc"></i><div class="scr"><span class="sb" aria-hidden="true"><b>9:41</b><i class="island"></i><span class="ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="0.8"/><rect x="5" y="5.5" width="3" height="6.5" rx="0.8"/><rect x="10" y="3" width="3" height="9" rx="0.8"/><rect x="15" y="0" width="3" height="12" rx="0.8"/></svg><svg viewBox="0 0 16 12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0z"/><path d="M3.4 7a6.6 6.6 0 0 1 9.2 0l-1.4 1.4a4.6 4.6 0 0 0-6.4 0z"/><path d="M1.2 4.8a9.7 9.7 0 0 1 13.6 0l-1.4 1.4a7.7 7.7 0 0 0-10.8 0z"/></svg><i class="bat"><i></i></i></span></span><img src="images/arfinviz/scr-otp.jpg" alt="Enter OTP screen with four code boxes and a Submit button." loading="lazy" width="348" height="777"><i class="home" aria-hidden="true"></i></div></div></div><div><div class="note n-concern">OTP and password reset, because finance data has to be protected</div><div class="note n-pain">More steps before any data. So I tested onboarding in the A/B</div></div></div>
+        <div class="wf-item"><h4>Home</h4><div class="iphone"><div class="frame"><i class="pbtn act"></i><i class="pbtn vu"></i><i class="pbtn vd"></i><i class="pbtn pw"></i><i class="pbtn cc"></i><div class="scr"><span class="sb" aria-hidden="true"><b>9:41</b><i class="island"></i><span class="ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="0.8"/><rect x="5" y="5.5" width="3" height="6.5" rx="0.8"/><rect x="10" y="3" width="3" height="9" rx="0.8"/><rect x="15" y="0" width="3" height="12" rx="0.8"/></svg><svg viewBox="0 0 16 12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0z"/><path d="M3.4 7a6.6 6.6 0 0 1 9.2 0l-1.4 1.4a4.6 4.6 0 0 0-6.4 0z"/><path d="M1.2 4.8a9.7 9.7 0 0 1 13.6 0l-1.4 1.4a7.7 7.7 0 0 0-10.8 0z"/></svg><i class="bat"><i></i></i></span></span><img src="images/arfinviz/scr-home.jpg" alt="Home screen with a search bar, a My projects grid and bottom navigation: Home, Collaborate, Scan, Files and Account." loading="lazy" width="339" height="732"><i class="home" aria-hidden="true"></i></div></div></div><div><div class="note n-opp">Projects first, with Scan in the tab bar to open shared data fast</div><div class="note n-pref">Five labelled tabs, no hidden menus</div></div></div>
+        <div class="wf-item"><h4>AR view</h4><div class="iphone"><div class="frame"><i class="pbtn act"></i><i class="pbtn vu"></i><i class="pbtn vd"></i><i class="pbtn pw"></i><i class="pbtn cc"></i><div class="scr"><span class="sb" aria-hidden="true"><b>9:41</b><i class="island"></i><span class="ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="0.8"/><rect x="5" y="5.5" width="3" height="6.5" rx="0.8"/><rect x="10" y="3" width="3" height="9" rx="0.8"/><rect x="15" y="0" width="3" height="12" rx="0.8"/></svg><svg viewBox="0 0 16 12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0z"/><path d="M3.4 7a6.6 6.6 0 0 1 9.2 0l-1.4 1.4a4.6 4.6 0 0 0-6.4 0z"/><path d="M1.2 4.8a9.7 9.7 0 0 1 13.6 0l-1.4 1.4a7.7 7.7 0 0 0-10.8 0z"/></svg><i class="bat"><i></i></i></span></span><img src="images/arfinviz/scr-ar.jpg" alt="AR view with a 3D globe and data lines, and Objects, Move, Rotate, Scale and Behaviour tools at the bottom." loading="lazy" width="333" height="732"><i class="home" aria-hidden="true"></i></div></div></div><div><div class="note n-pref">Move, Rotate and Scale use touch gestures people already know</div><div class="note n-opp">Tools sit at the bottom, in reach of a thumb</div></div></div>
+        <div class="wf-item"><h4>Shared session</h4><div class="iphone"><div class="frame"><i class="pbtn act"></i><i class="pbtn vu"></i><i class="pbtn vd"></i><i class="pbtn pw"></i><i class="pbtn cc"></i><div class="scr"><span class="sb" aria-hidden="true"><b>9:41</b><i class="island"></i><span class="ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="0.8"/><rect x="5" y="5.5" width="3" height="6.5" rx="0.8"/><rect x="10" y="3" width="3" height="9" rx="0.8"/><rect x="15" y="0" width="3" height="12" rx="0.8"/></svg><svg viewBox="0 0 16 12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0z"/><path d="M3.4 7a6.6 6.6 0 0 1 9.2 0l-1.4 1.4a4.6 4.6 0 0 0-6.4 0z"/><path d="M1.2 4.8a9.7 9.7 0 0 1 13.6 0l-1.4 1.4a7.7 7.7 0 0 0-10.8 0z"/></svg><i class="bat"><i></i></i></span></span><img src="images/arfinviz/scr-collab.jpg" alt="AR view in a shared session with small coloured cursors showing where other people are pointing." loading="lazy" width="339" height="732"><i class="home" aria-hidden="true"></i></div></div></div><div><div class="note n-opp">Cursors show where each person is pointing in a shared session</div><div class="note n-hmw">HMW help a team look at the same data together?</div></div></div>
+        <div class="wf-item"><h4>Learning</h4><div class="iphone"><div class="frame"><i class="pbtn act"></i><i class="pbtn vu"></i><i class="pbtn vd"></i><i class="pbtn pw"></i><i class="pbtn cc"></i><div class="scr"><span class="sb" aria-hidden="true"><b>9:41</b><i class="island"></i><span class="ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="0.8"/><rect x="5" y="5.5" width="3" height="6.5" rx="0.8"/><rect x="10" y="3" width="3" height="9" rx="0.8"/><rect x="15" y="0" width="3" height="12" rx="0.8"/></svg><svg viewBox="0 0 16 12"><path d="M8 11.6 5.6 9.2a3.4 3.4 0 0 1 4.8 0z"/><path d="M3.4 7a6.6 6.6 0 0 1 9.2 0l-1.4 1.4a4.6 4.6 0 0 0-6.4 0z"/><path d="M1.2 4.8a9.7 9.7 0 0 1 13.6 0l-1.4 1.4a7.7 7.7 0 0 0-10.8 0z"/></svg><i class="bat"><i></i></i></span></span><img src="images/arfinviz/scr-done.jpg" alt="Lesson complete screen with a badge, Well done, 1 of 10 completed and a Continue button." loading="lazy" width="396" height="846"><i class="home" aria-hidden="true"></i></div></div></div><div><div class="note n-pref">Short lessons and a quiz, so people learn AR by doing</div><div class="note n-pain">Testing showed people still wanted more guidance</div></div></div>
+      </div>
+    </div>
+    <p class="honest"><b>About this board</b>The screens are my original version 2 wireframes. The sticky notes were added for this case study to explain the decisions.</p>
+  </div>
+</section>
+
+<!-- Testing -->
+<section class="band tint" id="testing">
+  <div class="wrap">
+    <div class="kicker">06 &middot; Usability testing</div>
+    <h2>Five tasks, from sign-up to reading data in AR</h2>
+    <p class="lede">I ran in-person sessions with 5 to 10 people per round. Each person worked through the whole journey while I observed and took notes.</p>
+    <ol class="tasks">
+      <li><b>Account setup</b>Sign up and create an account.</li>
+      <li><b>Explore data in AR</b>Place a visualisation and navigate it.</li>
+      <li><b>Collaborate</b>Use the shared session features.</li>
+      <li><b>Real scenario</b>Answer a financial analysis question using the app.</li>
+      <li><b>Feedback</b>Talk through the experience and suggest changes.</li>
+    </ol>
+    <figure class="fig">
+      <img src="images/arfinviz/heatmaps.jpg" alt="Tap heatmaps across 14 screens, from the splash screen to the AR globe, lessons, quiz and messenger." width="982" height="670" loading="lazy">
+      <figcaption><b>Tap heatmaps</b>Generated with a Figma plugin from test sessions. They show where people tapped, not where they looked, so they're not eye-tracking data.</figcaption>
+    </figure>
+
+    <h3 class="sub-h">What I changed after testing</h3>
+    <div class="changes">
+      <div><h3>Better tutorials</h3><p>Interactive tutorials so people learn the AR controls by using them.</p></div>
+      <div><h3>Simpler navigation</h3><p>Clearer movement between sections, which people found hard to follow.</p></div>
+      <div><h3>Guidance in context</h3><p>Tooltips and short prompts on complex features, at the moment they're needed.</p></div>
+      <div><h3>A feedback loop</h3><p>A way to collect feedback inside the app, for the next round of changes.</p></div>
+    </div>
+
+    <h3 class="sub-h">A/B test: two versions of onboarding</h3>
+    <div class="prose muted">
+      <p>I compared onboarding in version 1 and version 2 of the app, looking at how easily people got through it and how comfortable they felt. Version 2 performed better.</p>
+      <p>With 5 to 10 people, one person can shift a percentage by 10 to 20 points, so I treat this result as a direction, not as statistical evidence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Answer -->
+<section class="band" id="answer">
+  <div class="wrap">
+    <div class="kicker">07 &middot; Back to the question</div>
+    <h2>So, is 3D better?</h2>
+    <div class="answer">
+      <div class="verdict">Probably.<small>Not proven</small></div>
+      <p>Participants preferred working with data in 3D and found it more engaging than their spreadsheets. But most of them had very little experience with AR, so part of that preference may be novelty. The study shows that AR is promising for presenting and discussing financial data. It doesn't prove that people understand data better in 3D.</p>
+    </div>
+
+    <h3 class="sub-h">Limitations</h3>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Limitation</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td>Small samples</td><td>5 to 10 people per test round is enough to find usability problems, but too few for reliable numbers.</td></tr>
+          <tr><td>Novelty effect</td><td>People new to AR may like it because it's new. That can inflate preference for 3D.</td></tr>
+          <tr><td>Who took part</td><td>Participants came through KPMG and the university. People who agree to try AR may already be more open to it.</td></tr>
+          <tr><td>Tap heatmaps, not eye-tracking</td><td>They show where people tapped, not what they looked at or understood.</td></tr>
+          <tr><td>No direct 2D vs 3D task test</td><td>People didn't do the same task in both formats, so accuracy and speed weren't compared head to head.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub-h">What I'd do differently</h3>
+    <ol class="redo">
+      <li><div><b>Test 2D and 3D head to head</b><span>Give each participant the same data tasks in both formats, in a counterbalanced order, and measure accuracy and time.</span></div></li>
+      <li><div><b>Use standard measures</b><span>Add the System Usability Scale and NASA-TLX for workload, so results can be compared with other studies.</span></div></li>
+      <li><div><b>Reduce the novelty effect</b><span>Run repeated sessions over a few weeks and see whether the preference for 3D holds.</span></div></li>
+      <li><div><b>Plan the sample size</b><span>Decide the number of participants in advance for the comparison, rather than reusing the usability test group.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band tint">
+  <div class="wrap prose">
+    <div class="kicker">08 &middot; What I learned</div>
+    <h2>A good question beats a good-looking answer</h2>
+    <p>The most useful thing I did was question the brief. Stakeholders wanted "immersive". The research made me ask whether immersive meant clearer, and the honest answer was "sometimes, and we can't be sure yet".</p>
+    <p>It also taught me to separate what people like from what helps them. That difference now shapes how I plan every study: decide what you need to measure before you build anything.</p>
+  </div>
+</section>
+
+<section class="thanks">
+  <div class="wrap">
+    <div class="kicker">Thanks for reading</div>
+    <h2>ARFinViz</h2>
+    <div class="btns">
+      <a class="btn primary" href="../index.html">Back to portfolio</a>
+    </div>
+  </div>
+</section>
+</main>
+</body>
+</html>

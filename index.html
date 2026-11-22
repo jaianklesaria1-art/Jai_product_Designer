@@ -799,6 +799,17 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
   .screen .inner,.screen:hover .inner{filter:none}
   .mscreen{will-change:auto}
 }
+
+/* readable role details when a badge is flipped */
+#exDet{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:6;width:min(760px,calc(100% - 32px));max-height:44%;overflow:auto;background:#faf9f6;color:#16151b;border-radius:14px;border-top:6px solid var(--jc,#6d4aff);padding:16px 22px 14px;box-shadow:0 24px 70px rgba(0,0,0,.55);text-align:left}
+#exDet[hidden]{display:none}
+@media (pointer:coarse){body.det #bubble{display:none!important}}
+#exDet h3{margin:0 36px 2px 0;font:700 19px/1.25 "Space Grotesk",sans-serif}
+#exDet h3 small{display:block;font:600 14px Inter,sans-serif;color:#3b3946;margin-top:2px}
+#exDet .m{margin:4px 0 8px;font:600 11.5px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#5a5866}
+#exDet ul{margin:0;padding-left:18px}#exDet li{font:400 14.5px/1.5 Inter,sans-serif;margin:4px 0}#exDet li::marker{color:var(--jc)}
+#exDet .x{position:absolute;top:10px;right:12px;width:32px;height:32px;border-radius:50%;border:1px solid #ddd8cc;background:#fff;font-size:20px;line-height:1;cursor:pointer;color:#16151b}
+@media (max-height:500px) and (orientation:landscape){#exDet{max-height:68%;bottom:8px;padding:12px 16px}#exDet h3{font-size:16px}#exDet li{font-size:13px;line-height:1.45}}
 </style>
 </head>
 <body>
@@ -880,6 +891,7 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 
 <!-- EXPERIENCE -->
 <section class="panel" id="p-experience" aria-label="Experience">
+<div id="exDet" hidden aria-live="polite"><button class="x" type="button" aria-label="Close role details">&times;</button><h3></h3><p class="m"></p><ul></ul></div>
   <button class="btn back exback" data-go="room">&larr; Back to the desk</button>
   <div class="exhead"><h2>Experience</h2><p class="exsub">5 roles, newest first. Drag a badge, or tap it to flip.</p>
   <a class="cvlink" href="assets/Jai-Anklesaria-CV.pdf" target="_blank" rel="noopener">Download CV <span aria-hidden="true">&darr;</span></a></div>
@@ -982,22 +994,22 @@ const INFO={
  'Grocery UX':{t:'Grocery UX',type:'Research project',desc:'Online grocery shopping misses how people really shop. I watched them in context to close the gap between what they need and what the site offers.',role:'Ran 48 hours of in-home fieldwork, diary studies and interviews',link:'https://www.behance.net/gallery/240349765/Enhancing-the-Online-Grocery-Shopping-Experience'},
  Shadowfax:{t:'Shadowfax',type:'Courier app redesign · solo · 2022',desc:'Senders with several parcels had to book every drop as its own order, and 60% of them left for a competitor.',role:'Solo, from research to tested design',result:'Up to 6 drops in one order, chosen by A/B testing two designs'}};
 const cases=[
- ['ARFinViz','arfinviz.case','assets/thumbs/arfinviz-thumb.jpg','Task success up 31%','https://jaisuxportfolio.netlify.app/case-studies/arfinviz.html'],
+ ['ARFinViz','arfinviz.case','assets/thumbs/arfinviz-thumb.jpg','Task success up 31%','case-studies/arfinviz.html'],
  ['Shadowfax','shadowfax.case','assets/thumbs/shadowfax-thumb-v2.jpg','Up to 6 drops in one order','https://www.behance.net/gallery/232395541/Shadow-Fax-Courier-Service'],
  ['Growth Book','growthbook.case','assets/thumbs/growthbook-thumb-v2.jpg','Retention up 45%','case-studies/growth-book.html'],
- ['Real Drive XR','realdrive.case','assets/thumbs/realdrive-thumb.jpg','68% first-time pass (n=24)','https://jaisuxportfolio.netlify.app/case-studies/real-drive-xr.html'],
- ['PharmEasy','pharmeasy.case','assets/thumbs/pharmeasy-thumb-v2.jpg',"5 points where an order can't be placed",'https://jaisuxportfolio.netlify.app/case-studies/pharmeasy.html'],
+ ['Real Drive XR','realdrive.case','assets/thumbs/realdrive-thumb.jpg','68% first-time pass (n=24)','case-studies/real-drive-xr.html'],
+ ['PharmEasy','pharmeasy.case','assets/thumbs/pharmeasy-thumb-v2.jpg',"5 points where an order can't be placed",'case-studies/pharmeasy.html'],
  ['HERCESSI','hercessi.case','assets/thumbs/hercessi-thumb-v2.jpg','WCAG 2.2 AA, 10 verified findings','case-studies/hercessi.html'],
  ['Enchantopia','enchantopia.case','https://mir-s3-cdn-cf.behance.net/project_modules/max_632_webp/80ab07240154913.6938891f80601.png','',''],
  ['Grocery UX','grocery.case','https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/b5f155240349765.693c49b82ac16.png','','']];
 const free=[
  ['Master Stroke','Sports infrastructure website','master','https://masssterstroke.netlify.app/',null],
- ['Neon Rapter','Brewery website redesign','neon',null,'https://jaisuxportfolio.netlify.app/case-studies/neon-rapter.html'],
+ ['Neon Rapter','Brewery website redesign','neon',null,'case-studies/neon-rapter.html'],
  ['Omnia','Front-end build','omnia','https://omniamarketing.co.in/',null],
- ['Marquee','uPVC fins &amp; louvers','marquee','https://www.marqueefins.com/','https://jaisuxportfolio.netlify.app/case-studies/marquee.html'],
- ['Liquid Light','Brewery website','liquidlight','https://liquidlightbrewery.netlify.app/','https://jaisuxportfolio.netlify.app/case-studies/liquid-light.html'],
+ ['Marquee','uPVC fins &amp; louvers','marquee','https://www.marqueefins.com/','case-studies/marquee.html'],
+ ['Liquid Light','Brewery website','liquidlight','https://liquidlightbrewery.netlify.app/','case-studies/liquid-light.html'],
  ['Nimbha Logistics','Multi-drop logistics','nimbha','https://nimbhalogistics.netlify.app/',null],
- ['Singh Vanity','Custom vanity-van business','singhvanity','https://singhvanity.com/','https://jaisuxportfolio.netlify.app/case-studies/singh-vanity.html'],
+ ['Singh Vanity','Custom vanity-van business','singhvanity','https://singhvanity.com/','case-studies/singh-vanity.html'],
  ['ADGOAT','Website build','adgoat','https://adgoat.in/',null]];
 const tags=['Audit + redesign','Accessibility audit','Research study','XR research','App design','Feature redesign'];
 const chrome=(t,sub)=>`<div class="chrome"><span class="lights"><button class="close" data-go="room" aria-label="Close ${t} and go back to the desk" title="Close"></button><i></i><i></i></span><span class="ttl">${t}<small>${sub}</small></span><span class="sp"></span></div>`;
@@ -1070,11 +1082,11 @@ $('#scrRin').innerHTML=freeHTML;$('#mR').innerHTML=freeHTML;
 $('#scrWrap').setAttribute('aria-hidden','true');
 $$('#mL img').forEach(i=>i.loading='lazy');
 const jobs=[
- ['Asentech LLC','#6d4aff','Product Designer (UX &amp; Research)','Jun 2025 to Present','Remote, UK',['Designs healthcare and pharmaceutical platforms.','Led the Asentech Publishing website from PRD to developer handoff, and <b>usability-tested two versions with 5 participants</b>.'],-2],
- ['KPMG &times; University of Nottingham','#1f4fd6','Product Designer, Industry Project','Aug 2023 to Feb 2024','Nottingham, UK',['Researched and designed ARFinViz, an AR app for finance data, interviewing 20 to 25 people.','Tested two versions: <b>task success up 31%</b>.'],2],
- ['Mobile First Application','#16865a','Product Designer','Jun 2022 to Oct 2022','Mumbai, India',['Ran 30+ surveys and interviews and owned a multi-drop logistics feature end to end.','<b>Satisfaction up 66%</b>, navigation errors down 20%.'],-1.5],
- ['Swabhav Techlabs','#e0662a','Junior Product Designer (Internship)','Jan 2021 to Jun 2022','Mumbai, India',['Research and usability sessions with 30+ parents for Growth Book, a child growth app, designed to WCAG 2.1 AA.','Simplified the key journeys, helping <b>lift retention by 45%</b>.'],2.5],
- ['Freelance','#2a2733','Product Designer (UX/UI &amp; AI)','Jan 2021 to Present','Mumbai / UK',['Researches, designs and builds websites for <b>15+ clients</b>, from Figma prototypes to launch.','Now designing an agentic AI shopping assistant for a Gen Z fashion brand.'],-2]];
+ ['Asentech LLC','#6d4aff','Product Designer (UX &amp; Research)','Jun 2025 to Present','Remote, UK',['Designed internal and customer-facing healthcare and pharmaceutical platforms, balancing usability with compliance and brand rules.','Led the new Asentech Publishing website from PRD to design to developer handoff: information architecture, user flows, wireframes and prototypes.','<b>Usability-tested two design versions with 5</b> internal and client participants, and used the results to pick the version for the build.','Added reusable components and patterns to the internal design system, improving consistency and closing design-to-development gaps.','Built a brand style guide for Filkri, an Accord BioPharma product: colour, typography, logo use, imagery, WCAG contrast rules and QA.'],-2],
+ ['KPMG &times; University of Nottingham','#1f4fd6','Product Designer, Industry Project','Aug 2023 to Feb 2024','Nottingham, UK',['Interviewed 20 to 25 KPMG staff, finance analysts and students, turning findings into themes, How Might We questions and MoSCoW priorities.','Designed two versions in Figma, from wireframes to prototype: onboarding, secure sign-in, AR data view, team sessions and a learning section.','Ran in-person usability tests with 5 to 10 users per round, using tap heatmaps to find where people got stuck.','Added interactive tutorials, simpler navigation, tooltips and in-app feedback in version 2, based on test findings.','Version 2 onboarding <b>raised task success by 31%</b> in an A/B test with 10 participants.','Secured university ethics approval and managed consent and NDAs for every participant.'],2],
+ ['Mobile First Application','#16865a','Product Designer','Jun 2022 to Oct 2022','Mumbai, India',['Ran 30+ user surveys and interviews to understand needs and pain points, structuring findings in Google Sheets and Notion.','Owned a multi-drop logistics feature end to end, from discovery and prototyping to stakeholder sign-off.','Company analytics showed <b>user satisfaction up 66%</b> and navigation errors down 20% on the feature.'],-1.5],
+ ['Swabhav Techlabs','#e0662a','Junior Product Designer (Internship)','Jan 2021 to Jun 2022','Mumbai, India',['Ran usability sessions and in-home ethnographic research with 30+ parents for Growth Book, handling recruitment, task design, moderation and analysis.','Simplified key journeys based on the findings, helping <b>lift retention by 45%</b> (app analytics and follow-up surveys).','Worked with agile front-end teams to ship production-ready interfaces meeting WCAG 2.1 AA.'],2.5],
+ ['Freelance','#2a2733','Product Designer (UX/UI &amp; AI)','Jan 2021 to Present','Mumbai / UK',['Research, design and build web platforms and digital products for <b>15+ clients</b>, from user research and Figma prototypes to launch.','Designing an agentic AI shopping assistant for a Gen Z fashion brand, using generative UI: answers appear as product cards, outfit rails and actions.','Designed tool-calling actions (find products, size advice, build a fit, add to bag) with human-in-the-loop rules: the AI suggests, the shopper pays. In progress.','Designed AI trust patterns: clear AI labelling, consent before photo features and handoff to a real person.','Designed a booking-led responsive website for Singh Vanity, a vanity van rental business, for film crews, wedding planners and families.','Ran an online grocery ethnography with 48 hours of in-home fieldwork, diary studies and interviews, shaping journey recommendations.'],-2]];
 window.JOBS=jobs;
 $('#rail').innerHTML=`<ul class="sr">${jobs.map(j=>`<li>${j[0]}: ${j[2]}, ${j[3]}, ${j[4]}. ${j[5].join(' ')}</li>`).join('')}</ul>`;
 function showEx(){if(window.LAN)LAN.show();else window.LAN_WANT=true}
@@ -1233,7 +1245,7 @@ function go(k){bubFull=false;
   if(k===view)return;
   if(matchMedia('(pointer:coarse)').matches){if(k!=='room'&&!pushed){history.pushState({v:k},'');pushed=true}else if(k==='room'&&pushed&&!go._pop){pushed=false;history.back()}}
   if(view==='story'&&body.classList.contains('story')&&!go._leaving){go._leaving=1;clearTimeout(rideT);exitTicket().then(()=>{go(k);go._leaving=0});return}
-  const prev=view;view=k;
+  const prev=view;view=k;{const ed=document.getElementById('exDet');if(ed){ed.hidden=true;document.body.classList.remove('det')}}
   if(matchMedia('(pointer:coarse)').matches){const rv=$('#roomVid'),mv=$('#scrRin .pv video');if(k==='room'){setTimeout(()=>{if(view==='room'){rv&&rv.play&&rv.play().catch(()=>{});mv&&mv.src&&mv.play().catch(()=>{})}},600)}else{rv&&rv.pause();mv&&mv.pause()}}
   $$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===k));
   $$('.panel.show').forEach(p=>{p.classList.remove('in');setTimeout(()=>p.classList.remove('show'),400)});
@@ -1438,17 +1450,24 @@ function faces(j,photo){const W=CARD_FACE.width,H=CARD_FACE.height;
   c.fillStyle='#16151b';y=wrap(c,j[2],80,y+10,W-160,58,'600 46px Inter, sans-serif','left');
   c.fillStyle='#34323e';c.font='600 34px "JetBrains Mono", monospace';c.textAlign='left';c.fillText((dec(j[3])+'  ·  '+dec(j[4])).toUpperCase(),80,y+18);
   y+=110;c.fillStyle=j[1];c.fillRect(80,y-60,120,6);
-  for(const t of j[5]){c.fillStyle=j[1];c.beginPath();c.arc(92,y-15,10,0,7);c.fill();y=rich(c,t,124,y,W-210,62,44)+30}
+  const y0=y,lim=H-150;let fs=44;
+  for(;fs>22;fs-=2){const tc=document.createElement('canvas').getContext('2d');let ty=y0;for(const t of j[5])ty=rich(tc,t,124,ty,W-210,Math.round(fs*1.4),fs)+Math.round(fs*.6);if(ty<=lim)break}
+  const lh=Math.round(fs*1.4),gap=Math.round(fs*.6),rd=Math.max(6,Math.round(fs*.22));
+  for(const t of j[5]){c.fillStyle=j[1];c.beginPath();c.arc(92,y-fs*.34,rd,0,7);c.fill();y=rich(c,t,124,y,W-210,lh,fs)+gap}
   c.fillStyle='#4c4a5a';c.font='600 32px "JetBrains Mono", monospace';c.textAlign='center';c.letterSpacing='5px';c.fillText('TAP TO FLIP BACK',W/2,H-80);c.letterSpacing='0px';
   return [f,b]}
-let L=null;
+let L=null;let detN=null;
+function exDet(n){const el=document.getElementById('exDet');if(n<0){if(detN===-n-1){el.hidden=true;detN=null;document.body.classList.remove('det')}return}document.body.classList.add('det');
+  const j=window.JOBS[n];detN=n;el.style.setProperty('--jc',j[1]);el.querySelector('h3').innerHTML=j[0]+' <small>'+j[2]+'</small>';
+  el.querySelector('.m').innerHTML=(j[3]+' &middot; '+j[4]);el.querySelector('ul').innerHTML=j[5].map(t=>'<li>'+t+'</li>').join('');el.hidden=false;el.scrollTop=0}
+document.addEventListener('click',e=>{if(e.target.closest('#exDet .x')){document.getElementById('exDet').hidden=true;detN=null;document.body.classList.remove('det')}});
 async function build(){
   const rail=document.getElementById('rail');await document.fonts.ready;
   const photo=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src='assets/jai-face.jpg'});
   const strap=[0.42,0.56,0.46,0.6,0.5];L=[];const hov=new Set();
   window.JOBS.forEach((j,n)=>{const d=document.createElement('div');d.className='lan';rail.appendChild(d);
     const [fc,bc]=faces(j,photo);
-    const inst=createLanyard(d,{frontCanvas:fc,backCanvas:bc,strapColor:j[1],strapLength:strap[n],size:0.62,fill:0.86/1.8,bleed:1.8,eventTarget:rail,hoverSet:hov,metal:'silver',finish:'glossy',breeze:0.25,intro:n%2?-1:1});
+    const inst=createLanyard(d,{frontCanvas:fc,backCanvas:bc,strapColor:j[1],strapLength:strap[n],size:0.62,fill:0.86/1.8,bleed:1.8,eventTarget:rail,hoverSet:hov,metal:'silver',finish:'glossy',breeze:0.25,intro:n%2?-1:1,onFlip:b=>exDet(b?n:-n-1)});
     if(inst)L.push(inst)});
   if(!L.length){rail.querySelector('.sr').className='exlist'}
 }
