@@ -35,7 +35,7 @@ a{color:inherit}button{font:inherit;color:inherit}
 #stage>video{opacity:0;transition:opacity .6s}
 #stage>video.on{opacity:1}
 body.zoomed #stage{filter:brightness(.32) blur(2px)}
-.shade{position:fixed;inset:0;pointer-events:none;transition:opacity .8s;background:linear-gradient(90deg,rgba(7,7,10,.6) 0,rgba(7,7,10,0) 38%),linear-gradient(0deg,rgba(7,7,10,.6) 0,transparent 28%)}
+.shade{position:fixed;inset:0;pointer-events:none;transition:opacity .8s;background:radial-gradient(70% 60% at 0% 100%,rgba(7,7,10,.82) 0,rgba(7,7,10,.45) 45%,transparent 75%),linear-gradient(90deg,rgba(7,7,10,.45) 0,rgba(7,7,10,0) 38%),linear-gradient(0deg,rgba(7,7,10,.6) 0,transparent 28%)}
 body.onscreen .shade{opacity:0}
 
 /* the two monitor screens, projected onto the render with matrix3d */
@@ -199,14 +199,16 @@ body.sound .eq i{animation:eq .8s infinite ease-in-out}.eq i:nth-child(2){animat
 body.vB #soundBtn{display:none}
 body.vB #intro{max-width:410px}
 
-#intro{position:fixed;left:36px;bottom:clamp(26px,5vh,54px);z-index:10;max-width:470px;transition:opacity .6s,transform .8s var(--ease)}
+#intro{position:fixed;left:36px;bottom:clamp(26px,5vh,54px);z-index:10;max-width:680px;transition:opacity .6s,transform .8s var(--ease)}
 body.zoomed #intro,body.story #intro,body.onscreen #intro{opacity:0;transform:translateY(-20px);pointer-events:none}
-.eyebrow{font:500 12px "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin:0 0 12px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font:600 12px "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#f1ecff;background:rgba(10,9,16,.72);border:1px solid rgba(167,139,250,.45);padding:6px 12px;border-radius:99px;margin:0 0 14px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--violet)}
 #intro h1{margin:0;font:700 clamp(36px,3.3vw,52px)/.95 "Space Grotesk",sans-serif;letter-spacing:-.045em}
 #intro h1 em,.chapter h2 em,#p-contact h2 em{font:400 italic 1.07em "Instrument Serif",serif;letter-spacing:-.01em;color:var(--violet)}
-.lede{font-size:16px;line-height:1.55;color:var(--muted);margin:16px 0 0;max-width:28em}
+.lede{font-size:17px;line-height:1.6;color:rgba(245,243,238,.9);margin:14px 0 0;max-width:33em;text-shadow:0 1px 14px rgba(0,0,0,.7)}
 .lede b{color:var(--text);font-weight:600}
-.ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.ctas .btn{color:var(--text)}.ctas .btn.fill{color:#0a0a0c}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.lede .rm{all:unset;cursor:pointer;font:600 14px Inter,sans-serif;color:#d9ccff;border-bottom:1px solid rgba(217,204,255,.5);padding-bottom:1px;white-space:nowrap}.lede .rm:hover{color:#fff;border-color:#fff}.lede .rm:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:2px}.lede .more{animation:fadein .35s both}
+@media (min-width:900px){#intro .hint{display:none}}.ctas .btn{color:var(--text)}.ctas .btn.fill{color:#0a0a0c}
 .btn:focus-visible{outline:2px solid var(--violet);outline-offset:3px}
 .hint{margin-top:16px;font:500 11px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 
@@ -214,25 +216,43 @@ body.zoomed #intro,body.story #intro,body.onscreen #intro{opacity:0;transform:tr
 body.onscreen #backBtn{opacity:1;pointer-events:auto}
 
 
-/* captions: what sound-off visitors get instead of the voice */
-body.sound #cc{display:none}
-body:not(.sound) #bubble{display:none}
-#cc{position:fixed;left:50%;bottom:34px;z-index:31;transform:translateX(-50%);width:max-content;max-width:min(640px,calc(100vw - 40px));text-align:center;pointer-events:none}
-#cc p{display:inline;margin:0;padding:4px 10px;background:rgba(0,0,0,.78);color:#fff;font:400 17px/1.75 Inter,system-ui,sans-serif;-webkit-box-decoration-break:clone;box-decoration-break:clone;opacity:0;transition:opacity .25s}
-#cc.on p{opacity:1}
-@media(min-width:900px){body:not(.zoomed):not(.onscreen):not(.story) #cc{left:476px;right:36px;transform:none;width:auto;max-width:none}}
-#cc b{font-weight:600;color:var(--violet)}
-@media (max-width:899px){
-  #cc{bottom:14px;top:auto}
-  body.zoomed #cc,body.onscreen #cc,body.story #cc{top:auto;bottom:18px}
-  #cc p{font-size:15px}
-}
-/* speech bubble */
-#bubble{position:fixed;z-index:30;max-width:330px;background:rgba(245,243,238,.97);color:#0e0e10;border-radius:16px;padding:13px 15px;font-size:14.5px;line-height:1.45;box-shadow:0 24px 50px -18px #000;opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s;pointer-events:none}
+/* Buddy chat: one speech bubble for sound on and off (old captions retired) */
+#cc{display:none!important}
+#bubble{position:fixed;z-index:30;width:340px;max-width:calc(100vw - 28px);background:#f6f4ef;color:#141318;border-radius:20px;padding:12px 14px 14px;font:400 14.5px/1.5 Inter,system-ui,sans-serif;box-shadow:0 30px 60px -22px rgba(0,0,0,.8),0 0 0 1px rgba(124,77,255,.22),0 0 40px -10px rgba(139,92,246,.45);opacity:0;transform:translateY(10px) scale(.96);transform-origin:40px 100%;transition:opacity .3s,transform .4s var(--ease);pointer-events:none}
 #bubble.show{opacity:1;transform:none;pointer-events:auto}
-#bubble .nm{display:flex;justify-content:space-between;font:600 10px "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#7c4dff;margin-bottom:4px}
-#bubble .nm button{background:none;border:0;cursor:pointer;color:#6b6670;font:inherit;padding:0}
-#bubble .caret{display:inline-block;width:7px;height:14px;background:#7c4dff;vertical-align:-2px;margin-left:2px;animation:car .8s steps(2) infinite}
+#bubble::after{content:"";position:absolute;left:30px;bottom:-8px;width:18px;height:18px;background:#f6f4ef;transform:rotate(45deg);border-radius:0 0 5px 0;box-shadow:4px 4px 6px -3px rgba(0,0,0,.25)}
+#bubble.notail::after{display:none}
+#bubble{transform-origin:0 100%}
+@media (min-width:1700px){#bubble{scale:1.2}}@media (min-width:2100px){#bubble{scale:1.45}}@media (min-width:2800px){#bubble{scale:1.7}}
+#bubble .nm{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+#bubble .av{position:relative;flex:none;width:30px;height:30px;border-radius:50%;background:radial-gradient(60% 50% at 35% 28%,#fff 0,#eeeaf7 30%,#a7a2bd 62%,#4a4560 100%);box-shadow:inset -3px -4px 7px rgba(0,0,0,.35)}
+#bubble .av::before,#bubble .av::after{content:"";position:absolute;top:11px;width:5px;height:7px;border-radius:50%;background:#0b0a10}
+#bubble .av::before{left:9px}#bubble .av::after{right:9px}
+body.talking #bubble .av{animation:talkglow .5s infinite alternate}
+#bubble .nm b{display:block;font:600 14px/1.1 Inter,sans-serif;color:#141318}
+#bubble .nm small{display:flex;align-items:center;gap:5px;margin-top:3px;font:500 9.5px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:#6d58b8}
+#bubble .nm small::before{content:"";width:6px;height:6px;border-radius:50%;background:#22c55e}
+#bubS{margin-left:auto;white-space:nowrap;flex:none;display:flex;align-items:center;gap:5px;height:28px;padding:0 10px;border-radius:99px;border:0;background:#7c4dff;color:#fff;cursor:pointer;font:600 11.5px Inter,sans-serif}#bubS::after{content:"Hear Buddy"}body.sound #bubS{background:#e8e3ef;color:#4a4560;padding:0 8px}body.sound #bubS::after{content:""}#bubS .w{display:none}body.sound #bubS .w{display:inline}body.sound #bubS .x{display:none}#bubS:hover{filter:brightness(1.1)}
+#bubX{width:28px;height:28px;border-radius:50%;border:0;background:#e8e3ef;color:#4a4560;cursor:pointer;font:600 17px/1 Inter,sans-serif;display:grid;place-items:center}
+#bubX:hover{background:#d9d1e6}
+#bubble .log{max-height:min(240px,38vh);overflow:auto;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin;overscroll-behavior:contain}
+#bubble .msg{max-width:94%;padding:9px 12px;border-radius:15px;animation:msgin .35s var(--ease)}
+#bubble .msg.b{align-self:flex-start;background:#fff;border:1px solid #e5e0ea;border-top-left-radius:5px}
+#bubble .msg.u{align-self:flex-end;background:#7c4dff;color:#fff;border-bottom-right-radius:5px;font-weight:500;font-size:13.5px}
+#bubble .msg.typing{display:flex;gap:4px;padding:12px 14px}
+#bubble .msg.typing i{width:6px;height:6px;border-radius:50%;background:#9b8fc0;animation:dot 1s infinite}
+#bubble .msg.typing i:nth-child(2){animation-delay:.15s}#bubble .msg.typing i:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+@keyframes msgin{from{opacity:0;transform:translateY(6px)}}
+#bubble .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+#bubble .chips:empty{display:none}
+#bubble .chips button{font:600 12.5px/1 Inter,sans-serif;padding:8px 12px;border-radius:99px;border:1px solid #cdbff6;background:#f0ebff;color:#4b2bb3;cursor:pointer;transition:background .2s,color .2s,transform .2s;animation:msgin .35s var(--ease) both}
+#bubble .chips button:nth-child(2){animation-delay:.05s}#bubble .chips button:nth-child(3){animation-delay:.1s}#bubble .chips button:nth-child(4){animation-delay:.15s}
+#bubble .chips button:hover{background:#7c4dff;color:#fff;transform:translateY(-1px)}
+#bubble .chips button.go{background:#141318;border-color:#141318;color:#fff}
+#bubble .chips button.go::after{content:" \2192"}
+#bubble .chips button.go:hover{background:#7c4dff;border-color:#7c4dff}
+#bubble button:focus-visible{outline:2px solid #7c4dff;outline-offset:2px}
 @keyframes car{50%{opacity:0}}
 #mini{position:fixed;left:24px;bottom:24px;z-index:30;width:58px;height:58px;border-radius:50%;border:0;cursor:pointer;display:none;
   background:radial-gradient(60% 50% at 35% 28%,#fff 0,#eeeaf7 30%,#a7a2bd 62%,#4a4560 100%);box-shadow:inset -6px -8px 14px rgba(0,0,0,.4),0 0 24px rgba(139,92,246,.55);animation:bob 3.2s ease-in-out infinite}
@@ -240,6 +260,8 @@ body:not(.sound) #bubble{display:none}
 #mini::before{left:17px}#mini::after{right:17px}
 @keyframes bob{50%{transform:translateY(-6px)}}
 body.vA.zoomed #mini,body.vA.story #mini{display:block}
+@media (max-width:899px){body.vA #mini{display:block}}
+body.story #bubble,body.onscreen #bubble{display:none}
 body.onscreen #bubble{display:none}
 
 /* panels: experience + contact (+ mobile screens) */
@@ -538,6 +560,9 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 .leg .when{padding:0;font-size:13px;color:var(--ochre)}.leg.nw .when{color:var(--now)}
 .leg h3{font-size:clamp(19px,1.5vw,23px)}
 .leg .role{margin-top:0;font-size:12px;line-height:1.4}
+.about .quote{margin:10px 0 0;max-width:62ch;font:italic 400 21px/1.3 "Instrument Serif",serif;color:var(--now)}
+@media (max-width:899px){.about .quote{grid-column:1/-1;font-size:19px}}
+.leg .did{display:block;margin-top:6px;font:400 13.5px/1.45 Inter,sans-serif;color:var(--ink2);max-width:30ch}
 .leg .stamp{align-self:flex-start;margin-top:10px;font-size:21px;padding:6px 12px}
 .side{display:grid;grid-template-columns:auto auto 1fr auto;align-items:center;gap:6px 16px;margin-top:8px;padding:10px 12px;border:1.5px dashed var(--now);border-radius:6px;transition:background .3s}
 .side.on{background:rgba(109,79,216,.07)}
@@ -546,7 +571,9 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 .side .role{font:700 12px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
 .side .stamp{font-size:19px;padding:4px 10px;--stamp:var(--now)}
 .valid{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 22px;margin:0;padding:12px 28px;border-top:1px dashed var(--ochre2);font:500 15px/1.5 Inter,sans-serif;color:var(--ink2)}
-.valid .lbl{margin-right:4px}#tkSkills{display:contents}
+.valid .lbl{margin-right:4px}
+.valid{display:block!important}.skl{display:grid;grid-template-columns:1fr 1fr;gap:4px 36px;margin-top:8px}.skl h4{margin:0 0 4px;font:700 13px/1.2 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}.skl .ai h4{color:var(--now)}.skl ul{list-style:none;margin:0;padding:0}.skl li{font:400 14.5px/1.45 Inter,sans-serif;color:var(--ink2);padding:2px 0}.skl li b{font-weight:700;color:var(--ink);margin-right:6px}
+@media (max-width:899px){.skl{grid-template-columns:1fr;gap:12px}}
 .valid b{font-weight:700;color:var(--ink)}.valid .ai b{color:var(--now)}
 .tfoot{padding:12px 28px}
 .cta a,.cta button{padding:11px 18px;font-size:15px}
@@ -593,7 +620,7 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
   <div class="ld">
     <small>Jai Anklesaria &middot; Portfolio</small>
     <p class="ldh">Step into <em>my desk.</em></p>
-    <small>Product Designer &amp; UX Researcher &middot; Nottingham, UK</small>
+    <small>Product Designer &amp; UX Researcher &middot; Mumbai, India</small>
     <div class="bar"><i id="barFill"></i></div>
     <div class="enter" id="enter" hidden>
       <button class="btn fill" data-sound="1">Enter with sound</button>
@@ -620,7 +647,7 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 <section id="intro">
   <p class="eyebrow">Product Designer &amp; UX Researcher</p>
   <h1>I'm Jai. I investigate <em>UX problems.</em></h1>
-  <p class="lede">With <b>research, analytics and usability testing</b>, I find the friction in products, apps and websites that sends people away, then design and build the fix.</p>
+  <p class="lede">Product designer and UX researcher with <b>3+ years of mixed-method research</b> across healthcare, B2C, SaaS, e-commerce and logistics. Currently designing healthcare and pharmaceutical platforms at Asentech.<span class="more" id="ledeMore" hidden> Led an augmented reality research project with KPMG, interviewing 20 to 25 users and A/B testing onboarding to raise task success by 31%. Also designing agentic AI experiences: tool-calling actions, human-in-the-loop rules and AI trust patterns. Earlier work raised user satisfaction by 66% on a logistics feature and retention by 45% on a parenting app. MSc Human-Computer Interaction, University of Nottingham.</span> <button class="rm" id="ledeBtn" aria-expanded="false" aria-controls="ledeMore">Read more</button></p>
   <div class="ctas"><button class="btn fill" data-go="work">See case studies &rarr;</button><button class="btn" data-go="contact">Get in touch</button></div>
   <p class="hint">Or click a screen, or anything that glows</p>
 </section>
@@ -694,15 +721,16 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
         <div class="about">
           <img class="ph" src="assets/jai-face.jpg" alt="Jai Anklesaria">
           <div class="who">
-            <span class="lbl">Passenger &middot; About me</span>
+            <span class="lbl">Passenger &middot; How I got into UX</span>
             <h2 class="nm">Jai Anklesaria</h2>
             <p class="ln"><span>Product Designer &amp; UX Researcher</span></p>
-            <p class="intro">I investigate products, apps and websites with research, analytics and usability testing, find the friction that sends people away, then design and build the fix.</p>
+            <p class="intro">I came into design through computer science. During my BSc I kept asking why some software felt easy and some felt like a fight. That question took me to an MSc in Human-Computer Interaction at the University of Nottingham, and it&rsquo;s still the question I ask on every project.</p>
+            <p class="quote">&ldquo;Just a human being trying to understand other human beings, solve some of their problems, and make their lives and experiences easier.&rdquo;</p>
           </div>
-          <div class="route"><span class="lbl">Route</span><p class="rt">MUMBAI <small>To</small> NOTTINGHAM <small>To</small> <span class="now">NOW</span></p><p class="ln"><span>Status : Open to work</span></p></div>
+          <div class="route"><span class="lbl">Route</span><p class="rt">MUMBAI <small>To</small> NOTTINGHAM <small>To</small> <span class="now">MUMBAI</span></p><p class="ln"><span>Status : Open to work &middot; open to relocate</span></p></div>
         </div>
         <div class="jr"><span class="lbl">Where I've worked &middot; latest first</span><ol class="legs" id="legs"></ol><div class="side" id="tkSide"></div></div>
-        <p class="valid"><span class="lbl">Valid for</span><span id="tkSkills"></span></p>
+        <div class="valid"><span class="lbl">Valid for &middot; what I do</span><div class="skl" id="tkSkills"></div></div>
         <div class="tfoot">
           <p class="ln"><span>Journey continues. Next stop: your team.</span></p>
           <div class="cta"><button class="pri" data-go="work">See the work &rarr;</button><a href="Jai-Anklesaria-CV.pdf" target="_blank" rel="noopener">Download CV</a></div>
@@ -716,7 +744,7 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 
 <button id="mini" aria-label="Buddy: tap for a tip"></button>
 <div id="cc" aria-live="polite"><p id="ccTxt"></p></div>
-<div id="bubble" aria-live="polite"><div class="nm"><span id="who">Buddy</span><button id="bubX" aria-label="Close">close</button></div><span id="say"></span><span class="caret"></span></div>
+<div id="bubble" role="region" aria-label="Chat with Buddy"><div class="nm"><span class="av" aria-hidden="true"></span><span><b id="who">Buddy</b><small>Online</small></span><button id="bubS" aria-label="Turn Buddy's voice on" aria-pressed="false"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path class="w" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="x" d="M16.5 9.5l5 5m0-5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><button id="bubX" aria-label="Minimise chat">&minus;</button></div><div class="log" id="log" aria-live="polite"></div><div class="chips" id="chips"></div></div>
 <div class="demo"><span>Preview &middot;</span><a href="?v=a" id="vA">A: Buddy</a><a href="?v=b" id="vB">B: Jai turns</a></div>
 
 <script>
@@ -910,13 +938,13 @@ function zoomTo(k){
 
 /* ---------- voice + bubble ---------- */
 const LINES={
- A:{room:["Oh, hi! I'm Buddy. Jai's deep in work, so I'll show you round. Case studies are on the left screen, freelance work on the right.","buddy-intro2"],
-    work:["This is Jai's screen. Eight case studies, each one starting with research. Most end with a result you can check.",null],
-    freelance:["And this screen is Jai's freelance work. Real sites for real clients, from breweries to logistics. Pick one to play it.","buddy-freelance"],
-    experience:["Here's everywhere Jai has worked, newest first. The CV is right at the top if you want to take it with you.","buddy-experience2"],
-    story:["Hop on! This is the Mumbai local. Jai started designing in Mumbai in 2021, then took the long ride to Nottingham for a master's degree. Scroll to travel.","buddy-story"],
-    contact:["Ooh, the phone's ringing! Let's get Jai on a call. Book a time, find Jai on LinkedIn, or grab the CV.","buddy-call"],
-    back:["Psst. Come back to the desk any time. Jai won't mind.","buddy-back2"]},
+ A:{room:["Hi, I'm Buddy, Jai's guide. Everything that glows in this room opens something. Hover over it to peek, click to step inside. Or I can take you straight to Jai's best work.","v5-room"],
+    work:["This is where the real work lives. Eight case studies, each one built on research with real people. Pick a card to read the full story.","v5-work"],
+    freelance:["These are live sites Jai has built for clients. Pick one to see it running.","v4-freelance"],
+    experience:["Here's where Jai has worked, most recent first. The CV is at the top if you'd like a copy.","v4-experience"],
+    story:["All aboard! This ticket is Jai's journey, from Mumbai to Nottingham and back again. Hover over any stop to hear about it.",null],
+    contact:["Want to talk to Jai? You can book a call, connect on LinkedIn, or download the CV.","v4-contact"],
+    back:["Welcome back. Anything else catch your eye? Hover over the glowing tags to peek before you click.",null]},
  B:{room:["Oh, hey! I'm Jai. Welcome to my desk. Case studies are on the left screen, freelance work on the right. Have a look around.",null],
     work:["These are my case studies. Each one starts with research and ends with a result you can check.",null],
     freelance:["And these are live sites I've built for clients. Pick one to see it running.",null],
@@ -933,34 +961,59 @@ const bubble=$('#bubble'),sayEl=$('#say');let typing,hideT;
 
 /* captions stay up until the next line; the voice bubble is only used with sound on */
 const cc=$('#cc'),ccTxt=$('#ccTxt');
-function caption(txt){
-  cc.classList.remove('on');
-  setTimeout(()=>{ccTxt.innerHTML='';const b=document.createElement('b');b.textContent=(V==='A'?'Buddy':'Jai')+': ';ccTxt.append(b,document.createTextNode(txt));cc.classList.add('on');clearTimeout(cc._t);if(innerWidth<900)cc._t=setTimeout(()=>cc.classList.remove('on'),3000+txt.length*55)},reduce?0:180);
-}
+/* scripted chat: every answer below is taken from what the site already says */
+const Q={
+ tour:{q:'Quick tour',a:"Left screen: case studies. Right screen: freelance sites. The badges on the wall are Jai's roles, and the ticket by the window is the story.",next:['cs','exp','more']},
+ best:{q:'Best work',a:"Three to start with: Real Drive XR (68% passed first time vs a 47% UK average), ARFinViz with KPMG (task success up 31%), and Shadowfax (up to 6 drops in one order, picked by A/B test).",next:['c:Real Drive XR','c:ARFinViz','c:Shadowfax']},
+ open:{q:'Is Jai open to work?',a:"Yes. Jai is a Product Designer at Asentech right now, and open to the next role, including relocation.",next:['call','cv']},
+ what:{q:'What does Jai do?',a:"Product design backed by research: interviews, usability testing and analytics, then designs that get tested before they ship. Jai also builds AI tools and automations. In Jai's words: just a human being trying to understand other human beings, and make their lives a little easier.",next:['cs','best']},
+ where:{q:'Where is Jai based?',a:"Jai is based in Mumbai, India, and open to relocating.",next:['call','open']}
+};
+const ACT={cs:['See case studies',()=>go('work')],exp:['See experience',()=>go('experience')],call:['Contact Jai',()=>go('contact')],
+ cv:['Download CV',()=>{const a=$('.cvlink');if(a)window.open(a.href,'_blank','noopener')}],more:['More questions',null]};
+const CHIPS={room:['tour','best','open','more'],back:['tour','best','open','more'],work:['best','open'],freelance:['cs','call'],experience:['cv','open'],contact:['cv','where']};
+const logEl=$('#log'),chipsEl=$('#chips');let seq=0;
+function openCase(n){const c=cases.find(x=>x[0]===n);if(!c)return go('work');const h=(INFO[n]&&INFO[n].link)||c[4];
+  if(/^https?:/.test(h))window.open(h,'_blank','noopener');else{remember();location.href=h}}
+function addMsg(t,cls){const m=document.createElement('div');m.className='msg '+cls;m.textContent=t;logEl.append(m);logEl.scrollTop=logEl.scrollHeight;return m}
+function setChips(list){chipsEl.innerHTML='';(list||[]).forEach(id=>{const b=document.createElement('button');b.type='button';let lab,fn,isGo=false;
+  if(id.startsWith('c:')){const n=id.slice(2);lab='Open '+n.replace(' XR','');fn=()=>openCase(n);isGo=true}
+  else if(id==='more'){lab=ACT.more[0];fn=()=>{addMsg('More questions','u');reply('Sure. What would you like to know?',['what','where','cv'])}}
+  else if(ACT[id]){[lab,fn]=ACT[id];isGo=true}
+  else{lab=Q[id].q;fn=()=>{addMsg(Q[id].q,'u');reply(Q[id].a,Q[id].next)}}
+  b.textContent=lab;if(isGo)b.className='go';b.addEventListener('click',fn);chipsEl.append(b)})}
+function armHide(){clearTimeout(hideT);if(view!=='room'||innerWidth<900)hideT=setTimeout(()=>{if(!bubble.matches(':hover,:focus-within'))bubble.classList.remove('show')},view==='room'?14000:10000)}
+function reply(txt,chips){const my=++seq;setChips([]);clearTimeout(hideT);
+  const t=document.createElement('div');t.className='msg b typing';t.innerHTML='<i></i><i></i><i></i>';logEl.append(t);logEl.scrollTop=logEl.scrollHeight;
+  setTimeout(()=>{if(my!==seq)return;t.remove();addMsg(txt,'b');setChips(chips);armHide()},reduce?0:Math.min(1200,450+txt.length*4))}
+let lastKey='room';
+const HOVER={hotL:"That's the case studies screen. Click it to open all eight.",hotR:"The right screen plays Jai's live client sites. Click to browse them.",hotX:"Those badges are Jai's roles. Click to take them off the wall.",hotS:"The window opens Jai's ticket: the whole journey on one page.",hotC:"That's Jai's phone ringing. Click it and let's get you two talking."};const hoverSaid={};
+Object.keys(HOVER).forEach(id=>{const el=document.getElementById(id);if(!el)return;el.addEventListener('mouseenter',()=>{if(view!=='room'||hoverSaid[id]||innerWidth<900)return;hoverSaid[id]=1;bubble.classList.add('show');placeBubble();seq++;logEl.querySelectorAll('.typing').forEach(t=>t.remove());addMsg(HOVER[id],'b')})});
 function say(key){
-  let [txt,file]=LINES[key];
-  if(key==='room'&&innerWidth<900){txt=V==='A'?"Hi! I'm Buddy. Tap the screen to see Jai's work, or pick a section at the top.":"Hi, I'm Jai. Tap the screen, or pick a section at the top.";file=null}clearInterval(typing);clearTimeout(hideT);
-  if(!sound){bubble.classList.remove('show');caption(txt);return}
-  cc.classList.remove('on');
-  sayEl.textContent='';bubble.classList.add('show');placeBubble();
+  lastKey=key;let [txt,file]=LINES[key];
+  if(key==='room'&&innerWidth<900){txt=V==='A'?"Hi, I'm Buddy. Tap the screen for Jai's work, or ask me something below.":"Hi, I'm Jai. Tap the screen, or pick a section at the top.";file=V==='A'?'v4-room-m':null}
+  clearTimeout(hideT);logEl.innerHTML='';bubble.classList.add('show');placeBubble();
   if(sound&&file){audio.src=`assets/${file}.mp3`;audio.currentTime=0;audio.play().catch(()=>{})}
-  if(reduce){sayEl.textContent=txt;return}
-  let i=0;typing=setInterval(()=>{sayEl.textContent=txt.slice(0,++i);if(i>=txt.length){clearInterval(typing);hideT=setTimeout(()=>bubble.classList.remove('show'),view==='room'?9000:5000)}},26);
+  reply(txt,V==='A'?CHIPS[key]:null);
 }
 function placeBubble(){
-  if(!SW)return;const W=innerWidth;
-  if(view==='room'&&W>=900){const bx=SX+SW*C.speaker[0]/100,by=SY+SH*C.speaker[1]/100;
-    if(V==='A'){bubble.style.left=Math.max(16,Math.min(bx+SW*.035,W-350))+'px';bubble.style.top=Math.max(84,by-SH*.06-60)+'px'}
-    else{bubble.style.left=Math.min(bx-60,W-350)+'px';bubble.style.top=Math.max(84,by-SH*.06-110)+'px'}
-    bubble.style.bottom='auto';}
-  else if(W<900&&(view==='room'||view==='story')){bubble.style.left='16px';bubble.style.top='128px';bubble.style.bottom='auto'}
-  else{bubble.style.left=(W<900?16:W-370)+'px';bubble.style.top='auto';bubble.style.bottom=(W<900?92:30)+'px'}
+  const W=innerWidth,H=innerHeight;bubble.classList.remove('notail');bubble.style.right='auto';logEl.style.maxHeight='';
+  if(W<900&&view==='room'){bubble.style.left='14px';bubble.style.top='118px';bubble.style.bottom='auto';bubble.classList.add('notail');return}
+  if(view==='room'&&SW&&V==='A'){const bx=SX+SW*C.speaker[0]/100,by=SY+SH*C.speaker[1]/100;
+    const bot=Math.max(14,H-(by-SW*.04));bubble.style.left=Math.max(14,Math.min(bx-39,W-360))+'px';bubble.style.bottom=bot+'px';bubble.style.top='auto';const k=parseFloat(getComputedStyle(bubble).scale)||1;logEl.style.maxHeight=Math.max(110,(H-bot-84)/k-150)+'px';return}
+  bubble.style.left='14px';bubble.style.bottom='96px';bubble.style.top='auto';
 }
-$('#bubX').addEventListener('click',()=>{bubble.classList.remove('show');audio.pause()});
+$('#ledeBtn').addEventListener('click',e=>{const m=$('#ledeMore'),open=m.hidden;m.hidden=!open;e.currentTarget.textContent=open?'Show less':'Read more';e.currentTarget.setAttribute('aria-expanded',open)});
+let muted=false;
+function firstTouch(e){removeEventListener('pointerdown',firstTouch,true);removeEventListener('keydown',firstTouch,true);if(sound||muted||V!=='A')return;if(e.target.closest&&e.target.closest('#bubS,#soundBtn,#bubX'))return;setSound(true);if(!(e.target.closest&&e.target.closest('[data-go],.hot,.screen,#bubble button,#buddyHit,#mini'))&&bubble.classList.contains('show')){const f=(LINES[lastKey]||[])[1];const file=lastKey==='room'&&innerWidth<900?'v4-room-m':f;if(file){audio.src=`assets/${file}.mp3`;audio.currentTime=0;audio.play().catch(()=>{})}}}
+addEventListener('pointerdown',firstTouch,true);addEventListener('keydown',firstTouch,true);
+$('#bubS').addEventListener('click',()=>{setSound(!sound);muted=!sound;$('#bubS').setAttribute('aria-pressed',sound);$('#bubS').setAttribute('aria-label',sound?"Turn Buddy's voice off":"Turn Buddy's voice on");if(sound){const [,f]=LINES[lastKey]||[];let file=f;if(lastKey==='room'&&innerWidth<900)file='v4-room-m';if(file){audio.src=`assets/${file}.mp3`;audio.currentTime=0;audio.play().catch(()=>{})}}});
+bubble.addEventListener('mouseenter',()=>clearTimeout(hideT));bubble.addEventListener('mouseleave',armHide);
+$('#bubX').addEventListener('click',()=>{bubble.classList.remove('show');audio.pause();seq++;clearTimeout(hideT)});
 bh.addEventListener('click',()=>say('room'));
 $('#mini').addEventListener('click',()=>say(view==='room'?'room':(LINES[view]?view:'back')));
 function setSound(on){sound=on&&V==='A';body.classList.toggle('sound',sound);$('#soundTxt').textContent=sound?'Sound on':'Sound off';$('#soundBtn').setAttribute('aria-pressed',sound);if(!sound)audio.pause()}
-$('#soundBtn').addEventListener('click',()=>{setSound(!sound);if(sound)say(view==='room'?'room':view)});
+$('#soundBtn').addEventListener('click',()=>{setSound(!sound);muted=!sound;if(sound)say(view==='room'?'room':view)});
 
 /* ---------- navigation ---------- */
 const mobile=()=>innerWidth<900;
@@ -980,7 +1033,7 @@ function go(k){
   if(k==='room'){zoomTo(null);if(prev!=='room')setTimeout(()=>say('back'),800);placeBubble();return}
   const isScreen=k==='work'||k==='freelance';
   zoomTo(k);
-  if(k==='story'){try{audio.pause();$('#cc').classList.remove('on')}catch(e){}
+  if(k==='story'){try{audio.pause();$('#cc').classList.remove('on');lastKey='story';if(sound&&!fast&&window.STORY_VO)setTimeout(()=>{if(view==='story'){audio.src='assets/v5-story.mp3';audio.currentTime=0;audio.play().catch(()=>{})}},reduce?0:1100)}catch(e){}
     setTimeout(()=>{body.classList.add('story');board()},(reduce||fast)?0:900);
   }else{
     setTimeout(()=>{body.classList.add('zoomed');const p=$('#p-'+k);p.classList.add('show');p.scrollTop=0;
@@ -999,19 +1052,19 @@ const LEGS=[
  {when:'2021',city:'Mumbai',co:'Swabhav Techlabs',role:'Junior Product Designer (Internship)',txt:'Research and usability sessions with 30+ parents for a child growth app.',st:['30+','parents'],r:-6,say:"First stop, Mumbai in 2021. Jai joined Swabhav Techlabs and ran research with 30+ parents for a child growth app."},
  {when:'2022',city:'Mumbai',co:'Mobile First Application',role:'Product Designer',txt:'Owned a multi-drop logistics feature end to end, shaped by 30+ surveys and interviews.',st:['+66%','satisfaction'],r:5,say:"Next, Mobile First Application. Jai owned a multi-drop logistics feature, and satisfaction went up 66%."},
  {when:'Alongside',city:'2021 to now',co:'Freelance',role:'Product Designer (UX/UI & AI)',txt:'Research, Figma prototypes, and sites Jai builds and launches.',st:['15+','clients'],r:-4,alt:1,say:"All along the line, Jai has freelanced for 15+ clients, from research to sites Jai builds and launches."},
- {when:'2023',city:'Nottingham',co:'KPMG × University of Nottingham',role:'Product Designer, Industry Project',txt:'An AR app for finance data, alongside a master\'s at the University of Nottingham <span class="tbd">[TBD: course name]</span>.',st:['+31%','task success'],r:6,say:"Then the long ride to Nottingham: a master's, and an AR finance app with KPMG that raised task success by 31%."},
- {when:'2025',city:'Now',co:'Asentech LLC',role:'Product Designer (UX Research)',txt:'Designing healthcare and pharma platforms.',st:['Now','on board'],r:-5,now:1,say:"And now, Asentech, designing healthcare and pharma platforms. Jai is open to the next stop."}];
+ {when:'2023',city:'Nottingham',co:'KPMG × University of Nottingham',role:'Product Designer, Industry Project',txt:'An AR app for finance data, alongside an MSc in Human-Computer Interaction at the University of Nottingham.',st:['+31%','task success'],r:6,say:"Then the long ride to Nottingham: a master's, and an AR finance app with KPMG that raised task success by 31%."},
+ {when:'2025',city:'Mumbai',co:'Asentech LLC',role:'Product Designer (UX Research)',txt:'Designing healthcare and pharma platforms.',st:['Now','on board'],r:-5,now:1,say:"And now, Asentech, designing healthcare and pharma platforms. Jai is open to the next stop."}];
 const SKILLS=[['Product Design','',[['Product Strategy','Find the right problem to solve.'],['UX Research','Understand people before shaping solutions.'],['Interaction Design','Make every action feel clear and natural.'],['Design Systems','Build consistency that grows with the product.'],['Prototyping','Make ideas tangible. Test what matters.']]],
  ['AI Systems','ai',[['AI Products','Turn intelligence into useful experiences.'],['Agentic Systems','Multi agent orchestration with clear roles and handoffs.'],['MCP','Connect models to the tools they need.'],['RAG','Ground responses in relevant knowledge.'],['Automation','Turn repeated work into reliable workflows.']]]];
 const st=$('#story'),legsEl=$('#legs'),tkSay=$('#tkSay');
 var rideT,stop=-1;
 const MAIN=LEGS.filter(l=>!l.alt).reverse(), /* latest first: Asentech, KPMG, Mobile First, Swabhav */SIDE=LEGS.find(l=>l.alt);
-legsEl.innerHTML=MAIN.map((l,i)=>`<li class="leg${l.now?' nw':''}" style="--i:${i}" tabindex="0"><span class="when">${l.when} &middot; ${l.city}</span><h3>${l.co}</h3><span class="role">${l.role}</span><span class="stamp${l.now?' now':''}" style="--r:${l.r}deg">${l.st[0]}<small>${l.st[1]}</small></span></li>`).join('');
+legsEl.innerHTML=MAIN.map((l,i)=>`<li class="leg${l.now?' nw':''}" style="--i:${i}" tabindex="0"><span class="when">${l.when} &middot; ${l.city}</span><h3>${l.co}</h3><span class="role">${l.role}</span><span class="did">${l.txt}</span><span class="stamp${l.now?' now':''}" style="--r:${l.r}deg">${l.st[0]}<small>${l.st[1]}</small></span></li>`).join('');
 $('#tkSide').innerHTML=SIDE?`<span class="when">Side line &middot; ${SIDE.city}</span><b>${SIDE.co}</b><span class="role">${SIDE.role}</span><span class="stamp" style="--r:${SIDE.r}deg">${SIDE.st[0]}<small>${SIDE.st[1]}</small></span>`:'';
-$('#tkSkills').innerHTML=SKILLS.map(([h,c,l])=>`<span class="${c}"><b>${h}:</b> ${l.map(x=>x[0]).join(' &middot; ')}</span>`).join('');
+$('#tkSkills').innerHTML=SKILLS.map(([h,c,l])=>`<div class="${c}"><h4>${h}</h4><ul>${l.map(x=>`<li><b>${x[0]}</b>${x[1]}</li>`).join('')}</ul></div>`).join('');
 const legEls=[...legsEl.children,$('#tkSide')];const LEGORD=[...MAIN,SIDE];
 function sayLeg(i,auto){stop=i;legEls.forEach((e,j)=>e.classList.toggle('on',j===i));
-  tkSay.textContent=i<0?"Here's Jai's ticket. Every stop so far, and where it's heading.":i>=LEGORD.length?"Last part of the ticket: what Jai brings on board.":LEGORD[i].say;
+  tkSay.textContent=i<0?"All aboard! This is Jai's journey. Hover over any stop to hear about it.":i>=LEGORD.length?"Last part of the ticket: what Jai brings on board.":LEGORD[i].say;
   body.classList.add('talking');clearTimeout(st._t);st._t=setTimeout(()=>body.classList.remove('talking'),1800);
   clearTimeout(rideT);if(auto&&i<LEGORD.length)rideT=setTimeout(()=>sayLeg(i+1,true),i<0?2200:4200)}
 function fitTk(){const t=st.querySelector('.tix');t.style.zoom=1;if(innerWidth<900)return;const avail=innerHeight-8,h=t.scrollHeight;if(h>avail)t.style.zoom=Math.max(.6,avail/h)}
@@ -1128,7 +1181,7 @@ fit();
   if(!r||!r.view||r.view==='room'||Date.now()-r.t>36e5)return;
   $('#loader').style.transition='none';$('#loader').classList.add('gone');clearInterval(tick);
   setSound(!!r.sound);if(V==='A')loadVid($('#roomVid'),C.vid,true);pick($('#scrRin'),0,true);
-  fast=true;stage.style.transition='none';go(r.view);
+  fast=true;stage.style.transition='none';go(r.view);setTimeout(()=>{if(r.view!=='story'){placeBubble();say(r.view)}},700);
   requestAnimationFrame(()=>requestAnimationFrame(()=>{stage.style.transition='';fast=false}));
 })();
 addEventListener('pageshow',e=>{if(e.persisted&&view!=='room')fit()});
