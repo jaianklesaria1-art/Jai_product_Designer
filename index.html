@@ -782,6 +782,14 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
   #bubble.compact{max-width:280px}
   #bubble.compact .msg{font-size:13px}
 }
+
+/* phone landscape: all five badges on screen, lighter effects */
+@media (pointer:coarse) and (max-height:500px) and (orientation:landscape){
+  .lan{flex:1 1 0;min-width:0;scroll-snap-align:none}
+  .rail.lanrail{overflow:visible}
+  .flipper{width:min(17vw,calc((100vh - 150px)*.68),170px)}
+  nav,.pill,.hot .tag,#backBtn,.exnav button,.exnav span{backdrop-filter:none;-webkit-backdrop-filter:none}
+}
 </style>
 </head>
 <body>
@@ -1113,7 +1121,7 @@ function zoomTo(k){
     stage.style.transformOrigin=`${cx/SW*100}% ${cy/SH*100}%`;
     stage.style.transform=`translate(${W/2-(SX+cx)}px,${H/2+22-(SY+cy)}px) scale(${s})`;
   }else{
-    const [px,py,s]=objs[k]||[k==='work'?64.3:81.6,37,2.4];const cx=SX+SW*px/100,cy=SY+SH*py/100;
+    let [px,py,s]=objs[k]||[k==='work'?64.3:81.6,37,2.4];if(TOUCHPH.matches||matchMedia('(pointer:coarse) and (max-width:899px)').matches)s=Math.min(s,1.25);const cx=SX+SW*px/100,cy=SY+SH*py/100;
     stage.style.transformOrigin=`${px}% ${py}%`;
     stage.style.transform=`translate(${W/2-cx}px,${H/2-cy}px) scale(${s})`;
   }
@@ -1217,6 +1225,7 @@ function go(k){bubFull=false;
   if(matchMedia('(pointer:coarse)').matches){if(k!=='room'&&!pushed){history.pushState({v:k},'');pushed=true}else if(k==='room'&&pushed&&!go._pop){pushed=false;history.back()}}
   if(view==='story'&&body.classList.contains('story')&&!go._leaving){go._leaving=1;clearTimeout(rideT);exitTicket().then(()=>{go(k);go._leaving=0});return}
   const prev=view;view=k;
+  if(matchMedia('(pointer:coarse)').matches){const rv=$('#roomVid'),mv=$('#scrRin .pv video');if(k==='room'){setTimeout(()=>{if(view==='room'){rv&&rv.play&&rv.play().catch(()=>{});mv&&mv.src&&mv.play().catch(()=>{})}},600)}else{rv&&rv.pause();mv&&mv.pause()}}
   $$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===k));
   $$('.panel.show').forEach(p=>{p.classList.remove('in');setTimeout(()=>p.classList.remove('show'),400)});
   $$('.screen').forEach(s=>s.classList.remove('active'));
@@ -1261,7 +1270,7 @@ function sayLeg(i,auto){stop=i;legEls.forEach((e,j)=>e.classList.toggle('on',j==
   tkSay.textContent=i<0?"All aboard! This is Jai's journey. Hover over any stop to hear about it.":i>=LEGORD.length?"Last part of the ticket: what Jai brings on board.":LEGORD[i].say;
   body.classList.add('talking');clearTimeout(st._t);st._t=setTimeout(()=>body.classList.remove('talking'),1800);
   clearTimeout(rideT);if(auto&&i<LEGORD.length)rideT=setTimeout(()=>sayLeg(i+1,true),i<0?2200:4200)}
-function fitTk(){const t=st.querySelector('.tix');t.style.zoom=1;if(innerWidth<900)return;const avail=innerHeight-8,h=t.scrollHeight;if(h>avail)t.style.zoom=Math.max(.8,avail/h)}
+function fitTk(){const t=st.querySelector('.tix');t.style.zoom=1;if(matchMedia('(pointer:coarse) and (max-height:500px) and (orientation:landscape)').matches){t.style.zoom=.62;return}if(innerWidth<900)return;const avail=innerHeight-8,h=t.scrollHeight;if(h>avail)t.style.zoom=Math.max(.8,avail/h)}
 addEventListener('resize',()=>{if(body.classList.contains('story'))fitTk()});
 function board(){fitTk();st.scrollTop=0;st.classList.remove('go');void st.offsetWidth;st.classList.add('go');sayLeg(-1,false);enterTicket();clearTimeout(rideT);}
 legEls.forEach((e,i)=>{const pick=()=>sayLeg(i,false);e.addEventListener('mouseenter',pick);e.addEventListener('focus',pick);e.addEventListener('click',pick)});
