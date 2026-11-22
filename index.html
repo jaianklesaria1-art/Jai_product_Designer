@@ -22,6 +22,10 @@ a{color:inherit}button{font:inherit;color:inherit}
 #rot h2{margin:0 0 10px;font:700 30px/1.1 "Space Grotesk",sans-serif;letter-spacing:-.03em;color:#f5f3ee}
 #rot p{margin:0 0 24px;font:400 16px/1.5 Inter,sans-serif;color:rgba(245,243,238,.82)}
 #rot .btn{color:#0a0a0c;margin:0 auto 14px}
+#rot .rotgo{display:inline-flex;align-items:center;justify-content:center;min-height:52px;width:100%;max-width:300px;padding:0 24px;font-size:16px}
+#rot .rotlock{margin:22px auto 0;max-width:290px;padding:12px 14px;border:1px dashed rgba(217,204,255,.35);border-radius:12px;font:400 13.5px/1.5 Inter,sans-serif;color:rgba(245,243,238,.72)}
+#rot .rotlock b{display:block;margin-bottom:2px;font-weight:700;color:#d9ccff}
+body.rotgate{overflow:hidden}
 #rot .rotskip{display:block;margin:0 auto;background:none;border:0;padding:10px;font:600 14px Inter,sans-serif;color:#d9ccff;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 /* loader */
 #loader{position:fixed;inset:0;z-index:50;background:var(--bg);display:grid;place-items:center;transition:opacity .9s var(--ease),visibility .9s}
@@ -772,9 +776,9 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
   <div class="rotin">
     <div class="ph" aria-hidden="true"><i></i></div>
     <h2 id="rotH">Rotate your phone</h2>
-    <p>Jai&rsquo;s desk is built for landscape. Turn your phone sideways for the full room.</p>
-    <button class="btn fill" id="rotFs" hidden>Go full screen &#x21bb;</button>
-    <button class="rotskip" id="rotSkip">Continue in portrait</button>
+    <p>Jai&rsquo;s desk is built for landscape. Turn your phone sideways to step inside.</p>
+    <button class="btn fill rotgo" id="rotFs" hidden>Rotate &amp; go full screen &#x21bb;</button>
+    <p class="rotlock"><b>Screen won&rsquo;t turn?</b> Switch off rotation lock in your phone&rsquo;s quick settings, then turn it sideways.</p>
   </div>
 </div>
 <div id="loader" role="dialog" aria-label="Welcome">
@@ -1348,12 +1352,11 @@ $$('#enter button').forEach(b=>b.addEventListener('click',()=>{
 })();
 if(/state=static/.test(location.search))$('#loader').classList.add('gone');
 /* rotate gate: phones in portrait see it until they rotate or choose to continue */
-(function(){const rot=$('#rot');if(!rot)return;let skip=false;try{skip=sessionStorage.getItem('jai-portrait')==='1'}catch(e){}
+(function(){const rot=$('#rot');if(!rot)return;const skip=false;
   const phone=matchMedia('(pointer:coarse) and (max-width:899px), (pointer:coarse) and (max-height:500px)'),portrait=matchMedia('(orientation:portrait)');
   const canLock=!!(document.documentElement.requestFullscreen&&screen.orientation&&screen.orientation.lock);
   function upd(){const on=phone.matches&&portrait.matches&&!skip;rot.hidden=!on;document.body.classList.toggle('rotgate',on)}
   if(canLock){$('#rotFs').hidden=false;$('#rotFs').addEventListener('click',async()=>{try{await document.documentElement.requestFullscreen();await screen.orientation.lock('landscape')}catch(e){}})}
-  $('#rotSkip').addEventListener('click',()=>{skip=true;try{sessionStorage.setItem('jai-portrait','1')}catch(e){}upd()});
   [phone,portrait].forEach(m=>m.addEventListener('change',()=>{upd();if(typeof fit==='function')setTimeout(fit,200)}));upd()})();
 fit();
 /* coming back from a case study or a client site: skip the intro and reopen the same screen */
