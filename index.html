@@ -1121,8 +1121,8 @@ const LINES={
     freelance:["These are live sites Jai designed and built for real clients. Choose one on the left and watch it run on the right.","v5-freelance"],
     experience:["Every badge on this wall is a role Jai has held, newest first. Drag one around, or tap it to flip and see what Jai did there.","v5-experience"],
     story:["All aboard! This ticket is Jai's journey, from Mumbai to Nottingham and back again. Hover over any stop to hear about it.","v5-story"],
-    contact:["Want to talk to Jai? You can book a call, connect on LinkedIn, or download the CV.","v4-contact"],
-    back:["Welcome back. Anything else catch your eye? Hover over the glowing tags to peek before you click.",null]},
+    contact:["Like what you've seen? Book a call with Jai, connect on LinkedIn, or take the CV with you.","v5-contact"],
+    back:["Welcome back. Anything else catch your eye? Hover over the glowing tags to peek before you click.","v5-back"]},
  B:{room:["Oh, hey! I'm Jai. Welcome to my desk. Case studies are on the left screen, freelance work on the right. Have a look around.",null],
     work:["These are my case studies. Each one starts with research and ends with a result you can check.",null],
     freelance:["And these are live sites I've built for clients. Pick one to see it running.",null],
@@ -1171,7 +1171,7 @@ const HOVER={hotL:"That's the case studies screen. Click it to open all eight.",
 Object.keys(HOVER).forEach(id=>{const el=document.getElementById(id);if(!el)return;el.addEventListener('mouseenter',()=>{if(view!=='room'||hoverSaid[id]||innerWidth<900)return;hoverSaid[id]=1;bubble.classList.add('show');placeBubble();seq++;logEl.querySelectorAll('.typing').forEach(t=>t.remove());addMsg(HOVER[id],'b')})});
 function say(key){
   lastKey=key;let [txt,file]=LINES[key];
-  if(key==='room'&&(innerWidth<900||matchMedia('(pointer:coarse)').matches)){txt=V==='A'?"Hi, I'm Buddy. Tap the screen for Jai's work, or ask me something below.":"Hi, I'm Jai. Tap the screen, or pick a section at the top.";file=V==='A'?'v4-room-m':null}
+  if(key==='room'&&(innerWidth<900||matchMedia('(pointer:coarse)').matches)){txt=V==='A'?"Hi, I'm Buddy, Jai's guide. Tap anything that glows to look around, or ask me a question below.":"Hi, I'm Jai. Tap the screen, or pick a section at the top.";file=V==='A'?'v5-room-m':null}
   clearTimeout(hideT);logEl.innerHTML='';bubble.classList.add('show');placeBubble();
   if(sound&&file){audio.src=`assets/${file}.mp3`;audio.currentTime=0;audio.play().catch(()=>{})}
   reply(txt,V==='A'?CHIPS[key]:null);
@@ -1189,9 +1189,9 @@ function placeBubble(){
 }
 $('#ledeBtn').addEventListener('click',e=>{const m=$('#ledeMore'),open=m.hidden;m.hidden=!open;e.currentTarget.textContent=open?'Show less':'Read more';e.currentTarget.setAttribute('aria-expanded',open)});
 let muted=false;
-function firstTouch(e){removeEventListener('pointerdown',firstTouch,true);removeEventListener('keydown',firstTouch,true);if(sound||muted||V!=='A')return;if(e.target.closest&&e.target.closest('#bubS,#soundBtn,#bubX'))return;setSound(true);if(!(e.target.closest&&e.target.closest('[data-go],.hot,.screen,#bubble button,#buddyHit,#mini'))&&bubble.classList.contains('show')){const f=(LINES[lastKey]||[])[1];const file=lastKey==='room'&&innerWidth<900?'v4-room-m':f;if(file){audio.src=`assets/${file}.mp3`;audio.currentTime=0;audio.play().catch(()=>{})}}}
+function firstTouch(e){removeEventListener('pointerdown',firstTouch,true);removeEventListener('keydown',firstTouch,true);if(sound||muted||V!=='A')return;if(e.target.closest&&e.target.closest('#bubS,#soundBtn,#bubX'))return;setSound(true);if(!(e.target.closest&&e.target.closest('[data-go],.hot,.screen,#bubble button,#buddyHit,#mini'))&&bubble.classList.contains('show')){const f=(LINES[lastKey]||[])[1];const file=lastKey==='room'&&innerWidth<900?'v5-room-m':f;if(file){audio.src=`assets/${file}.mp3`;audio.currentTime=0;audio.play().catch(()=>{})}}}
 addEventListener('pointerdown',firstTouch,true);addEventListener('keydown',firstTouch,true);
-$('#bubS').addEventListener('click',()=>{setSound(!sound);muted=!sound;$('#bubS').setAttribute('aria-pressed',sound);$('#bubS').setAttribute('aria-label',sound?"Turn Buddy's voice off":"Turn Buddy's voice on");if(sound){const [,f]=LINES[lastKey]||[];let file=f;if(lastKey==='room'&&innerWidth<900)file='v4-room-m';if(file){audio.src=`assets/${file}.mp3`;audio.currentTime=0;audio.play().catch(()=>{})}}});
+$('#bubS').addEventListener('click',()=>{setSound(!sound);muted=!sound;$('#bubS').setAttribute('aria-pressed',sound);$('#bubS').setAttribute('aria-label',sound?"Turn Buddy's voice off":"Turn Buddy's voice on");if(sound){const [,f]=LINES[lastKey]||[];let file=f;if(lastKey==='room'&&innerWidth<900)file='v5-room-m';if(file){audio.src=`assets/${file}.mp3`;audio.currentTime=0;audio.play().catch(()=>{})}}});
 bubble.addEventListener('mouseenter',()=>clearTimeout(hideT));bubble.addEventListener('mouseleave',armHide);
 $('#bubX').addEventListener('click',()=>{bubFull=false;bubble.classList.remove('show');audio.pause();seq++;clearTimeout(hideT)});
 bh.addEventListener('click',()=>{bubFull=true;say('room')});
