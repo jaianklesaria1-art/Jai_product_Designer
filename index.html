@@ -823,6 +823,10 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
 
 /* phones: no green ringing circle on the phone prop */
 @media (pointer:coarse){#ring{display:none!important}}
+
+/* desk phone on vibrate */
+#stage>#buzz{position:absolute;inset:auto;z-index:2;pointer-events:none;left:82.786%;top:66.204%;width:8.802%;height:auto;object-fit:fill;transform-origin:52% 62%;will-change:transform;filter:drop-shadow(0 1px 1.2px rgba(0,0,0,.6))}
+body.zoomed #buzz,body.story #buzz,body.onscreen #buzz{visibility:hidden}
 </style>
 </head>
 <body>
@@ -886,6 +890,7 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
     <button class="hot r h" data-go="story" id="hotS"><span class="dot"></span><span class="tag"><b>04 Story</b><small>Mumbai to now, on one ticket</small></span></button>
     <button class="hot l" data-go="contact" id="hotC"><span class="dot"></span><span class="tag"><b>05 Contact</b><small>Phone&rsquo;s ringing &middot; let&rsquo;s talk</small></span></button>
     <span class="ring" id="ring"><i></i><i></i><i></i></span>
+    <img id="buzz" src="assets/phone-buzz.webp" alt="" aria-hidden="true" decoding="async">
     <span class="ring ex" id="exRing" aria-hidden="true"><i></i><i></i><i></i></span>
     <button id="buddyHit" aria-label="Talk"></button>
   </div>
@@ -993,6 +998,23 @@ const SCREENS={L:grow(C.scr.L,V==='A'?1.02:1.012),R:grow(C.scr.R,V==='A'?1.02:1.
 const img=$('#roomImg');img.src=C.img;
 Object.entries({hotL:'L',hotR:'R',hotX:'X',hotS:'S',hotC:'C'}).forEach(([id,k])=>{const e=$('#'+id);e.style.left=HOT[k][0]+'%';e.style.top=HOT[k][1]+'%'});
 const rg=$('#ring');rg.style.left=HOT.C[0]+'%';rg.style.top=HOT.C[1]+'%';const xr=$('#exRing');xr.style.left=(HOT.X[0]+1.6)+'%';xr.style.top=(HOT.X[1]+5)+'%';if(V==='B')rg.style.display='none';
+
+/* desk phone buzzing: 3-DOF spring-damper (x, y, tilt) driven by an eccentric-motor force in bursts */
+(function(){const el=document.getElementById('buzz');if(!el)return;if(V==='B'){el.remove();return}
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  const K=5200,Z=.16,C=2*Z*Math.sqrt(K),KR=4200,CR=2*.2*Math.sqrt(KR);
+  const PAT=[[1,420],[0,180],[1,420],[0,1900]];/* buzz, gap, buzz, rest (ms) */
+  let x=0,vx=0,y=0,vy=0,a=0,va=0,ph=0,seg=0,segT=0,amp=0,last=performance.now(),run=true;
+  function step(dt){segT+=dt*1000;if(segT>PAT[seg][1]){segT=0;seg=(seg+1)%PAT.length}
+    const on=PAT[seg][0];amp+=((on?1:0)-amp)*Math.min(1,dt*(on?28:18));/* motor spin-up / spin-down */
+    ph+=dt*2*Math.PI*31;/* ~31 Hz eccentric mass, phase-jittered */ph+=(Math.random()-.5)*.6;
+    const F=15000*amp,fx=F*Math.cos(ph),fy=F*.45*Math.sin(ph),tq=F*.9*Math.sin(ph*1.07+.6);
+    vx+=(fx-K*x-C*vx)*dt;x+=vx*dt;vy+=(fy-K*y-C*vy)*dt;y+=vy*dt;va+=(tq-KR*a-CR*va)*dt;a+=va*dt}
+  function frame(t){if(!run)return;let dt=Math.min(.05,(t-last)/1000);last=t;
+    if(view==='room'&&!document.hidden){const n=Math.max(1,Math.ceil(dt/.002));for(let i=0;i<n;i++)step(dt/n);
+      const w=el.offsetWidth||100;el.style.transform=`translate(${(x*w*.01).toFixed(2)}px,${(y*w*.01).toFixed(2)}px) rotate(${(a*1.2).toFixed(3)}deg)`}
+    requestAnimationFrame(frame)}
+  requestAnimationFrame(frame)})();
 const bh=$('#buddyHit');bh.style.left=C.speaker[0]+'%';bh.style.top=C.speaker[1]+'%';
 
 /* ---------- screen content ---------- */
