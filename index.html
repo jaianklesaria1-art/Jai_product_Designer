@@ -790,6 +790,15 @@ body.talking .tix .buddy .bdot{animation:bpulse .5s ease-in-out infinite alterna
   .flipper{width:min(17vw,calc((100vh - 150px)*.68),170px)}
   nav,.pill,.hot .tag,#backBtn,.exnav button,.exnav span{backdrop-filter:none;-webkit-backdrop-filter:none}
 }
+
+/* phones: nothing heavy painted behind open sections (blurred room caused flicker) */
+@media (pointer:coarse){
+  body.zoomed:not(.zx) #stage{visibility:hidden;filter:none!important}
+  body.zx #stage{filter:brightness(.42)!important}
+  body.zoomed:not(.zx){background:radial-gradient(90% 70% at 50% 40%,#17122a 0,#07070a 75%)}
+  .screen .inner,.screen:hover .inner{filter:none}
+  .mscreen{will-change:auto}
+}
 </style>
 </head>
 <body>
