@@ -23,6 +23,10 @@ a{color:inherit}button{font:inherit;color:inherit}
 #rot p{margin:0 0 24px;font:400 16px/1.5 Inter,sans-serif;color:rgba(245,243,238,.82)}
 #rot .btn{color:#0a0a0c;margin:0 auto 14px}
 #rot.canlock{cursor:pointer}
+#rot.canlock .rotlock{display:none}
+#rot.canlock .rotgo{animation:tapgo 1.8s ease-in-out infinite}
+@keyframes tapgo{50%{transform:scale(1.04);box-shadow:0 0 0 8px rgba(139,92,246,.18)}}
+@media (prefers-reduced-motion:reduce){#rot.canlock .rotgo{animation:none}}
 #rot .rotgo{display:inline-flex;align-items:center;justify-content:center;min-height:52px;width:100%;max-width:300px;padding:0 24px;font-size:16px}
 #rot .rotlock{margin:22px auto 0;max-width:290px;padding:12px 14px;border:1px dashed rgba(217,204,255,.35);border-radius:12px;font:400 13.5px/1.5 Inter,sans-serif;color:rgba(245,243,238,.72)}
 #rot .rotlock b{display:block;margin-bottom:2px;font-weight:700;color:#d9ccff}
@@ -1371,7 +1375,7 @@ if(/state=static/.test(location.search))$('#loader').classList.add('gone');
   const canLock=!!(document.documentElement.requestFullscreen&&screen.orientation&&screen.orientation.lock);
   function upd(){const on=phone.matches&&portrait.matches&&!skip;rot.hidden=!on;document.body.classList.toggle('rotgate',on)}
   async function goLand(){try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen({navigationUI:'hide'});await screen.orientation.lock('landscape')}catch(e){}}
-  if(canLock){$('#rotFs').hidden=false;rot.classList.add('canlock');rot.addEventListener('click',goLand);addEventListener('pointerdown',e=>{if(phone.matches&&!document.fullscreenElement&&!e.target.closest('#rot'))goLand()},true)}
+  if(canLock){$('#rotFs').hidden=false;rot.classList.add('canlock');$('#rotH').textContent='Tap anywhere to enter';rot.querySelector('.rotin>p:not(.rotlock)').textContent='Jai’s desk opens sideways, in full screen.';$('#rotFs').innerHTML='Enter the desk &rarr;';rot.addEventListener('click',goLand);addEventListener('pointerdown',e=>{if(phone.matches&&!document.fullscreenElement&&!e.target.closest('#rot'))goLand()},true)}
   [phone,portrait].forEach(m=>m.addEventListener('change',()=>{upd();if(typeof fit==='function')setTimeout(fit,200)}));upd()})();
 fit();
 /* coming back from a case study or a client site: skip the intro and reopen the same screen */
