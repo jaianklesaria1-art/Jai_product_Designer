@@ -1097,10 +1097,11 @@ addEventListener('resize',fit);
 
 /* camera: zoom to a screen (it fills the view) or to an object (then the room dims) */
 const objs={experience:[HOT.X[0],HOT.X[1]+6,2.2],story:[HOT.S[0],HOT.S[1],3],contact:[HOT.C[0],HOT.C[1],3.4]};
+const TOUCHPH=matchMedia('(pointer:coarse) and (max-height:500px)');
 function zoomTo(k){
   if(!k){stage.style.transform='';return}
   const W=innerWidth,H=innerHeight;
-  if((k==='work'||k==='freelance')&&W>=900){
+  if((k==='work'||k==='freelance')&&W>=900&&!TOUCHPH.matches){
     const c=cornersPx(k==='work'?'L':'R');const xs=c.map(p=>p[0]),ys=c.map(p=>p[1]);
     const bw=Math.max(...xs)-Math.min(...xs),bhh=Math.max(...ys)-Math.min(...ys);
     const cx=(Math.max(...xs)+Math.min(...xs))/2,cy=(Math.max(...ys)+Math.min(...ys))/2;
@@ -1205,8 +1206,11 @@ let fast=false;
 const RET='jai-desk-return';
 function remember(){try{sessionStorage.setItem(RET,JSON.stringify({view,sound,t:Date.now()}))}catch(e){}}
 document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(a&&view!=='room'&&!/^mailto:/.test(a.getAttribute('href')))remember()},true);
+let pushed=false;
+addEventListener('popstate',()=>{if(pushed){pushed=false;go._pop=1;go('room');go._pop=0}});
 function go(k){bubFull=false;
   if(k===view)return;
+  if(matchMedia('(pointer:coarse)').matches){if(k!=='room'&&!pushed){history.pushState({v:k},'');pushed=true}else if(k==='room'&&pushed&&!go._pop){pushed=false;history.back()}}
   if(view==='story'&&body.classList.contains('story')&&!go._leaving){go._leaving=1;clearTimeout(rideT);exitTicket().then(()=>{go(k);go._leaving=0});return}
   const prev=view;view=k;
   $$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===k));
