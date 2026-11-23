@@ -763,6 +763,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <p class="mk-caption">Grounded in Baymard Institute's research (cited in the audit): late-revealed costs are the <b>top cause</b> of cart abandonment, and forced account creation is cited by <b>26%</b> of shoppers as a reason they leave. The address-step metric is new to this round, added because that bug doesn't just cost trust, it costs the order outright.</p>
 
+<style id="bui-css">
+.bui{margin:0}
+.bui .bui-st{display:inline-flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:8px 16px;border:1px solid color-mix(in srgb,currentColor 30%,transparent);border-radius:999px;font-size:14px;line-height:1.4;margin:0 0 8px}
+.bui .bui-st b{text-transform:uppercase;letter-spacing:.08em;font-size:11px;opacity:.7}
+.bui h3.bui-h{font-size:clamp(1.3rem,2.2vw,1.7rem);line-height:1.2;margin:34px 0 8px}
+.bui .bui-in{opacity:.82;margin:0 0 16px;max-width:68ch;font-size:15px;line-height:1.55}
+.bui .bui-m{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0}
+.bui .bui-m>div{border:1px solid color-mix(in srgb,currentColor 22%,transparent);border-radius:12px;padding:14px 16px;text-align:left}
+.bui .bui-m small{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;margin:0 0 6px}
+.bui .bui-m b{display:block;font-size:16px;line-height:1.3;margin:0 0 4px}
+.bui .bui-m p{margin:0;font-size:14px;opacity:.82;line-height:1.45}
+.bui .bui-t{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.bui table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.45;min-width:560px;background:none;margin:0}
+.bui th,.bui td{text-align:left;vertical-align:top;padding:11px 12px;border:0;border-bottom:1px solid color-mix(in srgb,currentColor 18%,transparent);background:none;color:inherit}
+.bui th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;font-weight:600}
+.bui td:first-child{font-weight:600;width:30%}
+@media (max-width:640px){.bui .bui-st{border-radius:14px}.bui table{min-width:0}.bui thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.bui tr{display:block;padding:12px 0;border-bottom:1px solid color-mix(in srgb,currentColor 18%,transparent)}.bui td{display:block;border:0;padding:3px 0;width:auto!important}.bui td[data-l]:not(:first-child)::before{content:attr(data-l);display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-top:8px}}
+</style>
+<div class="bui">
+<h3 class="bui-h">Guardrails</h3>
+<p class="bui-in">The measures above say whether the fixes worked. These say whether they cost something elsewhere.</p>
+<div class="bui-m"><div><small>Guardrail</small><b>Add-to-cart rate</b><p>Showing fees earlier could mean fewer baskets started.</p></div><div><small>Guardrail</small><b>Average order value</b><p>Defaulting to the searched brand could mean fewer, cheaper substitutes sold.</p></div></div>
+<h3 class="bui-h">What could go wrong with my own fixes</h3>
+<div class="bui-t"><table><thead><tr><th scope="col">What could fail</th><th scope="col">What it costs</th><th scope="col">How the design handles it</th></tr></thead><tbody><tr><td data-l="What could fail">Showing fees before login lowers add-to-cart</td><td data-l="What it costs">Fewer baskets started, at the top of the funnel</td><td data-l="How the design handles it">Track add-to-cart and completed orders together. If honest pricing works, completion rises even if adds dip.</td></tr><tr><td data-l="What could fail">Defaulting to the searched brand sells fewer substitutes</td><td data-l="What it costs">Lower margin where substitutes earn more</td><td data-l="How the design handles it">The substitute is still offered, one tap away. The opt-out rate above shows how often people take it.</td></tr><tr><td data-l="What could fail">The Name field is added, but the back end still rejects the form</td><td data-l="What it costs">Orders stay blocked, now behind a field that looks like it should work</td><td data-l="How the design handles it">Test the whole flow end to end before release, not just the screen.</td></tr></tbody></table></div>
+</div>
     <h3>What I'd change with more time</h3>
     <div class="reflect-item">Run the before/after comparison above before calling any of this finished, especially the Name field and the search labeling, neither one has been checked against a real user yet.</div>
     <div class="reflect-item">I'm a product designer, not a PharmEasy employee, and this was never commissioned by them. Once validated, I plan to send this directly to their product team, the address-form bug alone is worth flagging regardless of what happens to the rest of this case study.</div>

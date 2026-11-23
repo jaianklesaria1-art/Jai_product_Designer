@@ -345,6 +345,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .drive b{position:absolute;top:-9px;left:calc(13px + (100% - 26px) * var(--pn,0));transform:translateX(-50%);width:22px;height:22px;background:#fff;border:2px solid var(--ink);border-radius:5px;
     display:grid;place-items:center;font:900 15px/1 var(--sans);color:var(--red);box-shadow:0 4px 10px -4px rgba(0,0,0,.4)}
 </style>
+<style id="bui-css">
+.bui{margin:0}
+.bui .bui-st{display:inline-flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:8px 16px;border:1px solid color-mix(in srgb,currentColor 30%,transparent);border-radius:999px;font-size:14px;line-height:1.4;margin:0 0 8px}
+.bui .bui-st b{text-transform:uppercase;letter-spacing:.08em;font-size:11px;opacity:.7}
+.bui h3.bui-h{font-size:clamp(1.3rem,2.2vw,1.7rem);line-height:1.2;margin:34px 0 8px}
+.bui .bui-in{opacity:.82;margin:0 0 16px;max-width:68ch;font-size:15px;line-height:1.55}
+.bui .bui-m{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0}
+.bui .bui-m>div{border:1px solid color-mix(in srgb,currentColor 22%,transparent);border-radius:12px;padding:14px 16px;text-align:left}
+.bui .bui-m small{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;margin:0 0 6px}
+.bui .bui-m b{display:block;font-size:16px;line-height:1.3;margin:0 0 4px}
+.bui .bui-m p{margin:0;font-size:14px;opacity:.82;line-height:1.45}
+.bui .bui-t{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.bui table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.45;min-width:560px;background:none;margin:0}
+.bui th,.bui td{text-align:left;vertical-align:top;padding:11px 12px;border:0;border-bottom:1px solid color-mix(in srgb,currentColor 18%,transparent);background:none;color:inherit}
+.bui th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;font-weight:600}
+.bui td:first-child{font-weight:600;width:30%}
+@media (max-width:640px){.bui .bui-st{border-radius:14px}.bui table{min-width:0}.bui thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.bui tr{display:block;padding:12px 0;border-bottom:1px solid color-mix(in srgb,currentColor 18%,transparent)}.bui td{display:block;border:0;padding:3px 0;width:auto!important}.bui td[data-l]:not(:first-child)::before{content:attr(data-l);display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-top:8px}}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -385,7 +403,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="facts" aria-label="Project facts">
   <div class="wrap">
     <dl>
-      <div><dt>My role</dt><dd>Product designer</dd></div>
+      <div><dt>My role</dt><dd>Product designer: user research, competitor analysis, the XR concept, prototypes, design, usability testing and results</dd></div>
       <div><dt>Where</dt><dd>United Kingdom, pilot in Nottingham</dd></div>
       <div><dt>Duration</dt><dd>8 weeks, started at the XRCC Hackathon</dd></div>
       <div><dt>Platform</dt><dd>Meta Quest 3, Unity, XR passthrough</dd></div>
@@ -599,17 +617,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2>Eight weeks, 24 learners</h2>
     <p class="intro">A controlled 8-week pilot in Nottingham. Before and after, against the national average or traditional lessons.</p>
     <div class="res" id="res">
-      <div class="card"><span class="delta">+45%</span><h3>First-time pass rate</h3><div class="bar"><div class="row"><span>UK average</span><span class="tr"><span class="fl" style="--v:47"></span></span><b>47%</b></div><div class="row after"><span>RealDrive XR</span><span class="tr"><span class="fl" style="--v:68"></span></span><b>68%</b></div></div></div>
+      <div class="card"><span class="delta">+21 pts</span><h3>First-time pass rate</h3><div class="bar"><div class="row"><span>UK average</span><span class="tr"><span class="fl" style="--v:47"></span></span><b>47%</b></div><div class="row after"><span>RealDrive XR</span><span class="tr"><span class="fl" style="--v:68"></span></span><b>68%</b></div></div></div>
       <div class="card"><span class="delta">&minus;16%</span><h3>Lessons to test ready</h3><div class="bar"><div class="row"><span>Traditional</span><span class="tr"><span class="fl" style="--v:100"></span></span><b>45</b></div><div class="row after"><span>RealDrive XR</span><span class="tr"><span class="fl" style="--v:84.4"></span></span><b>38</b></div></div></div>
       <div class="card"><span class="delta">&pound;598 saved</span><h3>Average total cost</h3><div class="bar"><div class="row"><span>Traditional</span><span class="tr"><span class="fl" style="--v:100"></span></span><b>&pound;1,680</b></div><div class="row after"><span>RealDrive XR</span><span class="tr"><span class="fl" style="--v:64.4"></span></span><b>&pound;1,082</b></div></div></div>
       <div class="card"><span class="delta">+189%</span><h3>Roundabout confidence</h3><div class="bar"><div class="row"><span>Pre-pilot</span><span class="tr"><span class="fl" style="--v:28"></span></span><b>2.8</b></div><div class="row after"><span>Post-pilot</span><span class="tr"><span class="fl" style="--v:81"></span></span><b>8.1</b></div></div></div>
       <div class="card"><span class="delta">&minus;47%</span><h3>Test anxiety (lower is better)</h3><div class="bar"><div class="row"><span>Pre-pilot</span><span class="tr"><span class="fl" style="--v:79"></span></span><b>7.9</b></div><div class="row after"><span>Post-pilot</span><span class="tr"><span class="fl" style="--v:42"></span></span><b>4.2</b></div></div></div>
       <div class="card"><span class="delta">+90%</span><h3>Self-reported readiness</h3><div class="bar"><div class="row"><span>Pre-pilot</span><span class="tr"><span class="fl" style="--v:41"></span></span><b>4.1</b></div><div class="row after"><span>Post-pilot</span><span class="tr"><span class="fl" style="--v:78"></span></span><b>7.8</b></div></div></div>
     </div>
-    <p class="src">Pilot, n=24, 8 weeks, Nottingham. Confidence, anxiety and readiness are self-reported scores out of 10. Roundabout anxiety fell 82% (self-reported), and learners ran 4&times; more practice scenarios for 1.8&times; the cost.</p>
+    <p class="src">Pilot, n=24, 8 weeks, Nottingham. The 47% is the UK average, not a control group, so part of the gain may come from who signed up. Confidence, anxiety and readiness are self-reported scores out of 10. Roundabout anxiety fell 82% (self-reported), and learners ran 4&times; more practice scenarios for 1.8&times; the cost.</p>
   </div>
 </section>
 
+<section class="part"><div class="wrap"><div class="bui">
+<p class="bui-st"><b>Status</b><span>Piloted for 8 weeks with 24 learners in Nottingham.</span></p>
+<h3 class="bui-h">How I&rsquo;d know it worked</h3>
+<p class="bui-in">The pilot compared learners with the UK average. Next, I&rsquo;d compare them with a matched group. These are plans, not results.</p>
+<div class="bui-m"><div><small>Main measure</small><b>First-time pass rate against a matched group</b><p>Learners from the same schools and instructors, with and without XR practice.</p></div><div><small>Explains it</small><b>Scenarios practised and lessons to test-ready</b><p>Shows whether repetition, not just motivation, drives the result.</p></div><div><small>Guardrail</small><b>Motion sickness and safety incidents</b><p>Already tracked in the pilot: motion sickness fell from 17% to 6%.</p></div></div>
+<h3 class="bui-h">What could go wrong</h3>
+<div class="bui-t"><table><thead><tr><th scope="col">What could fail</th><th scope="col">What it costs</th><th scope="col">How the design handles it</th></tr></thead><tbody><tr><td data-l="What could fail">A learner in a headset hits something in the car park</td><td data-l="What it costs">Injury, and the end of the service</td><td data-l="How the design handles it">A closed car park, a safety checklist before the car moves, an on-site briefing and low speeds.</td></tr><tr><td data-l="What could fail">Motion sickness</td><td data-l="What it costs">Learners stop coming back</td><td data-l="How the design handles it">Comfort mode and capped acceleration took it from 17% to 6%.</td></tr><tr><td data-l="What could fail">The gains come from motivated learners, not from XR</td><td data-l="What it costs">Instructors and partners back the wrong thing</td><td data-l="How the design handles it">Not ruled out yet. The matched-group comparison above is the test.</td></tr></tbody></table></div>
+</div></div></section>
 <section class="part" id="learnings">
   <div class="wrap">
     <p class="mk"><span class="n">10</span>Key learnings</p>

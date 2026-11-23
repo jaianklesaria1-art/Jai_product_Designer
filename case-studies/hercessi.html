@@ -206,6 +206,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .js .rise.in{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .rise{opacity:1;transform:none;transition:none}}
 </style>
+<style id="bui-css">
+.bui{margin:0}
+.bui .bui-st{display:inline-flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:8px 16px;border:1px solid color-mix(in srgb,currentColor 30%,transparent);border-radius:999px;font-size:14px;line-height:1.4;margin:0 0 8px}
+.bui .bui-st b{text-transform:uppercase;letter-spacing:.08em;font-size:11px;opacity:.7}
+.bui h3.bui-h{font-size:clamp(1.3rem,2.2vw,1.7rem);line-height:1.2;margin:34px 0 8px}
+.bui .bui-in{opacity:.82;margin:0 0 16px;max-width:68ch;font-size:15px;line-height:1.55}
+.bui .bui-m{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0}
+.bui .bui-m>div{border:1px solid color-mix(in srgb,currentColor 22%,transparent);border-radius:12px;padding:14px 16px;text-align:left}
+.bui .bui-m small{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;margin:0 0 6px}
+.bui .bui-m b{display:block;font-size:16px;line-height:1.3;margin:0 0 4px}
+.bui .bui-m p{margin:0;font-size:14px;opacity:.82;line-height:1.45}
+.bui .bui-t{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.bui table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.45;min-width:560px;background:none;margin:0}
+.bui th,.bui td{text-align:left;vertical-align:top;padding:11px 12px;border:0;border-bottom:1px solid color-mix(in srgb,currentColor 18%,transparent);background:none;color:inherit}
+.bui th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;font-weight:600}
+.bui td:first-child{font-weight:600;width:30%}
+@media (max-width:640px){.bui .bui-st{border-radius:14px}.bui table{min-width:0}.bui thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.bui tr{display:block;padding:12px 0;border-bottom:1px solid color-mix(in srgb,currentColor 18%,transparent)}.bui td{display:block;border:0;padding:3px 0;width:auto!important}.bui td[data-l]:not(:first-child)::before{content:attr(data-l);display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.6;margin-top:8px}}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -435,6 +453,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<section class="part"><div class="wrap"><div class="bui">
+<h3 class="bui-h">How I&rsquo;d know the fixes worked</h3>
+<div class="bui-m"><div><small>Main measure</small><b>Keyboard-only task completion</b><p>Reach Ordering Details and Patient Support from a fresh page load, by keyboard alone.</p></div><div><small>Explains it</small><b>Automated checks on every release</b><p>Tab isn&rsquo;t prevented, and every form field has a label.</p></div><div><small>Guardrail</small><b>Form errors and support emails</b><p>Watched after the label change, so the fix doesn&rsquo;t create new confusion.</p></div></div>
+<h3 class="bui-h">What these failures cost</h3>
+<p class="bui-in">The site exists so healthcare professionals can order the drug and patients can get support. Each finding stops someone from doing one of those things.</p>
+<div class="bui-t"><table><thead><tr><th scope="col">Finding</th><th scope="col">Who it stops</th><th scope="col">What it costs</th></tr></thead><tbody><tr><td data-l="Finding">F-11 Tab is cancelled</td><td data-l="Who it stops">Anyone using a keyboard, a switch device or a screen reader</td><td data-l="What it costs">They can&rsquo;t reach ordering details or support at all. Accessibility complaints or legal claims become likely.</td></tr><tr><td data-l="Finding">F-03 Form fields have no labels</td><td data-l="Who it stops">Screen reader users, and anyone who forgets what a field was for once they start typing</td><td data-l="What it costs">Fewer Patient Support registrations, and more wrong entries for the team to correct.</td></tr><tr><td data-l="Finding">F-01 Order Now did nothing (fixed)</td><td data-l="Who it stops">Every visitor trying to order</td><td data-l="What it costs">Lost or delayed orders that analytics wouldn&rsquo;t show, because nothing threw an error.</td></tr></tbody></table></div>
+</div></div></section>
 <section class="part" id="passed">
   <div class="wrap">
     <p class="mk"><span class="n">08</span>Conformance notes</p>

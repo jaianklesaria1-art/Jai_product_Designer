@@ -1503,10 +1503,13 @@ function exDet(n){const el=document.getElementById('exDet');if(n<0){if(detN===-n
 document.addEventListener('click',e=>{if(e.target.closest('#exDet .x')){document.getElementById('exDet').hidden=true;detN=null;document.body.classList.remove('det')}});
 async function build(){
   const rail=document.getElementById('rail');await document.fonts.ready;
-  const photo=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src='assets/jai-face.jpg'});
+  const img=src=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src});
+  const PH={'Asentech':'assets/exp-asentech.jpg','KPMG':'assets/exp-kpmg.jpg','Mobile First':'assets/exp-mobilefirst.jpg','Swabhav':'assets/exp-swabhav.jpg'};
+  const photo=await img('assets/jai-face.jpg');
+  const photos=await Promise.all(window.JOBS.map(j=>{const k=Object.keys(PH).find(k=>j[0].startsWith(k));return k?img(PH[k]).then(i=>i||photo):photo}));
   const strap=[0.42,0.56,0.46,0.6,0.5];L=[];const hov=new Set();
   window.JOBS.forEach((j,n)=>{const d=document.createElement('div');d.className='lan';rail.appendChild(d);
-    const [fc,bc]=faces(j,photo);
+    const [fc,bc]=faces(j,photos[n]);
     const inst=createLanyard(d,{frontCanvas:fc,backCanvas:bc,strapColor:j[1],strapLength:strap[n],size:0.62,fill:0.86/1.8,bleed:1.8,eventTarget:rail,hoverSet:hov,metal:'silver',finish:'glossy',breeze:0.25,intro:n%2?-1:1,onFlip:b=>exDet(b?n:-n-1)});
     if(inst)L.push(inst)});
   if(!L.length){rail.querySelector('.sr').className='exlist'}
