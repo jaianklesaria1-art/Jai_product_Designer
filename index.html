@@ -97,6 +97,8 @@ body.onscreen .screen.active{cursor:default}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:18px;align-items:stretch}
 .wk{display:flex;flex-direction:column;border-radius:16px;overflow:hidden;background:#1c1b21;border:1px solid rgba(245,243,238,.2);text-decoration:none;color:#f5f3ee;transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s}
 .wk:hover{transform:translateY(-5px);border-color:var(--violet)}
+.wk.soon{border-style:dashed;cursor:default}.wk.soon:hover{transform:none;border-color:rgba(245,243,238,.2)}
+.wk-th.wk-sn{display:grid;place-items:center;background:repeating-linear-gradient(135deg,#25232c 0 14px,#211f27 14px 28px)}.wk-sn span{font:600 12px "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#c4b5fd;border:1px solid rgba(196,181,253,.5);border-radius:999px;padding:7px 14px}
 .wk-th{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
 .wk-bd{flex:1;padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px}
 .wk-ds+.wk-rl{margin-top:auto;padding-top:6px}
@@ -1025,6 +1027,8 @@ const INFO={
  ARFinViz:{t:'ARFinViz',type:'MSc dissertation · KPMG × University of Nottingham',desc:'Tested whether augmented reality helps finance teams read data better than Excel and 2D charts.',role:'Researcher &amp; product designer, end to end',result:'Version 2 onboarding raised task success by 31% (A/B test, 10 participants)'},
  'Real Drive XR':{t:'Real Drive XR',type:'Hackathon project · solo build',desc:'Only 47% of UK learners pass their driving test first time. Can mixed reality practice in a real car help?',role:'Designed the UX/UI in Figma and built it myself in Unity, with AI tools like Cursor',result:'68% passed first time in an 8-week pilot (n=24), against a 47% UK average'},
  'Growth Book':{t:'Growth Book',type:'Swabhav Techlabs · internship',desc:'Half of parents tracked their baby on paper, and only 42.2% used an app. Growth Book puts growth, vaccinations and food in one place.',role:'Ran in-home research and usability sessions with 30+ parents, then simplified the key journeys',result:'Retention up 45% (app analytics and follow-up surveys)'},
+ 'Asentech Design System':{t:'Asentech Design System',type:'Asentech · design system',desc:'The design system behind Asentech&rsquo;s publishing website, with a view-only Figma file: tokens, components, auto layout and variants.',role:'Product designer',soon:true},
+ 'Asentech Website':{t:'Asentech Website',type:'Asentech · website redesign',desc:'The redesigned Asentech publishing website: service pages, case studies and the Tech Expertise pages.',role:'Product designer (UX &amp; UI)',soon:true},
  Enchantopia:{t:'Enchantopia',type:'University project · team',desc:'Most mobile games keep players sitting still. Could AR put magic into the real world and get them out exploring it?',role:'UX research and UI design in Figma, with 3D in Blender and AR prototypes in 8th Wall and Adobe Aero',link:'https://www.behance.net/gallery/240154913/Enchantopia-Augmented-Reality-AR-Game-UX-Case-Study'},
  'Grocery UX':{t:'Grocery UX',type:'Research project',desc:'Online grocery shopping misses how people really shop. I watched them in context to close the gap between what they need and what the site offers.',role:'Ran 48 hours of in-home fieldwork, diary studies and interviews',link:'https://www.behance.net/gallery/240349765/Enhancing-the-Online-Grocery-Shopping-Experience'},
  Shadowfax:{t:'Shadowfax',type:'Courier app redesign · solo · 2022',desc:'Senders with several parcels had to book every drop as its own order. I redesigned the flow so one order can carry up to six drops.',role:'Solo, from research to tested design',result:'Up to 6 drops in one order, chosen by A/B testing two designs'}};
@@ -1036,7 +1040,9 @@ const cases=[
  ['PharmEasy','pharmeasy.case','assets/thumbs/pharmeasy-thumb-v2.jpg',"5 points where an order can't be placed",'case-studies/pharmeasy.html'],
  ['HERCESSI','hercessi.case','assets/thumbs/hercessi-thumb-v2.jpg','WCAG 2.2 AA, 10 verified findings','case-studies/hercessi.html'],
  ['Enchantopia','enchantopia.case','https://mir-s3-cdn-cf.behance.net/project_modules/max_632_webp/80ab07240154913.6938891f80601.png','',''],
- ['Grocery UX','grocery.case','https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/b5f155240349765.693c49b82ac16.png','','']];
+ ['Grocery UX','grocery.case','https://mir-s3-cdn-cf.behance.net/project_modules/hd_webp/b5f155240349765.693c49b82ac16.png','',''],
+ ['Asentech Design System','asentech-ds.case','','',''],
+ ['Asentech Website','asentech-web.case','','','']];
 const free=[
  ['Master Stroke','Sports infrastructure website','master','https://masssterstroke.netlify.app/','https://www.behance.net/gallery/245187053/Master-stroke-Website'],
  ['Neon Rapter','Brewery website redesign','neon',null,'case-studies/neon-rapter.html'],
@@ -1045,15 +1051,20 @@ const free=[
  ['Liquid Light','Brewery website','liquidlight','https://liquidlightbrewery.netlify.app/','case-studies/liquid-light.html'],
  ['Nimbha Logistics','Multi-drop logistics','nimbha','https://nimbhalogistics.netlify.app/',null],
  ['Singh Vanity','Custom vanity-van business','singhvanity','https://singhvanity.com/','case-studies/singh-vanity.html'],
- ['ADGOAT','Website build','adgoat','https://adgoat.in/',null]];
+ ['ADGOAT','Website build','adgoat','https://adgoat.in/',null],
+ ['Singh Sound','Film sound equipment rental','singhsound','https://singhsound.netlify.app/',null],
+ ['Align and Restore','Physiotherapy clinic website','alignrestore','https://alignrestore.co.uk/',null],
+ ['Rolling Mills','Brewery &amp; taproom website','rollingmills',null,null],
+ ['unorgnl.','Clothing e-commerce site','unorgnl',null,null]];
+const NOVID=new Set(['singhsound','alignrestore','rollingmills','unorgnl']);
 const tags=['Audit + redesign','Accessibility audit','Research study','XR research','App design','Feature redesign'];
 const chrome=(t,sub)=>`<div class="chrome"><span class="lights"><button class="close" data-go="room" aria-label="Close ${t} and go back to the desk" title="Close"></button><i></i><i></i></span><span class="ttl">${t}<small>${sub}</small></span><span class="sp"></span></div>`;
-const caseHTML=`<div class="win">${chrome('Case studies','8 items')}<div class="cs"><aside><h6>Portfolio</h6><button class="on">Case studies <span>8</span></button><button data-go="freelance">Freelance <span>8</span></button><button data-go="experience">Experience <span>5</span></button><button data-go="contact">Contact</button></aside>
-<main><div class="hd"><div><h2>Case studies</h2><p>Research-led. Most end with a result you can check.</p></div><span class="ct">8 projects</span></div><div class="cards">`+
-  cases.map(c=>{const n=INFO[c[0]];const ext=n.link&&/^https?:/.test(n.link);return `<a class="wk" href="${n.link||c[4]}"${ext?' target="_blank" rel="noopener"':''}><img class="wk-th" src="${c[2]}" alt="${c[0]} cover" loading="lazy"><div class="wk-bd"><div class="wk-ey">${n.type}</div><div class="wk-tt">${n.t}</div><p class="wk-ds">${n.desc}</p><p class="wk-rl"><b>My role</b>${n.role}</p>${n.result?`<p class="wk-rl wk-rs"><b>Result</b>${n.result}</p>`:''}</div></a>`}).join('')+`</div></main></div></div>`;
+const caseHTML=`<div class="win">${chrome('Case studies',cases.length+' items')}<div class="cs"><aside><h6>Portfolio</h6><button class="on">Case studies <span>${cases.length}</span></button><button data-go="freelance">Freelance <span>${free.length}</span></button><button data-go="experience">Experience <span>5</span></button><button data-go="contact">Contact</button></aside>
+<main><div class="hd"><div><h2>Case studies</h2><p>Research-led. Most end with a result you can check.</p></div><span class="ct">${cases.filter(c=>!INFO[c[0]].soon).length} projects, ${cases.filter(c=>INFO[c[0]].soon).length} coming soon</span></div><div class="cards">`+
+  cases.map(c=>{const n=INFO[c[0]];if(n.soon)return `<div class="wk soon"><div class="wk-th wk-sn" aria-hidden="true"><span>Coming soon</span></div><div class="wk-bd"><div class="wk-ey">${n.type}</div><div class="wk-tt">${n.t}</div><p class="wk-ds">${n.desc}</p><p class="wk-rl"><b>My role</b>${n.role}</p></div></div>`;const ext=n.link&&/^https?:/.test(n.link);return `<a class="wk" href="${n.link||c[4]}"${ext?' target="_blank" rel="noopener"':''}><img class="wk-th" src="${c[2]}" alt="${c[0]} cover" loading="lazy"><div class="wk-bd"><div class="wk-ey">${n.type}</div><div class="wk-tt">${n.t}</div><p class="wk-ds">${n.desc}</p><p class="wk-rl"><b>My role</b>${n.role}</p>${n.result?`<p class="wk-rl wk-rs"><b>Result</b>${n.result}</p>`:''}</div></a>`}).join('')+`</div></main></div></div>`;
 const tabC=['#1f6f43','#d9363e','#3a3f8f','#5a6b7a','#c9862b','#2f6fb5','#8a4fbf','#e0662a'];
-const freeHTML=`<div class="win">${chrome('Freelance','8 live client sites')}<div class="cs fl"><aside><h6>Portfolio</h6><button data-go="work">Case studies <span>8</span></button><button class="on">Freelance <span>8</span></button><button data-go="experience">Experience <span>5</span></button><button data-go="contact">Contact</button></aside>
-<main><div class="hd"><div><h2>Freelance</h2><p>Real sites for real clients, designed and built by Jai.</p></div><span class="ct">8 live sites</span></div>
+const freeHTML=`<div class="win">${chrome('Freelance',free.length+' client sites')}<div class="cs fl"><aside><h6>Portfolio</h6><button data-go="work">Case studies <span>${cases.length}</span></button><button class="on">Freelance <span>${free.length}</span></button><button data-go="experience">Experience <span>5</span></button><button data-go="contact">Contact</button></aside>
+<main><div class="hd"><div><h2>Freelance</h2><p>Real sites for real clients, designed and built by Jai.</p></div><span class="ct">${free.filter(f=>f[3]).length} live, ${free.filter(f=>!f[3]).length} in progress</span></div>
 <div class="flx"><div class="stage"><div class="pv"><img alt=""><video muted loop playsinline preload="none"></video><span class="live">Live</span></div><div class="meta"><div><b></b><em></em><span class="url"></span></div><span class="links"></span></div></div>
 <ol class="idx">`+free.map((f,i)=>`<li><button data-i="${i}"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="t"><b>${f[0]}</b><small>${f[1]}</small></span><span class="ar">&rarr;</span></button></li>`).join('')+`</ol></div></main></div></div>`;
 const figHTML=`<div class="fig"><div class="tbar"><span class="lg"></span><span class="ico on"></span><span class="ico"></span><span class="ico"></span><span class="nm">Jai's drafts / <b>Shadowfax / Order details</b></span><span class="av" style="background-image:url(assets/jai-face.jpg)"></span><span class="shr">Share</span></div>
@@ -1102,7 +1113,7 @@ el.innerHTML=`<div class="ch"><i></i><i></i><i></i><b>hero.js</b></div><div clas
 R.appendChild(el);const pre=el.querySelector('pre'),pimg=el.querySelector('.prev img'),pvid=el.querySelector('.prev video'),purl=el.querySelector('.prev .bar span');
 const sites=free.filter(f=>f[3]);let si=0;
 const show=()=>{const f=sites[si%sites.length];pimg.src=`assets/fl/${f[2]}.jpg`;purl.textContent=f[3].replace(/^https?:\/\//,'').replace(/\/$/,'');
-  pvid.style.opacity=0;if(reduce)return;pvid.src=`assets/fl/${f[2]}.mp4`;pvid.oncanplay=()=>{pvid.style.opacity=1;pvid.play().catch(()=>{})};pvid.load()};
+  pvid.style.opacity=0;if(reduce||NOVID.has(f[2]))return;pvid.src=`assets/fl/${f[2]}.mp4`;pvid.oncanplay=()=>{pvid.style.opacity=1;pvid.play().catch(()=>{})};pvid.load()};
 show();setInterval(()=>{if(document.hidden||view!=='room')return;si++;show()},9000);
 let n=0,hold=0;
 const draw=()=>{const vis=SRC.slice(0,n).split('\n');pre.innerHTML=vis.map((l,i)=>`<span class="l">${hl(l)}${i===vis.length-1?'<span class="cur"></span>':''}</span>`).join('')};
@@ -1129,11 +1140,11 @@ function pick(root,i,play){
   const f=free[i];root.querySelectorAll('.idx button').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
   const im=root.querySelector('.pv img'),v=root.querySelector('.pv video');
   im.src=`assets/fl/${f[2]}.jpg`;im.alt=f[0]+' website';
-  root.querySelector('.url').textContent=f[3]?f[3].replace(/^https?:\/\//,'').replace(/\/$/,''):'Case study on this site';root.querySelector('.live').style.display=f[3]?'':'none';
+  root.querySelector('.url').textContent=f[3]?f[3].replace(/^https?:\/\//,'').replace(/\/$/,''):(f[4]?'Case study on this site':'Not public yet');root.querySelector('.live').style.display=f[3]?'':'none';
   root.querySelector('.meta b').innerHTML=f[0];root.querySelector('.meta em').innerHTML=f[1];
   root.querySelector('.links').innerHTML=(f[3]?`<a class="wbtn pri" href="${f[3]}" target="_blank" rel="noopener">Visit live site &nearr;</a>`:`<span class="wbtn pri off" aria-disabled="true">Live site not public</span>`)+(f[4]?`<a class="wbtn" href="${f[4]}"${/^https?:/.test(f[4])?' target="_blank" rel="noopener"':''}>Read case study &rarr;</a>`:`<span class="wbtn off" aria-disabled="true">Case study coming soon</span>`);
   v.pause();v.removeAttribute('src');v.style.opacity=0;
-  if(play&&!reduce){v.src=`assets/fl/${f[2]}.mp4`;v.addEventListener('canplay',()=>{v.style.opacity=1;v.play().catch(()=>{})},{once:true});v.load()}
+  if(play&&!reduce&&!NOVID.has(f[2])){v.src=`assets/fl/${f[2]}.mp4`;v.addEventListener('canplay',()=>{v.style.opacity=1;v.play().catch(()=>{})},{once:true});v.load()}
 }
 /* nothing inside the room monitors is tabbable; the pins and nav open the real windows */
 ['#scrLin','#scrRin'].forEach(id=>{const e=$(id);if(e)e.inert=true});
