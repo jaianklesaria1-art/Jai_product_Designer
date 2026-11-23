@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shadowfax Courier App | Jai Anklesaria</title>
+<meta name="description" content="Flash by Shadowfax: a self-directed redesign that lets senders add up to six drops to one order. Research, two designs, an A/B usability test and what I'd measure next.">
+<link rel="canonical" href="https://jaiproductdesigner.netlify.app/case-studies/shadowfax.html">
+<meta property="og:title" content="Shadowfax Courier App | Jai Anklesaria">
+<meta property="og:description" content="Up to six drops in one order, chosen by A/B testing two designs.">
+<meta property="og:image" content="https://jaiproductdesigner.netlify.app/case-studies/images/shadowfax-bh/s01.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--orH:#D06A00;--or:#F7931E;--or2:#F58A1F;--ink:#2b2b2b;--mut:#5d5d5d;--line:#ececec;--cream:#FFF6EA;--page:#f3f3f3}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.6 Poppins,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.skip{position:absolute;left:-999px;top:8px;background:#000;color:#fff;padding:8px 12px;z-index:9}.skip:focus{left:8px}
+/* top bar, like a project page */
+.top{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+.top .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:10px 16px}
+.top a.back{font-weight:600;font-size:14px;text-decoration:none;padding:8px 14px;border:1px solid #d9d9d9;border-radius:999px;white-space:nowrap}
+.top a.back:hover,.top a.back:focus-visible{border-color:var(--or);color:#b35d00}
+.top .t{min-width:0}.top .t b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top .t span{font-size:12.5px;color:var(--mut)}
+/* project canvas */
+main{max-width:1200px;margin:0 auto;background:#fff;box-shadow:0 0 0 1px var(--line)}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-bottom:1px solid var(--line)}
+.meta div{padding:16px 20px;border-right:1px solid var(--line)}.meta div:last-child{border-right:0}
+.meta small{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.meta b{font-size:14px;font-weight:600}
+.slide{display:block;width:100%;height:auto;margin:0}
+figure.sl{margin:0;position:relative;container-type:inline-size}
+figure.sl img{display:block;width:100%;height:auto}
+.fixp{position:absolute;left:6.7%;top:68.6%;width:46%;margin:0;font-size:1.36cqw;line-height:1.42;color:#333}
+.fixp mark{background:#FFF1DC;color:inherit;padding:0 .15em;border-radius:3px}
+/* HTML slides in the same style */
+.hs{padding:clamp(36px,6vw,72px) clamp(20px,6vw,72px);border-top:1px solid #f6f6f6}
+.hs.cream{background:var(--cream)}
+.hs.orange{background:#C96400;color:#fff}
+.hd{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;color:var(--orH);font-size:clamp(44px,7vw,84px);line-height:.92;letter-spacing:.005em;margin:0 0 18px}
+.orange .hd{color:#fff}
+.sub{font-weight:600;color:var(--orH);font-size:clamp(18px,2vw,22px);margin:0 0 12px}
+.lead{max-width:62ch;color:#444;margin:0 0 26px}
+.orange .lead{color:#fff}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 8px 24px rgba(247,147,30,.16);border:1px solid #fde3c2}
+.card small{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#b35d00;margin:0 0 6px;font-weight:600}
+.card b{display:block;font-size:16px;line-height:1.3;margin:0 0 6px}
+.card p{margin:0;font-size:14px;color:#555}
+.orange .card{color:var(--ink)}
+/* A/B result */
+.ab{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:start}
+.score{display:flex;gap:10px;margin:0 0 18px;flex-wrap:wrap}
+.score span{background:#fff;color:var(--ink);border-radius:12px;padding:10px 16px;font-weight:600}
+.score span i{font-style:normal;font-family:"Bebas Neue",Impact,sans-serif;font-size:34px;line-height:1;color:var(--or);margin-right:6px;vertical-align:-4px}
+table.t{width:100%;border-collapse:collapse;background:#fff;color:var(--ink);border-radius:14px;overflow:hidden;font-size:14px}
+table.t th,table.t td{padding:10px 14px;text-align:left;border-bottom:1px solid #f1e3cf}
+table.t th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a5a1c;background:#FFF6EA}
+table.t td.n{text-align:right;font-variant-numeric:tabular-nums}
+table.t tr:last-child td{border-bottom:0}
+table.t .w{font-weight:600;color:#b35d00}
+.cap{font-size:12.5px;opacity:.85;margin:10px 0 0}
+/* risks */
+.risk{width:100%;border-collapse:collapse;font-size:14px}
+.risk th,.risk td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid #f1e3cf}
+.risk th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a5a1c}
+.risk td:first-child{font-weight:600;width:30%}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:#FDE3C2;color:#8a4a00;border-radius:999px;padding:2px 8px;margin-right:6px}
+.honest{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.honest .card{box-shadow:none}
+ul.next{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ul.next li{background:#fff;border:1px solid #fde3c2;border-radius:12px;padding:14px 16px 14px 44px;position:relative}
+ul.next li::before{content:"";position:absolute;left:16px;top:20px;width:12px;height:12px;border-radius:50%;background:var(--or)}
+.end{text-align:center;padding:56px 20px 64px}
+.end a{display:inline-block;margin-top:14px;font-weight:600;text-decoration:none;background:#C96400;color:#fff;border-radius:999px;padding:12px 22px}
+.end a:focus-visible,.top a:focus-visible{outline:3px solid #1d1d1d;outline-offset:2px}
+footer{max-width:1200px;margin:0 auto;padding:18px 16px 40px;color:var(--mut);font-size:13px}
+@media (max-width:760px){
+  .meta{grid-template-columns:repeat(2,minmax(0,1fr))}.meta div:nth-child(2){border-right:0}.meta div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .grid3,.ab,.honest,ul.next{grid-template-columns:minmax(0,1fr)}
+  .risk thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .risk tr{display:block;padding:12px 0;border-bottom:1px solid #f1e3cf}.risk td{display:block;border:0;padding:3px 0;width:auto!important}
+  .risk td[data-l]:not(:first-child)::before{content:attr(data-l);display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8a5a1c;margin-top:8px}
+  .top .t span{display:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="in">
+  <a class="back" href="../index.html">&larr; Back to portfolio</a>
+  <div class="t"><b>Shadow Fax: Courier Service</b><span>Jai Anklesaria &middot; Figma, Survey Monkey, Usability Hub</span></div>
+</div></header>
+
+<main id="main">
+<h1 style="position:absolute;left:-9999px">Flash by Shadowfax: a courier app redesign for multiple drops</h1>
+
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s01.webp" width="1200" height="674" alt="Flash by Shadowfax, mobile app. Project duration July to August 2022. Tools: Miro, Figma, Google Docs and Google Forms. A phone shows an order with four numbered drops on a map."></figure>
+
+<div class="meta">
+  <div><small>Role</small><b>Solo, research to tested design</b></div>
+  <div><small>Timeline</small><b>July to August 2022</b></div>
+  <div><small>Methods</small><b>Interviews, personas, A/B usability test</b></div>
+  <div><small>Status</small><b>Self-directed. Never shipped.</b></div>
+</div>
+
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s02.webp" width="1200" height="674" alt="Project overview: Shadowfax is a courier service offering fast, reliable and affordable delivery, from pickup to destination. Problem statement below.">
+  <p class="fixp">Shadowfax&rsquo;s app offered just one drop-off point per order, so senders with several parcels had to book every drop separately. <mark>My working assumption was that this pushed them to competitors that allow multiple drops. I didn&rsquo;t have data to measure how many.</mark> It showed the need for user-centred design, continuous iteration and user feedback.</p>
+</figure>
+
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s03.webp" width="1200" height="671" alt="Business goals. Understand our users: research behaviours and pain points, run interviews, build personas, analyse competitors and run usability tests. Design with purpose: turn insights into intuitive workflows, communicate clearly, and design for accessibility and localisation."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s04.webp" width="1200" height="669" alt="Business goals, continued. Elevate customer experience: availability, multiple drop options, payment transparency and safety. Prioritise safety and security: real-time tracking, emergency help and verification. Optimise payments and pricing: clear payments, several payment options and loyalty rewards."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s05.webp" width="1200" height="675" alt="Let's see how we solve it: a five-step process as puzzle pieces. Empathise: research, interviews, survey. Define: problem statement, empathy map, personas, pain points, goals. Ideate: brainstorming, feature list, flow chart. Design: wireframes, lo-fi, hi-fi, prototype. Test: usability test."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s06.webp" width="1200" height="676" alt="Interview quotes. A business user needs fast, reliable delivery because customers expect packages on time. Another wants to know where packages are at all times. A third needs a partner that can handle multiple deliveries across the country without breaking the bank."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s07.webp" width="1200" height="672" alt="More interview quotes. An artist worries about delicate paintings being damaged. A business owner says managing and shipping multiple orders shouldn't be a nightmare."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s08.webp" width="1200" height="672" alt="Interview insights 1 and 2. Time and cost efficiency is crucial: delays, lost items and poor communication erode trust. Need for real-time tracking: lack of visibility causes anxiety."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s09.webp" width="1200" height="672" alt="Interview insights 3 and 4. Multiple delivery and cost-effective solutions matter for scaling a business. Bulk processing: users struggle to manage logistics for multiple orders at once."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s10.webp" width="1200" height="673" alt="Empathy map, says and feels. Says: can't track the rider, delivery should be on time, should have an option for multiple drop-off points, payment should be easy. Feels: worried when goods don't arrive, unsafe, frustrated by late deliveries, fulfilled when delivery succeeds."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s11.webp" width="1200" height="673" alt="Empathy map, think and do. Think: riders might run away with items, tracking might not be possible, it will be expensive. Do: tracks driver location, labels items for group dispatch, uploads products and fulfils orders, cancels or reschedules."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s12.webp" width="1200" height="673" alt="User personas: Kamlesh Shah, a 30-year-old business owner in Mumbai, and Rashi Mistry, a 25-year-old painter who sells her paintings online."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s13.webp" width="1200" height="675" alt="How might we: five questions on timely and safe delivery, end-to-end tracking, cost-efficient nationwide multi-drop logistics, packaging for fragile items, and simpler logistics for small businesses."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s14.webp" width="1200" height="673" alt="Competitor analysis: why users lean towards Porter, Wefast and Borzo over Shadowfax, and the gaps in service and design."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s15.webp" width="1200" height="673" alt="Let's dive into the design part: the previous screens, with key UX issues. The old flow allows only one drop per order."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s16.webp" width="1200" height="675" alt="Lo-fi wireframes: sign-up, order details, order summary, payment and confirmation screens."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s17.webp" width="1200" height="674" alt="Key highlights of Variant A, the first new design: it asks single or multiple drops up front, then collects each drop."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s18.webp" width="1200" height="672" alt="Key highlights of Variant B, the second new design: an Add stop control sits under the first drop, with no up-front choice."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s19.webp" width="1200" height="674" alt="Usability test heatmaps for Variant A across six screens, each with a clarity and focus score."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s20.webp" width="1200" height="672" alt="Usability test heatmaps for Variant B across the same six screens."></figure>
+
+<section class="hs orange" aria-labelledby="h-ab">
+  <h2 class="hd" id="h-ab">What the A/B test said</h2>
+  <div class="ab">
+    <div>
+      <div class="score"><span><i>3</i>screens to A</span><span><i>1</i>screen to B</span><span><i>2</i>tied</span></div>
+      <p class="lead">Variant A scored clearer on more screens. I still chose B. It doesn&rsquo;t make every sender pick &ldquo;single or multiple&rdquo; before they&rsquo;ve even set a pickup, and its flow was finished end to end. The scores were close enough that the design reasoning decided it, not the numbers alone.</p>
+    </div>
+    <div>
+      <table class="t">
+        <caption class="cap" style="caption-side:bottom;text-align:left">Usability Hub clarity scores, higher is clearer. Focus scores were the same for both variants.</caption>
+        <thead><tr><th scope="col">Screen</th><th scope="col" class="n">A</th><th scope="col" class="n">B</th></tr></thead>
+        <tbody>
+          <tr><td>Home and pickup map</td><td class="n w">38</td><td class="n">36</td></tr>
+          <tr><td>Pickup address form</td><td class="n w">60</td><td class="n">56</td></tr>
+          <tr><td>Drop and landmark form</td><td class="n">40</td><td class="n w">43</td></tr>
+          <tr><td>Summary and route</td><td class="n">56</td><td class="n">56</td></tr>
+          <tr><td>Summary and payment</td><td class="n w">48</td><td class="n">40</td></tr>
+          <tr><td>Trip and drop details</td><td class="n">65</td><td class="n">65</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s21.webp" width="1200" height="672" alt="Research methods by driver, barrier and hook. Observe: heatmaps and recordings. Ask: which variant felt easier, and an exit-intent survey. Engage: user interviews."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s22.webp" width="1200" height="675" alt="Final screens reflecting post-usability test changes: home, pickup and drop location, order details with item type, and order summary."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s23.webp" width="1200" height="671" alt="Final screens, continued: payment confirmation, payment successful, looking for a delivery partner, order status and route details for four drops, and order history."></figure>
+
+<section class="hs" aria-labelledby="h-ba">
+  <h2 class="hd" id="h-ba">Before and after</h2>
+  <div class="grid3" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+    <div class="card"><small>Drops per order</small><b>Exactly 1 &rarr; up to 6</b><p>Add stop sits right under the first drop.</p></div>
+    <div class="card"><small>Fragile items</small><b>No item step &rarr; its own step</b><p>Care notes for people like Rashi aren&rsquo;t lost in a notes field.</p></div>
+    <div class="card"><small>Addresses</small><b>Typed every time &rarr; saved</b><p>Contacts and saved addresses for frequent senders like Kamlesh.</p></div>
+    <div class="card"><small>Checkout</small><b>&ldquo;1 Drops&rdquo; &rarr; every receiver named</b><p>Each drop shows who receives it and a hand-off reference.</p></div>
+  </div>
+</section>
+
+<section class="hs cream" aria-labelledby="h-m">
+  <h2 class="hd" id="h-m">How I&rsquo;d know it worked</h2>
+  <p class="lead">The redesign was never shipped, so there are no results to show. If Shadowfax built it, this is what I&rsquo;d measure. These are plans, not results.</p>
+  <div class="grid3">
+    <div class="card"><small>Main measure</small><b>Orders with more than one drop</b><p>Per sender, per month, for senders who used to book drops one by one.</p></div>
+    <div class="card"><small>Explains it</small><b>Stops added per order, and time to book</b><p>Shows whether people find Add stop and finish faster.</p></div>
+    <div class="card"><small>Guardrail</small><b>Cancelled and failed multi-drop orders</b><p>More drops in one order also means more ways for one order to go wrong.</p></div>
+  </div>
+</section>
+
+<section class="hs" aria-labelledby="h-r">
+  <h2 class="hd" id="h-r">What could go wrong</h2>
+  <table class="risk">
+    <thead><tr><th scope="col">What could fail</th><th scope="col">What it costs</th><th scope="col">How the design handles it</th></tr></thead>
+    <tbody>
+      <tr><td data-l="What could fail">Pricing per stop isn&rsquo;t worked out</td><td data-l="What it costs">Multi-drop orders could lose money, or surprise senders at checkout</td><td data-l="How the design handles it"><span class="tag">Not handled yet</span>The prototype kept the fee flat. Per-stop pricing needs the business team.</td></tr>
+      <tr><td data-l="What could fail">A wrong address on one drop</td><td data-l="What it costs">One failed delivery inside an order the sender thinks is done</td><td data-l="How the design handles it">Every receiver is named with a hand-off reference, and saved addresses cut retyping.</td></tr>
+      <tr><td data-l="What could fail">Payment fails, or no rider takes the order</td><td data-l="What it costs">A lost order after the sender has entered several addresses</td><td data-l="How the design handles it"><span class="tag">Not handled yet</span>Failed-payment and no-rider states are first on the next list.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s24.webp" width="1200" height="671" alt="Design handoff: user research insights, empathy maps, personas and pen and paper wireframes."></figure>
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s25.webp" width="1200" height="648" alt="Design handoff, continued: usability testing reports, high-fidelity mockups, interactive prototypes and the competitive analysis."></figure>
+
+<section class="hs cream" aria-labelledby="h-h">
+  <h2 class="hd" id="h-h">Being honest</h2>
+  <div class="honest">
+    <div class="card"><small>What&rsquo;s real</small><p>The interviews, personas, competitor review, both full designs and the Usability Hub test with its heatmaps and scores.</p></div>
+    <div class="card"><small>What isn&rsquo;t measured</small><p>The redesign was never shipped into Shadowfax&rsquo;s app, so there&rsquo;s no retention or order number. The idea that single-drop booking pushed senders to competitors was my assumption, not a figure I measured. The design covers the happy path, and had no accessibility check.</p></div>
+  </div>
+  <h3 class="sub" style="margin-top:34px">What I&rsquo;d do next</h3>
+  <ul class="next">
+    <li>Test the finished screens with senders, not just the two variants</li>
+    <li>Add a step indicator to the five-step order</li>
+    <li>Design failed-payment and no-rider states</li>
+    <li>Check contrast, tap targets and screen readers</li>
+  </ul>
+  <h3 class="sub" style="margin-top:34px">What I learned</h3>
+  <p class="lead" style="margin:0">Build two, then let the test argue. A won more screens, and B was still the better product. Designing two complete options gave the test something real to compare.</p>
+</section>
+
+<figure class="sl"><img class="slide" src="images/shadowfax-bh/s26.webp" width="1121" height="613" alt="Thank you."></figure>
+<div class="end"><a href="../index.html">&larr; Back to portfolio</a></div>
+</main>
+<footer>Jai Anklesaria &middot; Product Designer</footer>
+</body>
+</html>
